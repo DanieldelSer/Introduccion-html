@@ -1,0 +1,122 @@
+#titulo {
+    display: flex;
+    justify-content: space-evenly;
+}
+#titulo1 {
+    margin-right: 100px;
+}
+#titulolinks {
+    background-color: rgba(226, 73, 76, 0.938);
+    display: flex;
+    align-items: center;
+    
+    margin: 20px;
+    border-radius: 10px;
+    padding: 10px 30px 10px 30px;
+}
+#titulolinks a {
+    padding: 10px 30px 10px 30px;
+    color: white;
+    display: flex;
+    text-decoration: none;
+}
+#h5-1 {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    
+}
+#h5-1 h5 {
+    
+    width: 50%;
+    
+}
+#imgh5-1 {
+    width: 960px; height: 350px;
+}
+#h4-1 {
+    text-align: center;
+    background-color: rgba(226, 73, 76, 0.938);
+    color: white;
+    border-radius: 10px;
+    padding: 10px 30px 10px 30px;
+    width: 15%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#fototitulo img {
+    width: 32px; height: 32px;
+}
+#fototitulo {
+    display: flex;
+    align-items: center;
+}
+#fototitulo img {
+    padding: 10px;
+}
+#parrafolink {
+    display: flex;
+    text-decoration: none;
+    color: rgba(226, 73, 76, 0.938);
+}
+#parrafolinkp {
+    text-align: left;
+}
+#parrafolink a {
+    color: rgba(226, 73, 76, 0.938);
+    text-align: left;
+    
+}
+#parrafolink p {
+    width: 30%;
+}
+#nombres {
+    text-align: left;
+}
+#nombresimg {
+    width: 75px; height: 75px;
+    text-align: left;
+}
+#nombres1 {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+#nombres1 img {
+    width: 300px; height: 160px;
+}
+#footerTitulos{
+    text-align: left;
+    padding: 20px;
+}
+#footer {
+    background-color: rgb(226,226,226);
+}
+#tablaimh6p {
+    display: flex;
+    padding: 10px;
+}
+#tablaimh6p img {
+    width: 95px; height: 95px;
+    padding: 20px;
+}
+#tablaimh6p h6 {
+    color: rgba(226, 73, 76, 0.938);
+}
+#tablaimh6p p {
+    color: gray;
+}
+#footercontenido1 {
+    justify-content: center;
+}
+#footercontenido2 {
+    text-align: justify;
+    color: gray;
+}
+#footerfinal {
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+}
+
+
