@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 14</title>
+</head>
+<body>
+    <script>
+        let numMetros = parseInt (window.prompt("Escribe la distancia en metros"));
+        let numHoras = parseInt (window.prompt("Escribe el tiempo tardado horas"));
+        let numMin = parseInt (window.prompt("Escribe el tiempo tardado minutos"));
+        let numSeg = parseInt (window.prompt("Escribe el tiempo tardado segundos"));
+
+        console.log("La velocidad media en m/s es " + numMetros/(numHoras*3600 + numMin*60 + numSeg));
+        console.log("La velocidad media en km/h es " + (numMetros/1000)/(numHoras + (numMin/60) + (numSeg/3600)));
+    </script>
+</body>
+</html>
