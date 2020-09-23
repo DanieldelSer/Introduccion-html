@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 18</title>
+</head>
+<body>
+    <script>
+        let seg = parseInt(window.prompt("Escribe un numero"));
+        let horas = parseInt(seg/3600);
+        let min = parseInt((seg%3600)/60);
+        let seg1 = parseInt((((seg%3600)/60)%1)*60);
+
+        console.log (horas + " horas " + min + " minutos " + seg1 + " segundos");
+    </script>
+</body>
+</html>

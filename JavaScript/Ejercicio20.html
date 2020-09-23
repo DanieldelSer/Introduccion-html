@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 20</title>
+</head>
+<body>
+    <script>
+        let min = parseInt(window.prompt("Escribe un número de minutos"));
+        let años = parseInt((parseInt(min/60)/365)/24);
+        let dias = parseInt(min%(60*24*365));
+        let dias1 = parseInt((dias/60)/24);
+
+        console.log(años + " años y " + dias1 + " dias")
+    </script>
+</body>
+</html>
