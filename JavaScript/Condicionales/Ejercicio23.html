@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condicionales Ejercicio 23</title>
+</head>
+
+<body>
+    <script>
+        let nota = parseFloat(window.prompt("Nota primer exámen máximo 5"));
+        let nota1 = parseFloat(window.prompt("Nota segundo exámen máximo 5"));
+        let nota2 = parseFloat(window.prompt("Nota tercer exámen máximo 5"));
+        let notaFinal;
+
+        if (nota > nota1) {
+            notaFinal = nota + nota2;
+        } else {
+            notaFinal = nota1 + nota2;
+        }
+
+        if (notaFinal === 10) {
+            console.log(notaFinal + " Matrícula");
+        } else if (notaFinal >= 9 && notaFinal < 10) {
+            console.log(notaFinal + " Sobresaliente");
+        } else if (notaFinal >= 7 && notaFinal < 9) {
+            console.log(notaFinal + " Notable");
+        } else if (notaFinal >= 6 && notaFinal < 7) {
+            console.log(notaFinal + " Bien");
+        } else if (notaFinal >= 5 && notaFinal < 6) {
+            console.log(notaFinal + " Sufuciente");
+        } else {
+            console.log(notaFinal + " Suspenso")
+        }
+
+    </script>
+</body>
+
+</html>

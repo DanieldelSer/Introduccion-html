@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condicionales Ejercicio 20</title>
+</head>
+
+<body>
+    <script>
+        let opcion1 = window.prompt(
+            `
+            1 - Comida 
+            2 - Bebida 
+            3 - Postres
+            `
+        ).toLowerCase();
+
+        let opcion2;
+
+        if (opcion1 === "comida") {
+            opcion2 = window.prompt(`
+    1 - Hamburguesas
+    2 - Bocadillos
+    3 - Sandwiches
+    `);
+        } else if (opcion1 === "bebida") {
+            opcion2 = window.prompt(`
+    1 - Cerveza
+    2 - CocaCola
+    3 - Fanta
+    `);
+        } else if (opcion1 === "postres") {
+            opcion2 = window.prompt(`
+    1 - Natillas
+    2 - Flan
+    3 - Helado
+    `);
+        }
+        console.log(opcion2);
+    </script>
+</body>
+
+</html>
