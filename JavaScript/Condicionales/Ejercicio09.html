@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condicionales Ejercicio 9</title>
+</head>
+<body>
+    <script>
+        let temp = parseFloat(window.prompt("¿Qué temperatura hace?"));
+
+        if (temp>40 || temp<=10){
+            console.log("vete a otro sitio")
+        }else if (temp<40 && temp>30){
+            console.log("enciende el aire acondicionado")
+        }else if (temp<=30 && temp>20){
+            console.log("no hagas nada")
+        }else if (temp<=20 && temp>10){
+            console.log("enciende la calefacción")
+        }
+    </script>
+</body>
+</html>

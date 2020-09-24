@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condicionales Ejercicio 9</title>
+</head>
+
+<body>
+    <script>
+        let num = parseInt(window.prompt("Escribe el primer número"));
+        let num1 = parseInt(window.prompt("Escribe el segundo número"));
+
+        if (num === num1) {
+            console.log(0)
+        } else if (num % 6 === num1 % 6) {
+            if (num < num1) {
+                console.log(num)
+            } else {
+                console.log(num1)
+            }
+        } else if (num < num1) {
+            console.log(num1)
+        } else {
+            console.log(num)
+        }
+    </script>
+</body>
+
+</html>

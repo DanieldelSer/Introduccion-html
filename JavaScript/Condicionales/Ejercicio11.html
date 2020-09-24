@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condicionales Ejercicio 9</title>
+</head>
+
+<body>
+    <script>
+        let num = window.prompt("Escribe un número entero entre 25 y 75");
+        let num1 = window.prompt("Escribe un número entero entre 25 y 75");
+
+        let numSub1 = num.substring(0, 1);
+        let numSub2 = num.substring(1, 2);
+
+        let num1Sub1 = num.substring(0, 1);
+        let num1Sub2 = num.substring(1, 2);
+
+        if (numSub1===num1Sub1 || numSub1===num1Sub2 || numSub2===num1Sub1 || numSub2===num1Sub2){
+            console.log("Hay un dígito común")
+        }
+    </script>
+</body>
+
+</html>

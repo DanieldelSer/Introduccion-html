@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condicionales Ejercicio 5</title>
+</head>
+
+<body>
+    <script>
+        let dia = window.prompt("Escribe un día de la semana")
+
+        switch (dia) {
+            case "lunes":
+            case "martes":
+            case "miércoles":
+            case "jueves":
+            case "viernes":
+                console.log("Hoy es " + dia)
+                break;
+            case "sábado":
+            case "domingo":
+                console.log("Es fin de semana")
+                break;
+            default:
+                console.log("No es un día de la semana de semana")
+                break;
+        }
+    </script>
+</body>
+
+</html>
