@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condicionales Ejercicio 24</title>
+</head>
+
+<body>
+    <script>
+        let temp = parseFloat(window.prompt("Escribe la temperatura"));
+        let opc = window.prompt(`
+            Grados:
+            1 - C (centígrados ) 
+            2 - F (fahrenheit ) 
+            `
+        ).toLowerCase();
+
+        if (opc === "f") {
+            console.log(((temp * 9) / 5) + 32);
+        } else if (opc === "c") {
+            console.log((temp - 32) * 5 / 9);
+        } else {
+            console.log("No es una opción válida");
+        }
+    </script>
+</body>
+
+</html>

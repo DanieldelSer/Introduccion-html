@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condicionales Ejercicio 25</title>
+</head>
+
+<body>
+    <script>
+        let nom = window.prompt("Escrite tu nombre");
+        let ventas = parseFloat(window.prompt("Ventas"));
+
+        if (ventas < 500) {
+            console.log(nom + " vendió " + ventas + "€");
+        } else {
+            prima = ventas * 0.05;
+            console.log(nom + " vendió " + ventas + " + " + prima + " = " + (ventas + (ventas * 0.05)) + "€");
+        }
+    </script>
+</body>
+
+</html>
