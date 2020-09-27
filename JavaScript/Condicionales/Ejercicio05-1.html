@@ -9,7 +9,7 @@
 
 <body>
     <script>
-        let dia = window.prompt("Escribe un día de la semana")
+        let dia = window.prompt("Escribe un día de la semana").toLocaleLowerCase;
 
         if (dia === "lunes" || dia === "martes" || dia === "miércoles" || dia === "jueves" || dia === "viernes") {
             console.log("Hoy es " + dia);
