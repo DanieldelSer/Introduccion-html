@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Condicionales Ejercicio 9</title>
 </head>
+
 <body>
+    <!-- Un programa que te pregunta la temperatura que hace donde estás
+    y te sugiere qué hacer dependiendo de ella. Las recomendaciones son:
+
+    Si hace más de 40 grados, vete a otro sitio
+    Entre 30 y 40 grados, enciende el aire acondicionado
+    Entre 30 y 20 grados, no hagas nada
+    Entre 10 y 20 grados, enciende la calefacción
+    Si hace menos de 10 grados, vete a otro sitio -->
+
     <script>
         let temp = parseFloat(window.prompt("¿Qué temperatura hace?"));
 
-        if (temp>40 || temp<=10){
+        if (temp > 40 || temp <= 10) {
             console.log("vete a otro sitio")
-        }else if (temp<40 && temp>30){
+        } else if (temp < 40 && temp > 30) {
             console.log("enciende el aire acondicionado")
-        }else if (temp<=30 && temp>20){
+        } else if (temp <= 30 && temp > 20) {
             console.log("no hagas nada")
-        }else if (temp<=20 && temp>10){
+        } else if (temp <= 20 && temp > 10) {
             console.log("enciende la calefacción")
         }
     </script>
 </body>
+
 </html>

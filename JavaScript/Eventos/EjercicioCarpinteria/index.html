@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carpintería Mazarredo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Vamos a crear una página web para la Carpintería Mazarredo.
+    Después le vamos a mostrar cuatro divs en los que tendremos como título
+    “brocha”, “llave”, “martillo” y “tronco” junto con el precio de cada uno
+    y un botón en el que hará click para añadir una unidad del producto a la cesta
+    y otro para quitar una unidad del producto a la cesta.
+    Cada vez que hagamos click en uno de los botones
+    (8 botones en total, 2 para añadir/restar una brocha, 2 para añadir/restar una llave,
+    2 para añadir/restar un martillo y 2 para añadir/restar un tronco)
+    se mostrará en la cesta un mensaje con el texto
+    Martillos: 7
+    Llaves: 5
+    Para cada producto que tenga más de 0 unidades en la cesta,
+    seguida del icono del producto tantas veces como unidades haya en la cesta
+    (en el ejemplo anterior, aparecerían 7 iconos uno tras otro después de Martillos: 7)
+
+    Para acabar teniendo este programa, podemos hacerlo por partes:
+
+    En primer lugar crear una página con un sólo producto y un sólo botón.
+    Al hacer click en el botón se le sumará uno al total
+    y en el mensaje de la cesta aparecerá el número total que tengamos.
+
+    Una vez tengamos la parte anterior funcionando,
+    hacer que en vez de mostrar el número solamente, la cesta muestre “Martillos: 7”,
+    combinando el número con el nombre del producto.
+
+    Una vez tengamos la parte anterior funcionando,
+    añadiremos que se muestre el icono del producto tantas veces como unidades tengamos en la cesta.
+
+    Cuando todo funcione correctamente para un producto añadiremos otro.
+    El código será parecido pero tendremos que modificar ciertas partes.
+
+    Finalmente, una vez tengamos dos productos funcionando correctamente,
+    añadiremos los otros dos (o podemos añadir primero el tercero,
+    comprobar que funcione y bien y después añadir el cuarto) -->
+    <hearder id=titulo>
+        <img id="tituloImg" src="./iconos/Copia de logo.svg" alt="logo" />
+        <h1 class="primera">Carpintería Mazarredo</h1>
+        </header>
+        <div id="div1">
+            <div id="brocha"></div>
+            <div id="llave"></div>
+            <div id="martillo"></div>
+            <div id="tronco"></div>
+        </div>
+        <div class="cesta" id="divCesta">
+            <h4>Cesta:</h4>
+            <ul id="resultado">
+                <li id="brocha">
+                    <span>Brochas: </span><span id="numBrocha">0</span> <span id="imgBrocha"></span>
+                </li>
+                <li id="llave">
+                    <span>Llaves: </span><span id="numLlave">0</span> <span id="imgLlave"></span>
+                </li>
+                <li id="martillo">
+                    <span>Martillos: </span><span id="numMartillo">0</span> <span id="imgMartillo"></span>
+                </li>
+                <li id="tronco">
+                    <span>Troncos: </span><span id="numTronco">0</span> <span id="imgTronco"></span>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <b>Total:</b><b id="total">0</b><b>€</b>
+        </div>
+        <script src="./index.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Eventos Personas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 1- Dado el array ‘personas’, crea objetos independientes por cada objeto ‘persona’
+    anidado dentro del array. Los nuevos objetos que crees tendrán únicamente los siguientes atributos:
+    Nombre, imagen, edad, email y dirección.
+
+    2- Guarda los objetos en un único array.
+
+    3- Una vez creados los objetos, muestra la información de UNA sola persona en el navegador
+    (en esta sección usa la
+    primera persona):
+    Crea un div centrado tanto vertical como horizontalmente en el que aparecerá la foto de la persona,
+    seguida de un h1
+    con el nombre y párrafos para cada uno de los atributos. El color de fondo será el color de ojos.
+
+    4- Pide al usuario un número y,
+    si hay una persona en ese índice del array, será la persona que mostrarás en el
+    navegador.
+    Si el número no coincide con ningún índice válido del array, muestra un mensaje de error.
+
+    5- Pide al usuario un texto en vez de un número,
+    muestra la información de todas las personas cuyo nombre contenga
+    el texto escrito.
+
+    6- Al cargar la página muestra únicamente una caja de texto y un botón.
+    Cuando se hace click en el botón, se
+    mostrarán los nombres de aquellas personas cuyo nombre contenga el texto escrito.
+    Al volver a hacer click en el
+    botón, se muestran una vez más las personas cuyo nombre contenga el texto escrito en la caja
+    (en caso de que la caja
+    esté vacía, mostramos a todas las personas). -->
+
+    <input id="input" type="text" onkeyup="escribir(event)" />
+    <button id="buscar" onclick="buscarPersonas()">Buscar persona</button>
+    <div id="div1"></div>
+    <script src="./index.js"></script>
+
+</body>
+
+</html>

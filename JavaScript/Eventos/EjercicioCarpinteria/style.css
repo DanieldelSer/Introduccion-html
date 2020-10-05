@@ -1,0 +1,31 @@
+#titulo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 10px 5px 10px;
+}
+#titulo h1{
+    color: brown;
+}
+#tituloImg{
+    width: 200px; height: 200px;
+}
+.principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background-color: burlywood;
+}
+.primera {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: burlywood;
+    padding: 5px;
+}
+.cesta {
+    background-color: gray;
+    padding: 10px 60px 10px 60px;
+}
