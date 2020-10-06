@@ -13,7 +13,7 @@ fetch(url + "planets/")
         listaPlanetas = datos.results;
         for (let i = 0; i < datos.results.length; i++) {
             let opcionPlaneta = `<option>${datos.results[i].name}</option>`
-            selectPlanetas.innerHTML += (opcionPlaneta);
+            selectPlanetas.innerHTML += opcionPlaneta;
             //console.log(datos.results[i].name)
         }
         //console.log(datos)
