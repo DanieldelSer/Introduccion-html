@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemons</title>
+</head>
+
+<body>
+
+    <!-- Pokemons por tipo
+
+    1- Obtener de la API de Pokemon (disponible en https://pokeapi.co/api/v2)
+    la lista de todos los tipos de Pokémon y mostrarlos en consola.
+    2- Mostrar un dropdown de HTML en el que el usuario puede especificar un tipo.
+    3- Cuando el usuario elija un tipo específico en el dropdown,
+    mostrar 3 pokemons aleatorios que sean de ese tipo. -->
+
+    <select id="listaPokemons" onchange="obtenerPokemons()">
+        <option>Elije una clase...</option>
+    </select>
+    <div id="pokemons"></div>
+    <script src="./index.js"></script>
+</body>
+
+</html>

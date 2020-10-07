@@ -138,4 +138,4 @@ randomObject.them.speed.past.program.grade.addition.whose.national.cannot.board.
 
 
 document.getElementById("div1").innerHTML = `
-${randomObject.them.speed.past.program.grade.addition.whose.national.cannot.board.name=window.prompt(`Escribe un nombre`)}`
+${randomObject.them.speed.past.program.grade.addition.whose.national.cannot.board.name = window.prompt(`Escribe un nombre`)}`
