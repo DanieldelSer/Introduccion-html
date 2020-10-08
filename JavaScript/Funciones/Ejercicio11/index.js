@@ -7,6 +7,7 @@ function cambioMoneda(event) {
 }
 
 function cogerEuros() {
+    cambioMoneda()
     let euros = parseFloat(document.getElementById("euros").value);
     cambio(euros, moneda);
 }
