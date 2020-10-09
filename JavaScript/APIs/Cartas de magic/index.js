@@ -7,6 +7,7 @@ fetch(url)
     })
     .then(function (datos) {
         listaSets = datos.sets;
+        //Ordenamos los sets por orden alfabético
         function compare(a, b) {
             if (a.name < b.name) {
                 return -1;
