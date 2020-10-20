@@ -45,7 +45,7 @@ function obtenerInfoJuego(idJuego) {
         <h1>${datos.name}</h1>
         <p>${datos.released}</p>
         <p>${datos.developers[0].name}</p>`
-            if (datos.genres.length < 0) {
+            if (datos.genres.length > 0) {
                 document.getElementById("infoJuego").innerHTML += `<p>${datos.genres[0].name}</p>`
             } else {
                 document.getElementById("infoJuego").innerHTML += `<p>There is no genre related to this videogame. </p>`;
