@@ -8,13 +8,15 @@
 const exactMath = require('exact-math');
 
 let suma = exactMath.add(789, 34, 250443);
-console.log(suma);
+//console.log(suma);
 
 let resta = exactMath.sub(2059, 79);
-console.log(resta);
+//console.log(resta);
 
 let multiplicacion = exactMath.mul(3.24, 97.856);
-console.log(multiplicacion);
+//console.log(multiplicacion);
 
 let division = exactMath.div(1205, 12.002);
-console.log(division);
+//console.log(division);
+
+console.log(suma, resta, multiplicacion, division);
