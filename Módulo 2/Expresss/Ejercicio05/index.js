@@ -12,20 +12,20 @@ let persona = {
     apellidos: "",
     edad: 0
 };
-
-app.get("/:nombre", function(req, res){
+//app.get("/nombre/:parametro", function(req, res)
+app.get("/:nombre", function (req, res) {
     persona.nombre = req.params.nombre;
     res.send(persona);
 });
-
-app.get("/:nombre/:apellidos", function(req, res){
+//app.get("/apellidos/:parametro", function(req, res)
+app.get("/:nombre/:apellidos", function (req, res) {
     persona.nombre = req.params.nombre;
     persona.apellidos = req.params.apellidos;
     res.send(persona);
 });
-
-app.get("/:nombre/:apellidos/:edad", function(req, res){
-    persona.nombre = req.params.nombre;
+//app.get("/edad/:parametro", function(req, res)
+app.get("/:nombre/:apellidos/:edad", function (req, res) {
+    persona.nombre = parseInt(req.params.nombre);
     persona.apellidos = req.params.apellidos;
     persona.edad = req.params.edad;
     res.send(persona);
