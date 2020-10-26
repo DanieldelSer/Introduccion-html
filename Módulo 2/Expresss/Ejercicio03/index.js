@@ -19,12 +19,19 @@ app.get("/personas", function (req, res) {
 
 app.get("/personas/:parametro", function (req, res) {
     let persona = req.params.parametro;
+    let boolean = false;
+    let personaAMostrar;
     for (let i = 0; i < nombres.length; i++) {
         if (persona === nombres[i].toLowerCase()) {
-            res.send(`<h1>${nombres[i]}</h1>`);
+            boolean = true;
+            personaAMostrar = nombres[i];
         }
     }
-    res.send("error");
+    if (boolean) {
+        res.send(`<h1>${personaAMostrar}</h1>`);
+    } else {
+        res.send("error");
+    }
 });
 
 app.listen(3000, function () {
