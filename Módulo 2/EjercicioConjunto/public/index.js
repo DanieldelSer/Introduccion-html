@@ -97,7 +97,7 @@ function anyadir() {
         precio,
     };
     fetch("/almacen", {
-        method: "PUT",
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
