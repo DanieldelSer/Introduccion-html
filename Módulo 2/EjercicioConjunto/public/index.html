@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Muebles</title>
+</head>
+
+<body>
+    <select name="selectTipo" id="selectTipo" onchange="mostrarDepartamento()">
+        <option>Elije un tipo...</option>
+        <option>armarios</option>
+        <option>mesas</option>
+        <option>sillas</option>
+    </select>
+    <input type="text" placeholder="nombre" id="nombre"/>
+    <input type="text" placeholder="descripcion" id="descripcion"/>
+    <input type="text" placeholder="img" id="img"/>
+    <input type="text" placeholder="precio" id="precio"/>
+    <input type="text" placeholder="opcion" id="opcion"/>
+    <button onclick="anyadir()">Envíar</button>
+    <div id="mostrarArmarios"></div>
+    <div id="mostrarMesas"></div>
+    <div id="mostrarSillas"></div>
+    <script src="./index.js"></script>
+</body>
+
+</html>
