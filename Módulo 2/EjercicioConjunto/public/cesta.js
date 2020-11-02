@@ -27,7 +27,7 @@ function eliminar(nombre, precio) {
         precio,
     };
     fetch("/cesta", {
-        method: "DELETE",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
@@ -52,5 +52,21 @@ function eliminar(nombre, precio) {
                   </article>`;
                 document.getElementById("mostrarArmarios").innerHTML = mostrar;
             }
+        });
+}
+
+function eliminarCesta() {
+    
+    fetch("/cesta", {
+        method: "DELETE",
+    })
+        .then(function (res) {
+            return res.json();
+        })
+        .then(function (datos) {
+            let mostrar = datos.mensaje;
+            document.getElementById("mostrarArmarios").innerHTML = "";
+            document.getElementById("mostrarArmarios").innerHTML = mostrar;
+            
         });
 }

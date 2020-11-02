@@ -1,9 +1,10 @@
 const express = require("express");
 const { readdirSync } = require("fs");
+const { isRegExp } = require("util");
 const { armarios } = require("./almacen");
 const app = express();
 const almacen = require("./almacen");
-const cesta = require("./cesta")
+let cesta = require("./cesta");
 
 app.use(express.json());
 app.use(express.static("public"));
@@ -90,11 +91,11 @@ app.put("/almacen", function (req, res) {
           almacen.armarios[i].precio == precio
         ) {
           almacen.armarios[i].nombre = NewNombre;
-          if(NewDescipcion.length != 0){
-          almacen.armarios[i].descripccion = NewDescipcion;
+          if (NewDescipcion.length != 0) {
+            almacen.armarios[i].descripccion = NewDescipcion;
           }
-          if(NewImg.length != 0){
-          almacen.armarios[i].img = NewImg
+          if (NewImg.length != 0) {
+            almacen.armarios[i].img = NewImg;
           }
           almacen.armarios[i].precio = NewPrecio;
           respuesta = almacen.armarios;
@@ -109,11 +110,11 @@ app.put("/almacen", function (req, res) {
           almacen.mesas[i].precio == precio
         ) {
           almacen.mesas[i].nombre = NewNombre;
-          if(NewDescipcion.length != 0){
-          almacen.mesas[i].descripccion = NewDescipcion;
+          if (NewDescipcion.length != 0) {
+            almacen.mesas[i].descripccion = NewDescipcion;
           }
-          if(NewImg.length != 0){
-          almacen.mesas[i].img = NewImg
+          if (NewImg.length != 0) {
+            almacen.mesas[i].img = NewImg;
           }
           almacen.mesas[i].precio = NewPrecio;
           respuesta = almacen.mesas;
@@ -128,11 +129,11 @@ app.put("/almacen", function (req, res) {
           almacen.sillas[i].precio == precio
         ) {
           almacen.sillas[i].nombre = NewNombre;
-          if(NewDescipcion.length != 0){
-          almacen.sillas[i].descripccion = NewDescipcion;
+          if (NewDescipcion.length != 0) {
+            almacen.sillas[i].descripccion = NewDescipcion;
           }
-          if(NewImg.length != 0){
-          almacen.sillas[i].img = NewImg
+          if (NewImg.length != 0) {
+            almacen.sillas[i].img = NewImg;
           }
           almacen.sillas[i].precio = NewPrecio;
           respuesta = almacen.sillas;
@@ -204,40 +205,132 @@ app.delete("/almacen", function (req, res) {
 
 /* CESTA------------------------------------------------------- */
 
-app.get("/cesta", function(req, res){
-  res.send(cesta)
-})
+app.get("/cesta", function (req, res) {
+  res.send(cesta);
+});
 
-app.post("/cesta", function(req,res){
+app.post("/cesta", function (req, res) {
+  let opcion = req.body.opcion;
   let nombre = req.body.nombre;
   let descripcion = req.body.descripcion;
   let img = req.body.img;
   let precio = parseInt(req.body.precio);
   let anyadir = true;
+  let respuesta;
+  let errorCantidad = false;
 
-  for ( let i = 0 ; i < cesta.length ; i++ ){
-    if(cesta[i].nombre === nombre && cesta[i].precio === precio){
-      cesta[i].cantidad += cantidad
-      anyadir = false
-      break
+  for (let i = 0; i < cesta.length; i++) {
+    if (cesta[i].nombre === nombre && cesta[i].precio === precio) {
+      cesta[i].cantidad++;
+      anyadir = false;
+      break;
     }
   }
-  if (anyadir){
-    cesta.push({
-      nombre: nombre,
-      descripcion: descripcion,
-      img: img,
-      precio: precio,
-      cantidad: 1,
-    })
-  } 
+  if (anyadir) {
+    switch (opcion) {
+      case "armarios":
+        for (let i = 0; i < almacen.armarios.length; i++) {
+          if (
+            almacen.armarios[i].nombre === nombre &&
+            almacen.armarios[i].precio === precio
+          ) {
+            if (almacen.armarios[i].stock > 0) {
+              cesta.push({
+                nombre: nombre,
+                descripcion: descripcion,
+                img: img,
+                precio: precio,
+                cantidad: 1,
+              });
+              almacen.armarios[i].stock--;
+              respuesta = almacen.armarios;
+              break;
+            } else {
+              errorCantidad = true;
+            }
+          }
+        }
+        break;
+      case "mesas":
+        for (let i = 0; i < almacen.mesas.length; i++) {
+          if (
+            almacen.mesas[i].nombre === nombre &&
+            almacen.mesas[i].precio === precio
+          ) {
+            if (almacen.mesas[i].stock > 0) {
+              cesta.push({
+                nombre: nombre,
+                descripcion: descripcion,
+                img: img,
+                precio: precio,
+                cantidad: 1,
+              });
+              almacen.mesas[i].stock--;
+              respuesta = almacen.mesas;
+              break;
+            } else {
+              errorCantidad = true;
+            }
+          }
+        }
+        break;
+      case "sillas":
+        for (let i = 0; i < almacen.sillas.length; i++) {
+          /*  console.log(almacen.sillas[i].stock) */
+          if (
+            almacen.sillas[i].nombre === nombre &&
+            almacen.sillas[i].precio === precio
+          ) {
+            if (almacen.sillas[i].stock > 0) {
+              cesta.push({
+                nombre: nombre,
+                descripcion: descripcion,
+                img: img,
+                precio: precio,
+                cantidad: 1,
+              });
+              almacen.sillas[i].stock--;
+              respuesta = almacen.sillas;
+              /* console.log(almacen.sillas[i].stock); */
+              break;
+            } else {
+              errorCantidad = true;
+            }
+          }
+        }
+        break;
+    }
+  }
+  errorCantidad
+    ? res.send({
+        error: true,
+        mensaje: "No hay stock suficiente de este producto",
+      })
+    : res.send(respuesta);
+});
+
+app.put("/cesta", function (req, res) {
+  let nombre = req.body.nombre;
+  let precio = req.body.precio;
+
+  for (let i = 0; i < cesta.length; i++) {
+    if (cesta[i].nombre === nombre && cesta[i].precio === precio) {
+      if (cesta[i].cantidad >= 1) {
+        cesta[i].cantidad--;
+      }
+      if (cesta[i].cantidad === 0) {
+        cesta.splice(i, 1);
+      }
+    }
+  }
   res.send(cesta)
-})
+});
 
-
-
-
-
-
+app.delete("/cesta", function (req, res) {
+  cesta = [];
+  res.send({
+    mensaje: "Tu cesta está vacía",
+  });
+});
 
 app.listen(3000);

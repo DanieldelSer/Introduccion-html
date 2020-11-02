@@ -119,7 +119,6 @@ function eliminar(nombre, precio) {
 
 function comprar(nombre, precio, img, descripcion) {
     let opcion = document.getElementById("selectTipo").value;
-    
     let mueble = {
         nombre,
         descripcion,
@@ -151,8 +150,8 @@ function comprar(nombre, precio, img, descripcion) {
                   <p>${datos[i].descripccion}</p>
                   <p>${datos[i].cantidad}</p>
                   <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})" class="inputsBoton">Eliminar</button>        
-              </div>
-              </article>`;
+                  </div>
+                  </article>`;
                 document.getElementById("mostrarArmarios").innerHTML = mostrar;
             }
         });
