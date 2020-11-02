@@ -12,7 +12,7 @@ fetch("/cesta")
             <div class="datos">
             <h3>${datos[i].nombre}</h3>
             </h5>${datos[i].precio}€</h5>
-            <p>${datos[i].descripccion}</p>        
+            <p>${datos[i].descripcion}</p>        
             <p>${datos[i].cantidad}</p>
             <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})" class="inputsBoton">Eliminar</button>        
         </div>
@@ -46,7 +46,7 @@ function eliminar(nombre, precio) {
                       <div class="datos">
                       <h3>${datos[i].nombre}</h3>
                       </h5>${datos[i].precio}€</h5>
-                      <p>${datos[i].descripccion}</p>
+                      <p>${datos[i].descripcion}</p>
                       <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})" class="inputsBoton">Eliminar</button>      
                       </div>
                   </article>`;

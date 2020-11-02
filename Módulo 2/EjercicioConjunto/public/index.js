@@ -66,10 +66,16 @@ function mostrarDepartamento() {
             <h3>${datos[i].nombre}</h3>
             </h5>${datos[i].precio}€</h5>
             <p>${datos[i].descripccion}</p>
-            <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})" class="inputsBoton">Eliminar</button>        
-            <button onclick="comprar('${datos[i].nombre}',${datos[i].precio},'${datos[i].img}','${datos[i].descripcion}')" class="inputsBoton">Comprar</button>        
-        </div>
-        </article>`;
+            <p>${datos[i].stock}</p>
+            <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})" class="inputsBoton">Eliminar</button>
+            `
+                if (datos[i].stock > 0) {
+                    impresion += `<button onclick="comprar('${datos[i].nombre}',${datos[i].precio},'${datos[i].img}','${datos[i].descripccion}')" class="inputsBoton">Comprar</button>
+                    `
+                }
+                impresion += `</div>
+                         </article>
+                         `;
                 document.getElementById("mostrarArmarios").innerHTML = impresion;
             };
         });
@@ -108,20 +114,26 @@ function eliminar(nombre, precio) {
                 <h3>${datos[i].nombre}</h3>
                 </h5>${datos[i].precio}€</h5>
                 <p>${datos[i].descripccion}</p>
+                <p>${datos[i].stock}</p>
                 <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})" class="inputsBoton">Eliminar</button>
-                <button onclick="comprar('${datos[i].nombre}',${datos[i].precio})" class="inputsBoton">Comprar</button>        
-                </div>
-            </article>`;
+                `
+                if (datos[i].stock > 0) {
+                    mostrar += `<button onclick="comprar('${datos[i].nombre}',${datos[i].precio},'${datos[i].img}','${datos[i].descripcion}')" class="inputsBoton">Comprar</button>
+                    `
+                }
+                mostrar += `</div>
+                         </article>
+                         `;
                 document.getElementById("mostrarArmarios").innerHTML = mostrar;
             }
         });
 };
 
-function comprar(nombre, precio, img, descripcion) {
+function comprar(nombre, precio, img, descripccion) {
     let opcion = document.getElementById("selectTipo").value;
     let mueble = {
         nombre,
-        descripcion,
+        descripcion:descripccion,
         img,
         precio,
         opcion,
@@ -148,10 +160,16 @@ function comprar(nombre, precio, img, descripcion) {
                   <h3>${datos[i].nombre}</h3>
                   </h5>${datos[i].precio}€</h5>
                   <p>${datos[i].descripccion}</p>
-                  <p>${datos[i].cantidad}</p>
-                  <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})" class="inputsBoton">Eliminar</button>        
-                  </div>
-                  </article>`;
+                  <p>${datos[i].stock}</p>
+                  <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})" class="inputsBoton">Eliminar</button>
+                  `
+                if (datos[i].stock > 0) {
+                    mostrar += `<button onclick="comprar('${datos[i].nombre}',${datos[i].precio},'${datos[i].img}','${datos[i].descripcion}')" class="inputsBoton">Comprar</button>
+                    `
+                }
+                mostrar += `</div>
+                         </article>
+                         `;
                 document.getElementById("mostrarArmarios").innerHTML = mostrar;
             }
         });
