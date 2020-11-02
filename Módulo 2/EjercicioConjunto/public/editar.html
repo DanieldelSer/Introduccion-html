@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Muebles</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./Img/logo.jpg" type="image/jpg" />
+</head>
+
+<body>
+    <header>
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+                <div class="nav-title">
+                    <a href="./index.html"><img class="nav-img" src="./Img/logo.jpg" alt="" /></a>
+
+                </div>
+            </div>
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
+
+            <div class="nav-links">
+                <a id="principal" href="./index.html">Principal</a>
+                <a id="Añadir" href="./anyadir.html">Añadir</a>
+                <a id="editar" href="./editar.html">Editar</a>
+            </div>
+        </div>
+    </header>
+
+    <select name="selectTipo" id="selectTipo" onchange="mostrarDepartamento()">
+        <option>Elije un tipo...</option>
+        <option>armarios</option>
+        <option>mesas</option>
+        <option>sillas</option>
+    </select>
+    <button onclick="modificar()" class="inputsBoton">Modificar</button>
+    <div>
+    <input type="text" placeholder="nombre" id="nombre" class="inputs"/>
+    <input type="text" placeholder="descripcion" id="descripcion" class="inputs"/>
+    <input type="text" placeholder="imagen" id="img" class="inputs"/>
+    <input type="text" placeholder="precio" id="precio" class="inputs"/>
+    </div>
+    <div>
+    <input type="text" placeholder="nuevo nombre " id="nombreNuevo" class="inputs"/>
+    <input type="text" placeholder="nueva descripcion" id="descripcion1" class="inputs"/>
+    <input type="text" placeholder="nueva imagen" id="img1" class="inputs"/>
+    <input type="text" placeholder="nuevo precio" id="precio1" class="inputs"/>
+    </div>
+    <div class="muebles">
+    <div class="mostrarArmarios" id="mostrarArmarios"></div>
+    </div>
+    <script src="./editar.js"></script>
+</body>
+
+</html>
