@@ -17,7 +17,7 @@ function mostrarDepartamento() {
                 <h3>${datos[i].nombre}</h3>
                 </h5>${datos[i].precio}€</h5>
                 <p>${datos[i].descripccion}</p>
-                <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})">Eliminar</button>        
+                <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})" class="inputsBoton">Eliminar</button>        
                 </div>
             </article>`;
                 document.getElementById("mostrarArmarios").innerHTML = impresion;
@@ -59,7 +59,7 @@ function anyadir() {
                 <h3>${datos[i].nombre}</h3>
                 </h5>${datos[i].precio}€</h5>
                 <p>${datos[i].descripccion}</p>
-                <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})">Eliminar</button>        
+                <button onclick="eliminar('${datos[i].nombre}',${datos[i].precio})" class="inputsBoton">Eliminar</button>        
             </div>
             </article>`;
                 document.getElementById("mostrarArmarios").innerHTML = mostrar;

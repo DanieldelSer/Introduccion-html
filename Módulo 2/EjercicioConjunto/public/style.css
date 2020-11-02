@@ -140,6 +140,10 @@ body {
   transition: 00.4s;
 }
 
+.margen {
+  margin: 1%;
+}
+
 
 .muebles {
   align-items: center;
