@@ -22,12 +22,6 @@ fetch("/cesta")
     });
 
 function eliminar(nombre, precio) {
-    let opcion = document.getElementById("selectTipo").value;
-    /* console.log("opcion", opcion); */
-    if (opcion !== "armarios" && opcion !== "sillas" && opcion !== "mesas") {
-        alert("Falta el tipo de mueble");
-        return;
-    }
     let mueble = {
         nombre,
         precio,
