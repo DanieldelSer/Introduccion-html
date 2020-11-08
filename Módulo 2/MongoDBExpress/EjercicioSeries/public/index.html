@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Series</title>
+</head>
+<body>
+    <div>
+        <h2>Series</h2>
+        <input type="text" placeholder="Titulo" id="titulo"/>
+        <select name="selectPlataforma" id="selectPlataforma">
+            <option>Elije una plataforma...</option>
+            <option>Netflix</option>
+            <option>HBO</option>
+            <option>Amazon</option>
+            <option>Disney+</option>
+        </select>
+        <select name="selectNota" id="selectNota">
+            <option>Elije una nota...</option>
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+        <button onclick="buscarSerie()">Buscar</button>
+        <button onclick="anyadirSerie()">Añadir</button>
+        <div id="div1"></div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+</html>

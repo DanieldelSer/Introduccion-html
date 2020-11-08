@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Restaurante</title>
+</head>
+<body>
+    <h2>Restaurante</h2>
+    <div>
+        <h4>Añadir Menú</h4>
+        <input type="text" placeholder="Número de menú" id="numero"/>
+        <input type="text" placeholder="Primer Plato" id="primerPlato"/>
+        <input type="text" placeholder="Segundo Plato" id="segundoPlato"/>
+        <input type="text" placeholder="Postre" id="postre"/>
+        <input type="text" placeholder="Precio" id="precio"/>
+        <button onclick="editarMenu()">Buscar</button>
+        <button onclick="anyadirMenu()">Añadir</button>
+    </div>
+    <div>
+        <h4>Modificar/Borrar Menú</h4>
+        <input type="text" placeholder="Nºde menú a modificar/borrar" id="nuevoNumero"/>
+        <input type="text" placeholder="Nuevo Primer Plato" id="nuevoPrimerPlato"/>
+        <input type="text" placeholder="Nuevo Segundo Plato" id="nuevoSegundoPlato"/>
+        <input type="text" placeholder="Nuevo Postre" id="nuevoPostre"/>
+        <input type="text" placeholder="Nuevo Precio" id="nuevoPrecio"/>
+        <button onclick="modificarMenu()">Modificar</button>
+        <button onclick="borrarMenu()">Borrar</button>
+    </div>
+    <h2>Menús</h2>
+    <div id="div1"></div>
+    <script src="./index.js"></script>
+</body>
+</html>

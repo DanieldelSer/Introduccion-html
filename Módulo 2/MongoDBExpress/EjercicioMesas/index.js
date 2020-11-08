@@ -25,6 +25,17 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// function errorDatos(err, datos, res) {
+//     if (err !== null) {
+//       console.log(err);
+//       res.send(err);
+//     } else {
+//       res.send(datos);
+//     }
+//   }
+//   ​
+//   module.exports = errorDatos;
+
 let db;
 MongoClient.connect("mongodb://localhost:27017", function (err, client) {
     if (err !== null) {
@@ -40,13 +51,14 @@ app.get("/api/mesas", function (req, res) {
             res.send(err);
         } else {
             res.send(datos);
+            console.log(datos)
         }
     });
 });
 
 app.post("/api/anyadir", function (req, res) {
     let mesa = {
-        tamaño: req.body.tamaño,
+        tamanyo: req.body.tamanyo,
         color: req.body.color,
         material: req.body.material,
         patas: req.body.patas
@@ -67,8 +79,8 @@ app.post("/api/anyadir", function (req, res) {
 });
 
 app.put("/api/modificar/:color", function (req, res) {
-    let color = req.params.color;
-    db.collection("mesas").updateOne({ color: "azul" }, { $set: { color: color } }, function (err, datos) {
+    const color = req.params.color;
+    db.collection("mesas").updateMany({ color: color }, { $set: { color: "Granate" } }, function (err, datos) {
         if (err !== null) {
             res.send(err);
         } else {
@@ -85,7 +97,7 @@ app.put("/api/modificar/:color", function (req, res) {
 
 app.delete("/api/borrar/:patas", function (req, res) {
     let borrasPatas = parseInt(req.params.patas);
-    db.collection("mesas").deleteMany({ patas: borrasPatas }, function(err, datos){
+    db.collection("mesas").deleteMany({ patas: borrasPatas }, function (err, datos) {
         if (err !== null) {
             res.send(err);
         } else {
