@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Hotel</title>
+</head>
+
+<body>
+    <h1>Hotel</h1>
+    <div id="div1">
+        <input type="text" placeholder="Nombre" id="nombre">
+        <input type="text" placeholder="Apellido" id="apellido">
+        <input type="text" placeholder="Dni" id="dni">
+        <button onclick="registrarCliente()">Registrar</button>
+        <button onclick="editarCliente()">Editar Cliente</button>
+    </div>
+    <div id="select">
+        <select name="" id="habitaciones">
+            <option>Elije una habitacion...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
+        <input type="date" name="" id="fechaCheckIn">
+        <input type="date" name="" id="fechaCheckOut">
+        <button onclick="reservar()">Reservar</button>
+        <button onclick="salir()">Check Out</button>
+    </div>
+    <div id="reservas"></div>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
