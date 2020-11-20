@@ -1,0 +1,37 @@
+Vamos a hacer una página para el ordenador en la entrada de la hamburguesería BootDonalds.
+
+En la página de inicio haz que aparezcan 4 botones con los que damos al usuario la opción de pedir un menú, pedir una hamburguesa, pedir una bebida o acabar el pedido. Al hacer click en cada uno de los botones, haz una petición al servidor y muestra elementos select en los que el usuario puede seleccionar los productos que quiere. Usa un método GET para ello.
+
+Un menú viene con bebida y patatas. Por lo tanto si elige un menú preguntaremos qué bebida quiere y le daremos la bebida que elija y patatas y la hamburguesa correspondiente del menú. Si elige una hamburguesa le daremos opción a añadir patatas. Si elige una bebida le daremos la opción de elegir cuál quiere de entre todas las opciones.
+
+Al seleccionar una de las opciones (menú, hamburguesa o bebida), tendremos un botón  que enviará al servidor la información seleccionada (menú+bebida, hamburguesa+patatas o bebida) por el usuario. Haz que esta información se envíe usando el método POST.
+
+Cuando el usuario elija terminar el pedido le pediremos que lo confirme y le daremos la posibilidad de editar el pedido. Si el usuario elige cambiarlo, muestra las opciones seleccionadas. Usa una petición PUT para modificar el pedido. Si el usuario elige no cambiar el pedido, o después de haberlo modificado, le presentaremos el pedido completo y el precio total.
+
+Para los productos y sus precios, utilizar el siguiente objeto:
+
+let productos = {
+    menus: [
+       {nombre: 'Grand Big Boot', precio: 8.5},
+       {nombre:  'Big Boot', precio: 8},
+       {nombre: 'BootPollo', precio: 7.50},
+       {nombre: 'Cuarto de libra',precio: 7},
+       {nombre: 'BootRoyal Deluxe', precio: 7}
+],
+    hamburguesas: [
+       {nombre:  'Grand Big Boot', precio: 6},
+       {nombre:  'Big Boot', precio: 5.5},
+       {nombre: 'BootPollo', precio: 5},
+       {nombre: 'Cuarto de libra', precio: 4.5},
+       {nombre: 'BootRoyal Deluxe', precio: 4.5}
+    ],
+   bebidas: [
+       {nombre: 'CocaCola', precio: 2},
+       {nombre: 'Fanta', precio: 2},
+       {nombre: 'Agua', precio: 1},
+       {nombre:  'Cerveza', precio: 2.5}
+    ],
+     patatas:[
+       { nombre: 'BootFries', precio: 1},
+],
+}
