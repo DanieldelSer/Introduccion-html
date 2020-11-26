@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+}
+
+.App img {
+  width: 300px;
+  height: 450px;
+}
+
+.App button{
+  margin: 20px;
+}

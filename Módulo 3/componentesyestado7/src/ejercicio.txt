@@ -1,0 +1,26 @@
+Crea una aplicación en la que tienes el siguiente objeto de JavaScript en el componente App:
+
+let muelle = {
+    nombre: 'Puerto deportivo',
+    barcos: [
+        {
+            nombre: 'bar quito',
+            eslora: ‘5m’,
+            tripulantes: 2
+        },
+        {
+            nombre: 'imperioso',
+            eslora: ‘12m’,
+            tripulantes: 3
+        }
+    ],
+    contacto: {
+        telefono: '94463827'
+    }
+};
+
+Muestra el nombre del muelle en un componente Cabecera,
+la lista de barcos en un componente Main y el teléfono de contacto en un componente Footer.
+En la lista de los barcos, haz que cada uno de ellos tenga un botón de añadir tripulante,
+y cuando se pulsa haz que se sume uno al número de tripulantes
+en el barco con el botón al que se le ha pulsado.

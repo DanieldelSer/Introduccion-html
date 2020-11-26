@@ -1,0 +1,10 @@
+Crea una aplicación en la que muestres en un componente la información del siguiente objeto:
+	evento = {
+    	nombre: "Salsa dance party",
+   	fecha: "24/07/2020",
+    	hora: "16:00",
+    	lugar: {
+        		direccion:"Done Bikendi Kalea, 2",ejercicio-estado
+        		ciudad: "Bilbao"
+    		}
+}

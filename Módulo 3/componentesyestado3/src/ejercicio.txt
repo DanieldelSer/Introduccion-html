@@ -1,0 +1,4 @@
+Crea una aplicación  con la que mostrar una lista de 4 coches Ford Focus.
+Todos tienen las siguientes características iguales: número de ruedas, altura y longitud,
+pero cada uno tiene un color diferente.
+Crea tantos componentes hijo como coches tengas y muestra la información de cada uno de ellos.

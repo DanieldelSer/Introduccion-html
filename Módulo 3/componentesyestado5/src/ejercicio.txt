@@ -1,0 +1,4 @@
+ Crea una aplicación en la que tienes un array de 3 nombres.
+ Al cargar la página se muestra el primer elemento del array en un h1.
+ Añade un botón, y cuando se haga click, mostraremos el segundo nombre.
+ Con otro click mostraremos el tercero y con otro click volveremos a mostrar el primero (y así sucesivamente).

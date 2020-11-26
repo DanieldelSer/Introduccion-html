@@ -1,0 +1,3 @@
+Crea una aplicación y crea un componente que tenga un array de tres elementos.
+Haz que el componente tenga un <ul>
+y que dentro del mismo haya un <li> con cada uno de los elementos del array.
