@@ -147,6 +147,20 @@ function App() {
           }
         }
       }}>{camBoton8}</button>
+      <br></br>
+      <button onClick={()=>{
+        setNum(num=0)
+        return (setCamBoton(camBoton = null),
+               setCamBoton1(camBoton1 = null),
+               setCamBoton2(camBoton2 = null),
+               setCamBoton3(camBoton3 = null),
+               setCamBoton4(camBoton4 = null),
+               setCamBoton5(camBoton5 = null),
+               setCamBoton6(camBoton6 = null),
+               setCamBoton7(camBoton7 = null),
+               setCamBoton8(camBoton8 = null)
+        );
+      }}>Volver a empezar</button>
     </div>
   );
 }
