@@ -74,7 +74,8 @@ function App() {
       return Math.floor(Math.random() * ((maximo+1)-minimo)+minimo);
     }
 
-  let numRandom = random(1, libreria.libros.length + 1)
+  let numRandom = random(1, libreria.libros.length)
+  
 
   const mostrarLibroOferta =
     <Footer

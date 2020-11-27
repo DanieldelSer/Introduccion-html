@@ -5,11 +5,11 @@ import ciudades from './ArraryNombres';
 
 function App() {
   const [ciudad, setCiudad] = useState(ciudades[0]);
-  const [num, setNum] = useState(1);
+  const [num, setNum] = useState(0);
   function mostrar() {
     setNum(num + 1);
-    if(num=4){
-      num=1;
+    if (num === 2) {
+      num = 1;
     }
     setCiudad(ciudades[num]);
   }
