@@ -1,0 +1,3 @@
+Crea una aplicación que tenga un Input de tipo texto y un link.
+En el input deberás introducir tu nombre y al hacer click en el link
+nos llevará a una página que diga “Hola” y el nombre introducido en el Input.

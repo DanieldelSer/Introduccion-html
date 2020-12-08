@@ -1,0 +1,4 @@
+Crea una aplicación con dos componentes, Gatos y Perros.
+En el state tendrán cada uno un array de fotos, uno de gatos y otro de perros.
+Crea dos links para seleccionar perros o gatos.
+En función del link seleccionado, se mostrarán las fotos de gatos o de perros.

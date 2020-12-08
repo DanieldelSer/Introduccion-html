@@ -1,0 +1,6 @@
+Rick&Morty
+Haz una llamada a la API https://rickandmortyapi.com/api/character/ para que devuelva todos los personajes.
+Muestra en un div las fotos y los nombres.
+
+Añade un botón de página siguiente que muestre los siguientes 10 personajes
+y un botón de página anterior que muestre los 10 personajes anteriores.

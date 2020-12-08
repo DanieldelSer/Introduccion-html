@@ -1,0 +1,4 @@
+Crea una aplicación en la que guardes en el state el array ‘peliculas’. 
+Crea un componente en el que muestres todas las películas: título e imagen.
+Crea un componente para cada película  y, al hacer click en cualquiera de los títulos,
+nos llevará a la página de cada película, donde también aparecerá la sinopsis.

@@ -1,0 +1,3 @@
+Crea una aplicación que recoja 5 jugador@s de un equipo de baloncesto.
+Crea fichas para cada integrante del equipo y muestra el equipo entero en una misma página.
+Crea las rutas que muestren información detallada de cada integrante del equipo.

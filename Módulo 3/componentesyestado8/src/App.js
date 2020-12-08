@@ -150,7 +150,8 @@ function App() {
       <br></br>
       <button onClick={()=>{
         setNum(num=0)
-        return (setCamBoton(camBoton = null),
+        return (
+               setCamBoton(camBoton = null),
                setCamBoton1(camBoton1 = null),
                setCamBoton2(camBoton2 = null),
                setCamBoton3(camBoton3 = null),

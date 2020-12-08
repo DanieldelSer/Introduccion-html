@@ -1,0 +1,6 @@
+Pokemons por tipo
+
+1-  Obtener de la API de Pokemon (disponible en https://pokeapi.co/api/v2)
+la lista de todos los tipos de Pokémon y mostrarlos en consola.
+2- Mostrar un dropdown de HTML en el que el usuario puede especificar un tipo.
+3- Cuando el usuario elija un tipo específico en el dropdown, mostrar 3 pokemons aleatorios que sean de ese tipo.

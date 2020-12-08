@@ -1,0 +1,3 @@
+Crea una aplicación en la que la ruta ‘/’ muestre un h1 con “Rutas en React”.
+En el state crea un array de nombres.
+Al ir a la ruta ‘/nombres’ mostrará un listado de nombres. 
