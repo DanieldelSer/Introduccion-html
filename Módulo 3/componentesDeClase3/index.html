@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejercicio 3</title>
+</head>
+
+<body>
+
+    <script>
+
+        class Rectangulo {
+            constructor(largo, ancho) {
+                this.largo = largo;
+                this.ancho = ancho;
+            }
+            calcularArea() {
+                let area = this.largo * this.ancho;
+                console.log(area);
+            }
+            calcularPerimetro() {
+                let perimetro = (this.largo * 2) + (this.ancho * 2);
+                console.log(perimetro);
+            }
+        }
+
+        let numero = new Rectangulo(10, 20);
+        numero.calcularArea();
+        numero.calcularPerimetro();
+
+    </script>
+
+</body>
+
+</html>

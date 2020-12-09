@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <script>
+        class Cifras {
+            constructor(num) {
+                this.num = num;
+            }
+
+            esPar() {
+                if (this.num % 2 === 0) {
+                    console.log("Es par");;
+                }
+                else {
+                    console.log("Es impar");;
+                }
+            }
+
+            sumaDigitos(num) {
+                let suma = 0;
+                let numString = this.num.toString();
+                for(let i = 0; i < numString.length; i++) {
+                    suma += parseInt(numString.substring(i, i +1));
+                }
+                console.log(suma);
+            }
+        }
+
+        let numero = new Cifras(34)
+        numero.esPar();
+        numero.sumaDigitos();
+
+    </script>
+</body>
+
+</html>

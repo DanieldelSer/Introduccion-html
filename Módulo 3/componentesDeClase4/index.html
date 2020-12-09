@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejercicio 4</title>
+</head>
+
+<body>
+
+    <script>
+
+        class Finanzas {
+            constructor(num) {
+                this.num = num;
+            }
+
+            dolaresToEuros() {
+                let euro = 0.83;
+                let euros = this.num * euro;
+                console.log(euros);
+            }
+
+            eurosToDolares() {
+                let dolar = 1.21;
+                let dolars = this.num * dolar;
+                console.log(dolars);
+            }
+        }
+
+        let numero = new Finanzas(10);
+        numero.dolaresToEuros();
+        numero.eurosToDolares();
+
+    </script>
+
+</body>
+
+</html>

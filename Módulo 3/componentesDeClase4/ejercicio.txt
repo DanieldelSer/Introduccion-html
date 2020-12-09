@@ -1,0 +1,4 @@
+Realiza una clase Finanzas que convierta dólares a euros y viceversa.
+Codifica los métodos dolaresToEuros y eurosToDolares.
+ 
+Prueba que dicha clase funciona correctamente haciendo conversiones entre euros y dólares.

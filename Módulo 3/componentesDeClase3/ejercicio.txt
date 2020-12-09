@@ -1,0 +1,4 @@
+Diseñar una clase llamada Rectángulo que contenga :
+●   	Un constructor que permita declarar objetos con dos argumentos ( largo y ancho)
+●   	Un método llamado calcularArea que devuelve el área del rectángulo
+●   	Un método llamado calcularPerimetro que calcula el perímetro del rectángulo.

@@ -1,0 +1,4 @@
+Se pretende crear una clase llamada Cifras que tenga lo siguiente:
+●   	Un constructor que permite inicializar un número con el valor pasado como argumento.
+●   	Un método llamado esPar que devuelve verdadero si lo es y falso en caso contrario.
+●   	Un método llamado sumaDigitos que devuelve un entero con la suma de sus dígitos.
