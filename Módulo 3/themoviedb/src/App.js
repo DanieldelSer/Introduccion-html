@@ -29,9 +29,7 @@ function App() {
         })
         .then(function (res) {
           setDataFilm(res)
-        })
-
-
+        });
       fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=8aafd29ffe74d236a861756f3a90e086&language=es-ES`)
         .then(function (result) {
           return result.json();
@@ -39,7 +37,7 @@ function App() {
         .then(function (result) {
           setCreditsFilm(result.cast)
         })
-    }, [id])
+    }, [])
 
     const mostrarCredits = creditsFilm.map((actor) => {
       return (
