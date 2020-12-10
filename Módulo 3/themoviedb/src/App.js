@@ -19,7 +19,6 @@ function App() {
   const [isLoading, setIsloading] = useState(false);
   const [dataFilm, setDataFilm] = useState({});
   const [creditsFilm, setCreditsFilm] = useState([]);
-  const [arrayNumAleatorio, setArrayNumAleatorio] = useState([]);
 
   const IdPelicula = () => {
     const { id } = useParams();
@@ -31,8 +30,8 @@ function App() {
         .then(function (res) {
           setDataFilm(res)
         })
-    }, [id])
-    useEffect(() => {
+
+
       fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=8aafd29ffe74d236a861756f3a90e086&language=es-ES`)
         .then(function (result) {
           return result.json();
@@ -75,40 +74,19 @@ function App() {
         setData(data.results);
         console.log(data.results);
         setIsloading(false);
-
-        let arrayNumAleatorio = [];
-        let min = 0;
-        let max = data.length - 1
-        for (let i = 0; i < 6; i++) {
-            let temp = Math.round(Math.random() * max);
-            let temporal = parseInt((Math.floor(temp)) + 1);
-            if ((temporal >= min) && (temporal <= max)) {
-                if (arrayNumAleatorio.indexOf(temporal) !== -1) {
-                    i--;
-                    continue;
-                } else {
-                    arrayNumAleatorio.push(temporal);
-                }
-            } else {
-                i--;
-                continue;
-            }
-        }
-        setArrayNumAleatorio(arrayNumAleatorio)
-
       });
   }, []);
 
 
 
-  // const mostrarPopular = data.map((film) => {
-  //   return (
-  //     <div key={film.title}>
-  //       <h2><Link to={`/${film.id}`}>{film.title}</Link></h2>
-  //       <img src={`https://image.tmdb.org/t/p/w500${film.poster_path}`} alt={film.title} width="300" height="400"></img>
-  //     </div>
-  //   );
-  // });
+  const mostrarPopular = data.map((film) => {
+    return (
+      <div key={film.title}>
+        <h2><Link to={`/${film.id}`}>{film.title}</Link></h2>
+        <img src={`https://image.tmdb.org/t/p/w500${film.poster_path}`} alt={film.title} width="300" height="400"></img>
+      </div>
+    );
+  });
 
   if (isLoading) {
     return <div className="App">Loading...</div>;
@@ -118,19 +96,7 @@ function App() {
         <div className="App">
           <Cabecera />
           <Route exact path="/">
-            {/* {mostrarPopular} */}
-            <h2><Link to={`/${data[arrayNumAleatorio[0]].id}`}>{data[arrayNumAleatorio[0]].title}</Link></h2>
-            <img src={`https://image.tmdb.org/t/p/w500${data[arrayNumAleatorio[0]].poster_path}`} alt={data[arrayNumAleatorio[0]].title} width="300" height="400"></img>
-            <h2><Link to={`/${data[arrayNumAleatorio[1]].id}`}>{data[arrayNumAleatorio[1]].title}</Link></h2>
-            <img src={`https://image.tmdb.org/t/p/w500${data[arrayNumAleatorio[1]].poster_path}`} alt={data[arrayNumAleatorio[1]].title} width="300" height="400"></img>
-            <h2><Link to={`/${data[arrayNumAleatorio[2]].id}`}>{data[arrayNumAleatorio[2]].title}</Link></h2>
-            <img src={`https://image.tmdb.org/t/p/w500${data[arrayNumAleatorio[2]].poster_path}`} alt={data[arrayNumAleatorio[2]].title} width="300" height="400"></img>
-            <h2><Link to={`/${data[arrayNumAleatorio[3]].id}`}>{data[arrayNumAleatorio[3]].title}</Link></h2>
-            <img src={`https://image.tmdb.org/t/p/w500${data[arrayNumAleatorio[3]].poster_path}`} alt={data[arrayNumAleatorio[3]].title} width="300" height="400"></img>
-            <h2><Link to={`/${data[arrayNumAleatorio[4]].id}`}>{data[arrayNumAleatorio[4]].title}</Link></h2>
-            <img src={`https://image.tmdb.org/t/p/w500${data[arrayNumAleatorio[4]].poster_path}`} alt={data[arrayNumAleatorio[4]].title} width="300" height="400"></img>
-            <h2><Link to={`/${data[arrayNumAleatorio[5]].id}`}>{data[arrayNumAleatorio[5]].title}</Link></h2>
-            <img src={`https://image.tmdb.org/t/p/w500${data[arrayNumAleatorio[5]].poster_path}`} alt={data[arrayNumAleatorio[5]].title} width="300" height="400"></img>
+            {mostrarPopular}
           </Route>
           <Route exact path="/:id">
             <IdPelicula />
