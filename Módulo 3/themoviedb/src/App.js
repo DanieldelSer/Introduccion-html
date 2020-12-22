@@ -12,53 +12,53 @@ const Cabecera = () => {
 };
 
 
+const IdPelicula = () => {
+  const [dataFilm, setDataFilm] = useState({});
+  const [creditsFilm, setCreditsFilm] = useState([]);
+  const { id } = useParams();
+  useEffect(() => {
+    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=8aafd29ffe74d236a861756f3a90e086&language=es-ES`)
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (res) {
+        setDataFilm(res)
+      });
+    fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=8aafd29ffe74d236a861756f3a90e086&language=es-ES`)
+      .then(function (result) {
+        return result.json();
+      })
+      .then(function (result) {
+        setCreditsFilm(result.cast)
+      })
+  }, [id])
+
+  const mostrarCredits = creditsFilm.map((actor) => {
+    return (
+      <div key={actor.name}>
+        <h2>{actor.name}</h2>
+        <img src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`} alt={actor.name} width="300" height="400"></img>
+        <p>Personaje: {actor.character}</p>
+      </div>
+    );
+  });
+
+  return (
+    <div>
+      <h1>{dataFilm.title}</h1>
+      <img src={`https://image.tmdb.org/t/p/w500${dataFilm.poster_path}`} alt={dataFilm.title} width="300" height="400"></img>
+      <p>{dataFilm.overview}</p>
+      <p>Duración: {dataFilm.runtime} min</p>
+      {mostrarCredits}
+    </div>
+  )
+};
 
 function App() {
 
   const [data, setData] = useState([]);
   const [isLoading, setIsloading] = useState(false);
-  const [dataFilm, setDataFilm] = useState({});
-  const [creditsFilm, setCreditsFilm] = useState([]);
-
-  const IdPelicula = () => {
-    const { id } = useParams();
-    useEffect(() => {
-      fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=8aafd29ffe74d236a861756f3a90e086&language=es-ES`)
-        .then(function (res) {
-          return res.json();
-        })
-        .then(function (res) {
-          setDataFilm(res)
-        });
-      fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=8aafd29ffe74d236a861756f3a90e086&language=es-ES`)
-        .then(function (result) {
-          return result.json();
-        })
-        .then(function (result) {
-          setCreditsFilm(result.cast)
-        })
-    }, [])
-
-    const mostrarCredits = creditsFilm.map((actor) => {
-      return (
-        <div key={actor.name}>
-          <h2>{actor.name}</h2>
-          <img src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`} alt={actor.name} width="300" height="400"></img>
-          <p>Personaje: {actor.character}</p>
-        </div>
-      );
-    });
-
-    return (
-      <div>
-        <h1>{dataFilm.title}</h1>
-        <img src={`https://image.tmdb.org/t/p/w500${dataFilm.poster_path}`} alt={dataFilm.title} width="300" height="400"></img>
-        <p>{dataFilm.overview}</p>
-        <p>Duración: {dataFilm.runtime} min</p>
-        {mostrarCredits}
-      </div>
-    )
-  };
+  
 
 
   useEffect(() => {

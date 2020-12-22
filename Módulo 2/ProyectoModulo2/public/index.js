@@ -186,14 +186,13 @@ function mostrarEvent() {
                 mostrar += `
             <div class="mostrarMasEventos">
                 <div class="datos">
-                    
                     <h3> <span>${datos[i].eventName}</span></h3>
                     <hr>      
                     <h5>Categoría: <span>${datos[i].category}</span></h5>
                     <p>Fecha: <span>${datos[i].fechaCategory}</span></p>
                     <div class="mostrarMasEventosButton">
-                    <button class="mostrarMasEventosbutton" onclick="ocultarMostrarGetSelect('panelButtons', 'panelModifyEvent','${datos[i]._id}','selectModidyCategory')" class="">Modificar</button>      
-                    <button class="mostrarMasEventosbutton" onclick="deleteEvent('${datos[i]._id}')" class="">Eliminar</button>
+                        <button class="mostrarMasEventosbutton" onclick="ocultarMostrarGetSelect('panelButtons', 'panelModifyEvent','${datos[i]._id}','selectModidyCategory')" class="">Modificar</button>      
+                        <button class="mostrarMasEventosbutton" onclick="deleteEvent('${datos[i]._id}')" class="">Eliminar</button>
                     </div>      
                 </div>
             </div>
