@@ -6,24 +6,28 @@ const ModificarEvento = (props) => {
     const [eventModify, setEventModify] = useState('');
     const [dato, setDato] = useState([]);
     const [eventDate, setEventDate] = useState('');
+    const [name, setName] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:3000/eventos/id/5fb30be9b8dd0c0d1c0d97dc`)
+        fetch(`http://localhost:3000/eventos/id/5fb4f6aa2f3695522c3a5be3`)
             .then(function (results) {
                 return results.json();
             })
             .then(function (data) {
-               console.log(data);
-               setEventModify(data[0].eventName)
-               setEventDate(data[0].fechaCategory)
+                console.log(data);
+                setEventModify(data[0].eventName)
+                setEventDate(data[0].fechaCategory)
+                setName(data[0].name)
+                console.log(name);
+                fetch(`http://localhost:3000/categorias/Daniel`)
+                    .then(function (results) {
+                        return results.json();
+                    })
+                    .then(function (dato) {
+                        setDato(dato);
+                    });
             });
-            fetch(`http://localhost:3000/categorias/${props.username}`)
-            .then(function (results) {
-                return results.json();
-            })
-            .then(function (dato) {
-                setDato(dato);
-            });
+
     }, []);
 
     const mostrarCategory = dato.map((category) => {
@@ -32,9 +36,9 @@ const ModificarEvento = (props) => {
         );
     });
 
-    
+
     const modifyEvent = () => {
-        
+
         fetch("http://localhost:3000/eventos/modificarEvento/", {
             method: "PUT",
             headers: {
@@ -42,19 +46,19 @@ const ModificarEvento = (props) => {
             },
             body: JSON.stringify(event),
         })
-        .then(function (res) {
-            return res.json();
-        })
-        .then(function (datos) {
-            alert("Evento modificado")
-        });
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (datos) {
+                alert("Evento modificado")
+            });
     };
-    
-    const _id = "5fb30be9b8dd0c0d1c0d97dc"
+
+    const _id = "5fb4f6aa2f3695522c3a5be3"
     const [eventName, setEventName] = useState('');
     const [category, setCategory] = useState('');
     const [fechaCategory, setFechaCategory] = useState('');
-    
+
     const event = {
         _id,
         category,
@@ -77,17 +81,19 @@ const ModificarEvento = (props) => {
             <div className="login-box" id="panelModifyEvent">
                 <div className="user-box">
                     <h2>Modificar Evento</h2>
-                    <input type="text" id="nameModifyEvent" value={eventModify} onChange={manageChangeEvent}></input>
+                    <p>{eventModify}</p>
+                    <input type="text" id="nameModifyEvent" onChange={manageChangeEvent}></input>
                     <label></label>
                     <select id="selectModidyCategory" onChange={manageChangeCategory}>
-                    <option>Elije una categoría...</option>
-                    {mostrarCategory}
+                        <option>Elije una categoría...</option>
+                        {mostrarCategory}
                     </select>
-                    <input type="text" name="" id="dateModifyEvent" value={eventDate} onChange={manageChangeDate}></input>
+                    <p>{eventDate}</p>
+                    <input type="date" name="" id="dateModifyEvent" onChange={manageChangeDate}></input>
                     <label></label>
                     <div className="buttons">
                         <button onClick={modifyEvent}>Modificar</button>
-                        <button ><Link to="/CrearEvento">Volver</Link></button>
+                        <button ><Link to="/Main">Volver</Link></button>
                     </div>
                 </div>
             </div>

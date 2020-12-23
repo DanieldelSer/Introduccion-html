@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useUser from "./hooks/useUser";
 
 const CrearCategoria = (props) => {
-
+console.log(props.username);
     const { name } = useUser();
     console.log(name);
 
