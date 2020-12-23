@@ -6,6 +6,7 @@ import useUser from "./hooks/useUser";
 const CrearCategoria = (props) => {
 
     const { name } = useUser();
+    console.log(name);
 
 
     const [username, setUsername] = useState(props.username);

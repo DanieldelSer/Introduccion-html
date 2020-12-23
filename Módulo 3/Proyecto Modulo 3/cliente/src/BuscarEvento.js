@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import useUser from "./hooks/useUser";
+
 const BuscarEvento = (props) => {
+
+    const { name } = useUser();
+    console.log(name);
 
     const [data, setData] = useState([]);
     const [dato, setDato] = useState([]);
@@ -15,7 +20,7 @@ const BuscarEvento = (props) => {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:3000/categorias/Daniel`)
+        fetch(`http://localhost:3000/categorias/${name}`)
             .then(function (results) {
                 return results.json();
             })

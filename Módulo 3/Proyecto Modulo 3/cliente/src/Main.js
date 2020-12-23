@@ -1,20 +1,22 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Main = () => {
-
+const Main = (props) => {
+    console.log(props);
     const [data, setData] = useState([]);
     const [boolean, setBoolean] = useState(false);
 
-    useEffect(() => {
-        fetch(`http://localhost:3000/eventos/Daniel`)
+
+    const showAll = () => {
+
+        fetch(`http://localhost:3000/eventos/${props.username}`)
             .then(function (results) {
                 return results.json();
             })
             .then(function (data) {
                 setData(data);
             });
-    }, [boolean]);
+    }
 
     const mostrarEvents = data.map((event) => {
         return (
@@ -60,7 +62,7 @@ const Main = () => {
                 <div className="buttons">
                     <button><Link to="/BuscarEvento">Buscar</Link></button>
                     <button><Link to="/CrearCategoria">Crear</Link></button>
-                    {/* <button onClick="showAll()">Mostrar</button> */}
+                    <button onClick={showAll}>Mostrar</button>
                     <button><Link to="/">Salir</Link></button>
                 </div>
             </div>

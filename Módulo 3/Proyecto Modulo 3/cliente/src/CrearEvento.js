@@ -10,7 +10,7 @@ const CrearEvento = (props) => {
     const [date, setDate] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:3000/categorias/Daniel`)
+        fetch(`http://localhost:3000/categorias/${props.username}`)
             .then(function (results) {
                 return results.json();
             })

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const ModificarEvento = () => {
+const ModificarEvento = (props) => {
 
     const [eventModify, setEventModify] = useState('');
     const [dato, setDato] = useState([]);
@@ -17,7 +17,7 @@ const ModificarEvento = () => {
                setEventModify(data[0].eventName)
                setEventDate(data[0].fechaCategory)
             });
-            fetch(`http://localhost:3000/categorias/Daniel`)
+            fetch(`http://localhost:3000/categorias/${props.username}`)
             .then(function (results) {
                 return results.json();
             })
