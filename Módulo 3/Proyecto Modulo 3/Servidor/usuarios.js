@@ -18,29 +18,6 @@ router.post("/", function (req, res) {
     });
 });
 
-// router.post("/nuevoUsuario", function (req, res) {
-//     let db = req.app.locals.db;
-//     const username = req.body.username;
-//     const password = req.body.password;
-//     let usuario = {
-//         username,
-//         password
-//     };
-//     db.collection("usuarios").insertOne(usuario, function (err, datos) {
-//         if (err !== null) {
-//             res.send(err);
-//         } else {
-//             db.collection("usuarios").find().toArray(function (err, data) {
-//                 if (err !== null) {
-//                     res.send(err);
-//                 } else {
-//                     res.send(data);
-//                 }
-//             });
-//         }
-//     });
-// });
-
 router.post("/nuevoUsuario", function (req, res) {
     let db = req.app.locals.db;
     const username = req.body.username;
