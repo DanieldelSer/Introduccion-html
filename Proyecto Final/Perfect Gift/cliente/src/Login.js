@@ -1,9 +1,8 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Login = () => {
 
-    const { user } = useParams();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const userLogin = {
@@ -84,17 +83,17 @@ const Login = () => {
             <Link to={`/Main/${username}`}><button onClick={login}>Login</button></Link>
 
 
-            <div class="container">
-                <div class="row"><div class="col align-self-center">
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="flush-headingOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            <div className="container">
+                <div className="row"><div className="col align-self-center">
+                    <div className="accordion accordion-flush" id="accordionFlushExample">
+                        <div className="accordion-item">
+                            <h2 className="accordion-header" id="flush-headingOne">
+                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                                     Crear Cuenta
                                 </button>
                             </h2>
-                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
+                            <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div className="accordion-body">
                                     <input type="text" id="usernameCreate" placeholder="Nombre" onChange={manageChangeLoginCreate}></input>
                                     <input type="text" id="email" placeholder="Email" onChange={manageChangeEmail}></input>
                                     <input type="password" id="passwordCreate" placeholder="Contraseña" onChange={manageChangePassCreate}></input>

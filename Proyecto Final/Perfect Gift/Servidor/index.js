@@ -14,6 +14,7 @@ app.use(cors());
 const users = require("./users");
 const events = require("./events");
 const gifts = require("./gifts");
+const guests = require("./guests");
 
 MongoClient.connect("mongodb://localhost:27017", function (err, client) {
     if (err !== null) {
@@ -26,8 +27,13 @@ MongoClient.connect("mongodb://localhost:27017", function (err, client) {
 app.use("/users", users);
 app.use("/events", events);
 app.use("/gifts", gifts);
+app.use("/guests", guests);
 
 app.post("/send-email", (req, res) => {
+    const user = req.body.username;
+    const guestEmail = req.body.guestEmail;
+    const guestName = req.body.guestName;
+
     const transporter = nodemailer.createTransport({
         port: 465,               // true for 465, false for other ports
         host: "smtp.gmail.com",
@@ -40,11 +46,15 @@ app.post("/send-email", (req, res) => {
 
     const mailOptions = {
         from: 'perfectgiftappweb@gmail.com',  // sender address
-        to: 'kaliotto@gmail.com',   // list of receivers
-        subject: 'Prueba sending Email using Node.js',
+        to: guestEmail,//'hdvziborg@gmail.com',   // list of receivers
+        subject: 'Has sido invitado a un gran evento en Perfect Gift',
         text: 'Hola',
-        html: `<h1 style="color:red;">Hey there! </h1>
-            <p style="font-size:50px;">This is our first message sent with Nodemailer</p> `,
+        html: `<div align="center">
+            <h1 style="color:red;">Perfect Gift </h1>
+            <h1 style="color:green;">Hola ${guestName}</h1>
+            <p style="font-size:50px;">${user} te ha invitado a un evento en Perfect Gift</p> 
+            <a href="url">Visita Perfect Gift</a> 
+            </div>`,
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
