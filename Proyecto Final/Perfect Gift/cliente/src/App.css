@@ -1,6 +1,15 @@
 .App {
   text-align: center;
-  font-family: Arial;
+  font-family: sans-serif;
+}
+
+.modal-open .container-fluid,
+.modal-open .container {
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
 }
 
 .centrar{
@@ -18,6 +27,7 @@
   top: 300%;
   width: 75%;
   z-index: 3;
+  margin-left: 30px;
 }
 
 .events {
@@ -30,13 +40,13 @@
   text-transform: uppercase;
   margin: 5px;
   background-color: #E18A07;
-  border-color:white;
+  border-color: #E18A07;
   color: black;
 }
 .naranja:hover{
   margin: 5px;
   background-color: black;
-  border-color:white;
+  border-color:black;
   color: #E18A07;
 }
 
@@ -192,47 +202,81 @@ body {
   }
 }
 
-.classModal{
-  background-color:  #C0C0C0;
-  justify-content: center;
-}
-
-.inputModal {
-  width: 100%;
-}
-
-
-
-
-
-input {
-  display: block;
-  appearance: none;
-  outline: 0;
-  border: 1px solid fade(white, 40%);
-  background-color: fade(white, 20%);
-  width: 250px;
-
-  border-radius: 3px;
-  padding: 10px 15px;
-  margin: 0 auto 10px auto;
-  display: block;
-  text-align: center;
-  font-size: 18px;
-
-  color: white;
-
-  transition-duration: 0.25s;
-  font-weight: 300;
-}
-input:hover {
-    background-color: black
+  html {
+    height: 100%;
   }
-
-  input:focus {
-    background-color: white;
-    width: 100px;
-
-    /* color: @prim; */
+  body {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(black, white);
+  }
+  
+  .login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.904);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+  }
+  
+  .login-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #E18A07;
+    text-align: center;
+  }
+  
+  .login-box .user-box {
+    position: relative;
+  }
+  
+  .login-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color:#E18A07;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid#E18A07;
+    outline: none;
+    background: transparent;
+  }
+  .login-box .user-box label {
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .login-box .user-box input:focus ~ label,
+  .login-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #E18A07;
+    font-size: 12px;
+  }
+  
+  .login-box form a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #E18A07;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px
   }
 

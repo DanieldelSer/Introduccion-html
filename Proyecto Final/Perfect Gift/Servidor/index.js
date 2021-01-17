@@ -39,7 +39,7 @@ app.post("/send-email", (req, res) => {
         host: "smtp.gmail.com",
         auth: {
             user: 'perfectgiftappweb@gmail.com',
-            pass: 'proyectofinal',
+            pass: 'tokacojones2',
         },
         secure: true,
     });

@@ -64,19 +64,27 @@ const Login = (props) => {
                         size="sm"
                         show={mloginShow}
                         onHide={() => setMloginShow(false)}
-                        aria-labelledby="contained-modal-title-vcenter"
                         centered
                     >
-                        <Modal.Header className="classModal">
-                            <Modal.Title id="contained-modal-title-vcenter">
-                                Iniciar Sesión
-                                </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body className="classModal">
-                            <input type="text" id="username" className="inputModal" onChange={manageChangeLogin} placeholder="Nombre de Usuario"></input>
+                        {/* <input type="text" id="username" className="inputModal" onChange={manageChangeLogin} placeholder="Nombre de Usuario"></input>
                             <input type="password" id="password" className="inputModal" onChange={manageChangePass} placeholder="Contraseña"></input>
-                            <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => { props.login(username, password) }}>Iniciar Sesión</button>
-                        </Modal.Body>
+                            <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => { props.login(username, password) }}>Iniciar Sesión</button> */}
+                        <div>
+                            <div className="login-box">
+                                <h2>Iniciar Sesión</h2>
+                                <form>
+                                    <div className="user-box">
+                                        <input type="text" id="username" onChange={manageChangeLogin}></input>
+                                        <label>Nombre de Usuario</label>
+                                    </div>
+                                    <div className="user-box">
+                                        <input type="password" id="password" onChange={manageChangePass}></input>
+                                        <label>Contraseña</label>
+                                    </div>
+                                    <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => { props.login(username, password) }}>Iniciar Sesión</button>
+                                </form>
+                            </div>
+                        </div>
                     </Modal>
                 </div>
                 <div>
@@ -87,17 +95,30 @@ const Login = (props) => {
                         aria-labelledby="contained-modal-title-vcenter"
                         centered
                     >
-                        <Modal.Header >
-                            <Modal.Title id="contained-modal-title-vcenter">
-                                Iniciar Sesión en Perfect Gift
-                                    </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <input type="text" id="usernameCreate" placeholder="Nombre" onChange={manageChangeLoginCreate}></input>
-                            <input type="text" id="email" placeholder="Email" onChange={manageChangeEmail}></input>
-                            <input type="password" id="passwordCreate" placeholder="Contraseña" onChange={manageChangePassCreate}></input>
-                            <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" onClick={() => { props.registerUser(usernameCreate, passwordCreate, email) }}>Crear Cuenta</button>
-                        </Modal.Body>
+                        {/* <input type="text" id="usernameCreate" placeholder="Nombre" onChange={manageChangeLoginCreate}></input>
+                        <input type="text" id="email" placeholder="Email" onChange={manageChangeEmail}></input>
+                        <input type="password" id="passwordCreate" placeholder="Contraseña" onChange={manageChangePassCreate}></input>
+                        <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" onClick={() => { props.registerUser(usernameCreate, passwordCreate, email) }}>Crear Cuenta</button> */}
+                        <div>
+                            <div className="login-box">
+                                <h2>Crear Ceunta en Perfect Gift</h2>
+                                <form>
+                                    <div className="user-box">
+                                        <input type="text" id="usernameCreate" onChange={manageChangeLoginCreate}></input>
+                                        <label>Nombre</label>
+                                    </div>
+                                    <div className="user-box">
+                                        <input type="password" id="passwordCreate" onChange={manageChangePassCreate}></input>
+                                        <label>Contraseña</label>
+                                    </div>
+                                    <div className="user-box">
+                                        <input type="text" id="email" onChange={manageChangeEmail}></input>
+                                        <label>Email</label>
+                                    </div>
+                                    <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" onClick={() => { props.registerUser(usernameCreate, passwordCreate, email) }}>Crear Cuenta</button>
+                                </form>
+                            </div>
+                        </div>
                     </Modal>
                 </div>
             </>
