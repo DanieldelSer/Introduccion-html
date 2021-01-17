@@ -37,7 +37,7 @@ router.post("/newUser", function (req, res) {
                     if (er !== null) {
                         res.send(er);
                     } else {
-                        res.send(true);
+                        res.send(datos);
                     }
                 });
             } else {

@@ -1,4 +1,5 @@
 import { BrowserRouter, Route } from "react-router-dom";
+import { useState } from "react";
 import './App.css';
 import Login from "./Login";
 import Main from "./Main";
@@ -8,25 +9,96 @@ import Event from "./Event";
 
 function App() {
 
+  const [user, setUser] = useState([])
+  const [logeado, setLogeado] = useState(false)
+
+  ///////////////// Componente Login //////////////////////////////
+  const login = (username, password) => {
+
+    const userLogin = {
+      username,
+      password
+    };
+    console.log(userLogin);
+
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userLogin),
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (datos) {
+        if (datos.length > 0) {
+          setUser(datos)
+          console.log(datos[0].username);
+          setLogeado(true)
+        } else {
+          alert("Usuario o contraseña incorrecto")
+        }
+      });
+  };
+
+  const registerUser = (usernameCreate, passwordCreate, email) => {
+
+    const userCreate = {
+      usernameCreate,
+      passwordCreate,
+      email
+    };
+
+    fetch("http://localhost:3000/users/newUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userCreate),
+    })
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (datos) {
+        if (datos > 0) {
+          alert("Ese nombre de usuario esta registrado");
+        } else {
+          alert("Registro realizado con éxito");
+          setUser(datos.ops)
+          setLogeado(true)
+        }
+      });
+  };
+  /////////////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <BrowserRouter>
       <div className="App">
+      
         <Route exact path="/">
-          <Login />
+          <Login
+            login={login}
+            registerUser={registerUser}
+            logeado={logeado}
+          />
         </Route>
         <Route exact path="/Register">
           <Login />
           <Register />
         </Route>
-        <Route exact path="/Main/:user">
+        <Route exact path="/Main">
           <Main
-          //user={user} 
+            user={user}
           />
         </Route>
-        <Route exact path="/Main/:user/:event">
-          <Event />
+        <Route exact path="/Main/:event">
+          <Event
+            user={user}
+          />
         </Route>
       </div>
+      
     </BrowserRouter>
   );
 }

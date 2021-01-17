@@ -46,7 +46,7 @@ app.post("/send-email", (req, res) => {
 
     const mailOptions = {
         from: 'perfectgiftappweb@gmail.com',  // sender address
-        to: guestEmail,//'hdvziborg@gmail.com',   // list of receivers
+        to: guestEmail,                       // list of receivers
         subject: 'Has sido invitado a un gran evento en Perfect Gift',
         text: 'Hola',
         html: `<div align="center">

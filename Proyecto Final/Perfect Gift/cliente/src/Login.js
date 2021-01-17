@@ -1,64 +1,21 @@
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useState } from "react";
+import Modal from 'react-bootstrap/Modal'
+//import './Login.css';
 
-const Login = () => {
+const Login = (props) => {
+
+    const [mloginShow, setMloginShow] = useState(false);
+    const [mpassShow, setMpassShow] = useState(false);
+
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const userLogin = {
-        username,
-        password
-    };
+
     const [usernameCreate, setUsernameCreate] = useState('');
     const [passwordCreate, setPasswordCreate] = useState('');
     const [email, setEmail] = useState('');
-    const userCreate = {
-        usernameCreate,
-        passwordCreate,
-        email
-    };
 
-    const registerUser = () => {
-
-        fetch("http://localhost:3000/users/newUser", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userCreate),
-        })
-            .then(function (res) {
-                return res.json();
-            })
-            .then(function (datos) {
-                if (datos === false) {
-                    alert("Ese nombre de usuario esta registrado");
-                } else {
-                    alert("Registro realizado con éxito");
-                }
-            });
-    };
-
-    const login = () => {
-
-        fetch("http://localhost:3000/usuarios", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userLogin),
-        })
-            .then(function (res) {
-                return res.json();
-            })
-            .then(function (datos) {
-                if (datos.length > 0) {
-
-                } else {
-                    alert("Usuario o contraseña incorrecto")
-                }
-            });
-    };
 
     const manageChangeLogin = (e) => {
         setUsername(e.target.value);
@@ -76,37 +33,76 @@ const Login = () => {
         setEmail(e.target.value);
     };
 
-    return (
-        <div>
-            <input type="text" id="username" onChange={manageChangeLogin}></input>
-            <input type="password" id="password" onChange={manageChangePass}></input>
-            <Link to={`/Main/${username}`}><button onClick={login}>Login</button></Link>
+    if (props.logeado) {
+        return <Redirect to="/Main" />
+    } else {
+        return (
+            <>
+                <div>
+                    <div class="encabezado">
+                        <div class="gris"><div className="text"><em>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                </em></div></div>
+                        <div class="orange"></div>
+                    </div>
+                    {/* <div className="background-diagonal"> */}
+                    <div className="container">
 
-
-            <div className="container">
-                <div className="row"><div className="col align-self-center">
-                    <div className="accordion accordion-flush" id="accordionFlushExample">
-                        <div className="accordion-item">
-                            <h2 className="accordion-header" id="flush-headingOne">
-                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                    Crear Cuenta
-                                </button>
-                            </h2>
-                            <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                <div className="accordion-body">
-                                    <input type="text" id="usernameCreate" placeholder="Nombre" onChange={manageChangeLoginCreate}></input>
-                                    <input type="text" id="email" placeholder="Email" onChange={manageChangeEmail}></input>
-                                    <input type="password" id="passwordCreate" placeholder="Contraseña" onChange={manageChangePassCreate}></input>
-                                    <Link to={`/Main/${usernameCreate}`}><button onClick={registerUser}>Crear Cuenta</button></Link>
-                                </div>
+                        <div className="centrar">
+                            <div class="title">
+                                <div class="title-word">Perfect</div>
+                                <div class="title-word">Gift</div>
+                            </div>
+                            <div className=" ">
+                                <button type="button" className="btn btn-outline-primary btn-lg naranja" data-toggle="modal" data-target="#modalLogin" onClick={() => setMloginShow(true)}>Iniciar Sesión</button>
+                                <button type="button" className="btn btn-outline-primary btn-lg naranja" data-toggle="modal" data-target="#modalRegister" onClick={() => setMpassShow(true)}>Crear Cuenta</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div>
+                    <Modal
+                        size="sm"
+                        show={mloginShow}
+                        onHide={() => setMloginShow(false)}
+                        aria-labelledby="contained-modal-title-vcenter"
+                        centered
+                    >
+                        <Modal.Header className="classModal">
+                            <Modal.Title id="contained-modal-title-vcenter">
+                                Iniciar Sesión
+                                </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body className="classModal">
+                            <input type="text" id="username" className="inputModal" onChange={manageChangeLogin} placeholder="Nombre de Usuario"></input>
+                            <input type="password" id="password" className="inputModal" onChange={manageChangePass} placeholder="Contraseña"></input>
+                            <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => { props.login(username, password) }}>Iniciar Sesión</button>
+                        </Modal.Body>
+                    </Modal>
                 </div>
-            </div>
-        </div>
-    )
+                <div>
+                    <Modal
+                        size="sm"
+                        show={mpassShow}
+                        onHide={() => setMpassShow(false)}
+                        aria-labelledby="contained-modal-title-vcenter"
+                        centered
+                    >
+                        <Modal.Header >
+                            <Modal.Title id="contained-modal-title-vcenter">
+                                Iniciar Sesión en Perfect Gift
+                                    </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <input type="text" id="usernameCreate" placeholder="Nombre" onChange={manageChangeLoginCreate}></input>
+                            <input type="text" id="email" placeholder="Email" onChange={manageChangeEmail}></input>
+                            <input type="password" id="passwordCreate" placeholder="Contraseña" onChange={manageChangePassCreate}></input>
+                            <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" onClick={() => { props.registerUser(usernameCreate, passwordCreate, email) }}>Crear Cuenta</button>
+                        </Modal.Body>
+                    </Modal>
+                </div>
+            </>
+        )
+    }
 };
 
 export default Login;
