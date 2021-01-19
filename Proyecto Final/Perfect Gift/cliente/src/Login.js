@@ -44,7 +44,6 @@ const Login = (props) => {
                                 </em></div></div>
                         <div class="orange"></div>
                     </div>
-                    {/* <div className="background-diagonal"> */}
                     <div className="container">
 
                         <div className="centrar">
@@ -65,6 +64,8 @@ const Login = (props) => {
                         show={mloginShow}
                         onHide={() => setMloginShow(false)}
                         centered
+                        bsPrefix="modal"
+
                     >
                         {/* <input type="text" id="username" className="inputModal" onChange={manageChangeLogin} placeholder="Nombre de Usuario"></input>
                             <input type="password" id="password" className="inputModal" onChange={manageChangePass} placeholder="Contraseña"></input>

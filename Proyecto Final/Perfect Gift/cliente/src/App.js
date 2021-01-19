@@ -7,6 +7,7 @@ import Register from "./Register";
 import Event from "./Event";
 
 
+
 function App() {
 
   const [user, setUser] = useState([])
@@ -70,12 +71,17 @@ function App() {
         }
       });
   };
+
+  const back = (info) => {
+    setLogeado(false);
+  };
+
   /////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <BrowserRouter>
       <div className="App">
-      
+
         <Route exact path="/">
           <Login
             login={login}
@@ -89,7 +95,9 @@ function App() {
         </Route>
         <Route exact path="/Main">
           <Main
+            back={back}
             user={user}
+            logeado={logeado}
           />
         </Route>
         <Route exact path="/Main/:event">
@@ -98,7 +106,7 @@ function App() {
           />
         </Route>
       </div>
-      
+
     </BrowserRouter>
   );
 }

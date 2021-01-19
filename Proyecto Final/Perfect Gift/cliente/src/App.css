@@ -10,6 +10,11 @@
   -o-filter: blur(2px);
   -ms-filter: blur(2px);
   filter: blur(2px);
+  padding-right: 0px !important;
+}
+
+.modal{
+  padding-right: 0px !important;
 }
 
 .centrar{
@@ -56,12 +61,12 @@
   text-transform: uppercase;
   background-color: #E18A07;
   color: black;
-  border-color: #C0C0C0;
+  border-color: #E18A07;
 }
 .naranjaModal:hover{
   margin-top: 10px;
-  background-color: black;
-  border-color:black;
+  background-color:  #C0C0C0;
+  border-color: #C0C0C0;
   color: #E18A07;
 }
 
@@ -209,7 +214,7 @@ body {
     margin:0;
     padding:0;
     font-family: sans-serif;
-    background: linear-gradient(black, white);
+    background: linear-gradient(180deg,black, white);
   }
   
   .login-box {
@@ -279,4 +284,95 @@ body {
     margin-top: 40px;
     letter-spacing: 4px
   }
+
+  /* ///////////////////////////////////////////////nav */
+
+  .username{
+    color: #E18A07;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    margin-top: 5px;
+    line-height: inherit;
+    cursor: context-menu;
+  }
+
+  .navIcons{
+    display:flex;
+    width: 15%;
+    justify-content: space-evenly;
+    margin-top: 8px;
+  }
+
+  /*Eliminamos los margenes y paddings que agrega el navegador por defecto*/
+* {
+  padding: 0;
+  margin: 0;
+}
+ 
+/*Agregamos margenes inferiores a los parrafos*/
+p {
+  margin-bottom: 15px;
+}
+
+header {
+  background: rgba(0,0,0,0.9);
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+}
+ 
+nav ul {
+  display: flex;
+  justify-content: space-evenly;
+  padding-left: 0px;
+  margin-bottom: 0px;
+  list-style: none;
+  overflow: hidden; /* Limpiamos errores de float */
+}
+ 
+nav ul li {
+  float: left;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+ 
+nav ul li a {
+  display: block; /* Convertimos los elementos a en elementos bloque para manipular el padding */
+  padding: 20px;
+  color: #fff;
+  text-decoration: none;
+}
+ 
+nav ul li:hover {
+  background: #3ead47;
+}
+
+.contenido {
+  padding-top: 80px;
+}
+
+.wrapper {
+  width: 80%;
+  margin: auto;
+  overflow:hidden;
+}
+
+
+
+/* /////////////////////////////////tabs */
+
+.justify-content-center{
+  width: 100%;
+  margin-top: 80px;
+}
+
+/* ////////////////////////////////////////icons */
+
+.faPlus:hover{
+  color: #E18A07 !important;
+  cursor: pointer;
+}
+
+/* //////////////////////////////////Card Slider */
 

@@ -2,6 +2,15 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Modal from 'react-bootstrap/Modal'
 import swal from 'sweetalert'
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import Overlay from 'react-bootstrap/Overlay'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
+import Carousel from 'react-elastic-carousel'
+import React, { Component } from 'react';
 
 
 const Main = (props) => {
@@ -168,35 +177,41 @@ const Main = (props) => {
 
     const showEvents = data.map((event) => {
         return (
-            <div className="datos" key={event.eventName}>
-                <Link to={`/Main/${event.eventName}`}><h3><span>{event.eventName}</span></h3>
-                    <p><span>{event.description}</span></p></Link>
-                <button type="button" className="btn btn-outline-danger btn-lg naranja" onClick={() => deleteAlert(event._id)}>Eliminar</button>
-                <hr></hr>
-            </div>
+            <item>
+                <div className="datos" key={event.eventName}>
+                    <Link to={`/Main/${event.eventName}`}><h3><span>{event.eventName}</span></h3>
+                        <p><span>{event.description}</span></p></Link>
+                    <button type="button" className="btn btn-outline-danger btn-lg naranja" onClick={() => deleteAlert(event._id)}>Eliminar</button>
+                    <hr></hr>
+                </div>
+            </item>
         );
     });
 
     const showGuestEvents = dataGuest.map((eventGuest) => {
         if (eventGuest.state === "Pendiente") {
             return (
-                <div className="datos" key={eventGuest.eventName}>
-                    <hr></hr>
-                    <h3>Anfitrión: <span>{eventGuest.user}</span></h3>
-                    <h5><span>{eventGuest.eventName}</span></h5>
-                    <p>Invitación:<span>{eventGuest.state}</span></p>
-                    <button type="button" className="btn btn-outline-primary btn-lg" onClick={() => decisionAlert(eventGuest._id, "Aceptar")}>Aceptar</button>
-                    <button type="button" className="btn btn-outline-danger btn-lg" onClick={() => decisionAlert(eventGuest._id, "Rechazar")}>Rechazar</button>
-                </div>
+                <item>
+                    <div className="datos" key={eventGuest.eventName}>
+                        <hr></hr>
+                        <h3>Anfitrión: <span>{eventGuest.user}</span></h3>
+                        <h5><span>{eventGuest.eventName}</span></h5>
+                        <p>Invitación:<span>{eventGuest.state}</span></p>
+                        <button type="button" className="btn btn-outline-primary btn-lg" onClick={() => decisionAlert(eventGuest._id, "Aceptar")}>Aceptar</button>
+                        <button type="button" className="btn btn-outline-danger btn-lg" onClick={() => decisionAlert(eventGuest._id, "Rechazar")}>Rechazar</button>
+                    </div>
+                </item>
             );
         } else {
             return (
-                <div className="datos" key={eventGuest.eventName}>
-                    <hr></hr>
-                    <h3>Anfitrión:<span>{eventGuest.user}</span></h3>
-                    <h4><span>{eventGuest.eventName}</span></h4>
-                    <p>Invitación:<span>{eventGuest.state}</span></p>
-                </div>
+                <item>
+                    <div className="datos" key={eventGuest.eventName}>
+                        <hr></hr>
+                        <h3>Anfitrión:<span>{eventGuest.user}</span></h3>
+                        <h4><span>{eventGuest.eventName}</span></h4>
+                        <p>Invitación:<span>{eventGuest.state}</span></p>
+                    </div>
+                </item>
             );
         }
 
@@ -211,22 +226,70 @@ const Main = (props) => {
 
     return (
         <div>
-            <h1>{username}</h1>
-            <button type="button" className="btn btn-outline-primary btn-lg" variant="outline-primary" data-toggle="modal" data-target="#modalCreateEvent" onClick={() => setMcreateEventShow(true)}>Crear Evento</button>
+            <header>
+                <nav>
+                    <ul>
+                        <div>
+                            <h1 className="username">{username}</h1>
+                        </div>
+                        <div className="navIcons">
+                            <div>
+                                <OverlayTrigger
+                                    key='bottom'
+                                    placement='bottom'
+                                    overlay={
+                                        <Tooltip id={`tooltip-bottom`}>
+                                            Crear <strong>Evento</strong>.
+                                        </Tooltip>
+                                    }
+                                >
+                                    <p variant="secondary"><FontAwesomeIcon icon={faPlus} size="3x" className="faPlus" onClick={() => setMcreateEventShow(true)} style={{ color: '#C0C0C0' }} /></p>
+                                </OverlayTrigger>
+                            </div>
+                            <div>
+                                <OverlayTrigger
+                                    key='bottom'
+                                    placement='bottom'
+                                    overlay={
+                                        <Tooltip id={`tooltip-bottom`}>
+                                            <strong>Salir</strong>.
+                                        </Tooltip>
+                                    }
+                                >
+                                    <Link to={`/`}><p variant="secondary"><FontAwesomeIcon icon={faSignOutAlt} size="3x" className="faPlus" onClick={() => { props.back() }} style={{ color: '#C0C0C0' }} /></p></Link>
+                                </OverlayTrigger>
+                            </div>
+                        </div>
+                    </ul>
+                </nav>
+            </header>
             <hr></hr>
-            <div className="events">
-                <div>
-                    <h3>Mis Eventos</h3>
-                    <hr></hr>
-                    {showEvents}
-                </div>
-                <div>
-                    <h3>Mis Invitaciones</h3>
-                    {showGuestEvents}
-                    <hr></hr>
+            <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="justify-content-center">
+                <Tab eventKey="profile" title="Mis Eventos">
+                    <div>
+                        <h3>Mis Eventos</h3>
+                        <hr></hr>
+                        <Carousel itemsToShow={3}>
+                            {showEvents}
+                        </Carousel>
+                    </div>
+                </Tab>
+                <Tab eventKey="home" title="Mis Invitaciones">
+                    <div>
+                        <h3>Mis Invitaciones</h3>
+                        <Carousel itemsToShow={3}>
+                            {showGuestEvents}
+                        </Carousel>
+                        <hr></hr>
+                    </div>
+                </Tab>
+                <Tab eventKey="contact" title="Cuenta">
+                    <h1>tab3</h1>
+                </Tab>
+            </Tabs>
 
-                </div>
-            </div>
+
+
             <div>
                 <Modal
                     size="sm"
@@ -235,16 +298,27 @@ const Main = (props) => {
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                 >
-                    <Modal.Header >
-                        <Modal.Title id="contained-modal-title-vcenter">
-                            Crear Evento
-                                    </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
+                    {/* <Modal.Body>
                         <input type="text" id="eventName" onChange={manageChangeEventName} placeholder="Nombre del evento"></input>
                         <input type="text" id="description" onChange={manageChangeDescription} placeholder="Descripción del evento"></input>
                         <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#modalCreateEvent" onClick={createEvent}>Crear Evento</button>
-                    </Modal.Body>
+                    </Modal.Body> */}
+                    <div>
+                        <div className="login-box">
+                            <h2>Crear Evento</h2>
+                            <form>
+                                <div className="user-box">
+                                    <input type="text" id="eventName" onChange={manageChangeEventName} ></input>
+                                    <label>Nombre del evento</label>
+                                </div>
+                                <div className="user-box">
+                                    <input type="text" id="description" onChange={manageChangeDescription}></input>
+                                    <label>Descripción del evento</label>
+                                </div>
+                                <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={createEvent}>Crear Evento</button>
+                            </form>
+                        </div>
+                    </div>
                 </Modal>
             </div>
         </div>
