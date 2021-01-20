@@ -45,8 +45,8 @@ const Login = (props) => {
                         <div class="orange"></div>
                     </div>
                     <div className="container">
-
                         <div className="centrar">
+                            <img src="./LogoPG.png" alt="Girl in a jacket" width="250" height="250"></img>
                             <div class="title">
                                 <div class="title-word">Perfect</div>
                                 <div class="title-word">Gift</div>
@@ -102,7 +102,7 @@ const Login = (props) => {
                         <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" onClick={() => { props.registerUser(usernameCreate, passwordCreate, email) }}>Crear Cuenta</button> */}
                         <div>
                             <div className="login-box">
-                                <h2>Crear Ceunta en Perfect Gift</h2>
+                                <h2>Crear Cuenta</h2>
                                 <form>
                                     <div className="user-box">
                                         <input type="text" id="usernameCreate" onChange={manageChangeLoginCreate}></input>

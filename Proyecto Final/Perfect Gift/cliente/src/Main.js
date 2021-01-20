@@ -267,7 +267,7 @@ const Main = (props) => {
             <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="justify-content-center">
                 <Tab eventKey="profile" title="Mis Eventos">
                     <div>
-                        <h3>Mis Eventos</h3>
+                        <h3 className="username">Mis Eventos</h3>
                         <hr></hr>
                         <Carousel itemsToShow={3}>
                             {showEvents}
@@ -276,7 +276,7 @@ const Main = (props) => {
                 </Tab>
                 <Tab eventKey="home" title="Mis Invitaciones">
                     <div>
-                        <h3>Mis Invitaciones</h3>
+                        <h3 className="username">Mis Invitaciones</h3>
                         <Carousel itemsToShow={3}>
                             {showGuestEvents}
                         </Carousel>
@@ -284,7 +284,12 @@ const Main = (props) => {
                     </div>
                 </Tab>
                 <Tab eventKey="contact" title="Cuenta">
-                    <h1>tab3</h1>
+                    <h1 className="username">Modificar datos</h1>
+                    <input type="text" placeholder="Nueva cobntraseña"></input>
+                    <input type="text" placeholder="Repetir contraseña"></input>
+                    <input type="text" placeholder="Nuevo email"></input>
+                    <input type="text" placeholder="Repetir email"></input>
+                    <button type="button" className="btn btn-outline-danger btn-lg">Modificar</button>
                 </Tab>
             </Tabs>
 
@@ -312,7 +317,7 @@ const Main = (props) => {
                                     <label>Nombre del evento</label>
                                 </div>
                                 <div className="user-box">
-                                    <input type="text" id="description" onChange={manageChangeDescription}></input>
+                                    <textarea type="text area" id="description" onChange={manageChangeDescription}></textarea>
                                     <label>Descripción del evento</label>
                                 </div>
                                 <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={createEvent}>Crear Evento</button>

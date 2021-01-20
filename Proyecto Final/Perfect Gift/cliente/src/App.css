@@ -3,6 +3,10 @@
   font-family: sans-serif;
 }
 
+.modal-open{
+  padding-right: 0px !important;
+}
+
 .modal-open .container-fluid,
 .modal-open .container {
   -webkit-filter: blur(2px);
@@ -10,7 +14,6 @@
   -o-filter: blur(2px);
   -ms-filter: blur(2px);
   filter: blur(2px);
-  padding-right: 0px !important;
 }
 
 .modal{
@@ -20,8 +23,13 @@
 .centrar{
   height: 600px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: flex-end;
+}
+
+img{
+  padding-top: 60px;
+  
 }
 
 .text{
@@ -252,6 +260,17 @@ body {
     outline: none;
     background: transparent;
   }
+  .login-box .user-box textarea {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color:#E18A07;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid#E18A07;
+    outline: none;
+    background: transparent;
+  }
   .login-box .user-box label {
     position: absolute;
     top:0;
@@ -265,6 +284,13 @@ body {
   
   .login-box .user-box input:focus ~ label,
   .login-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #E18A07;
+    font-size: 12px;
+  }
+  .login-box .user-box textarea:focus ~ label,
+  .login-box .user-box textarea:valid ~ label {
     top: -20px;
     left: 0;
     color: #E18A07;
@@ -365,6 +391,7 @@ nav ul li:hover {
 .justify-content-center{
   width: 100%;
   margin-top: 80px;
+  margin-left: 30px;
 }
 
 /* ////////////////////////////////////////icons */
@@ -374,5 +401,64 @@ nav ul li:hover {
   cursor: pointer;
 }
 
-/* //////////////////////////////////Card Slider */
+/* //////////////////////////////////nav tabs */
 
+.nav-tabs {
+  border-bottom: 2px solid black;
+  border-width: 100%;
+}
+
+a {
+  color:#C0C0C0;
+  text-decoration: none;
+}
+
+a:hover{
+  color: #E18A07;
+  background-color: black;
+}
+
+.nav-tabs .nav-link {
+  border: 0px;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  background-color: black;
+  color: #E18A07;
+}
+
+/* /////////////////////////////////cardslider */
+
+.rec.rec-arrow {
+  background-color: #e18a0738;
+  border-radius: 15%;
+}
+
+.rec.rec-arrow:hover {
+  border-radius: 15%;
+}
+
+.lgksPe:hover:enabled {
+  background-color: #E18A07;
+  color: black;
+  border-radius: 15%;
+  border-color: red;
+}
+
+.rec .rec-dot_active{
+  background-color: #e18a0757;
+}
+
+.sc-gKsewC.cJeRRR {
+  box-shadow:0 0 1px 3px #E18A07;
+}
+.sc-gKsewC.cJeRRR:focus {
+  box-shadow:0 0 1px 3px #E18A07;
+}
+.sc-gKsewC.cJeRRR:hover {
+  box-shadow:0 0 1px 3px #E18A07;
+}
+.guuruq:hover {
+  cursor: pointer;
+  box-shadow: 0 0 1px 3px #E18A07 !important;
+}
