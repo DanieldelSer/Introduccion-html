@@ -439,10 +439,18 @@ a:hover{
 }
 
 .lgksPe:hover:enabled {
-  background-color: #E18A07;
+  background-color: #E18A07 !important;
   color: black;
   border-radius: 15%;
-  border-color: red;
+}
+
+.rec.rec-arrow:disabled {
+  visibility: hidden;
+}
+
+.rec-carousel-item:focus {
+  outline: none;
+  box-shadow: inset 0 0 1px 1px lightgrey;
 }
 
 .rec .rec-dot_active{

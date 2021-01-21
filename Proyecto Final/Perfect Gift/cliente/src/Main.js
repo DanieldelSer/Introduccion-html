@@ -77,7 +77,32 @@ const Main = (props) => {
                         timer: "1500"
                     });
                 } else {
-                    swal(`El evento no ha sido modificado`, {
+                    swal(`El ${decision} no ha sido modificado`, {
+                        icon: "info",
+                        button: false,
+                        timer: "1500"
+                    });
+                }
+            });
+    };
+
+    const createEventAlert = () => {
+        swal({
+            text: `Crear evento?`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    createEvent()
+                    swal("El evento ha sido creado", {
+                        icon: "success",
+                        button: false,
+                        timer: "1500"
+                    });
+                } else {
+                    swal(`El evento no ha sido creado`, {
                         icon: "info",
                         button: false,
                         timer: "1500"
@@ -102,7 +127,6 @@ const Main = (props) => {
                 if (datos === false) {
                     alert("Ese nombre de evento esta creado");
                 } else {
-                    alert("Evento creado con éxito");
                     setMcreateEventShow(false)
                     fetch(`http://localhost:3000/events/${username}`)
                         .then(function (res) {
@@ -110,7 +134,7 @@ const Main = (props) => {
                         })
                         .then(function (datos) {
                             console.log(datos)
-                            setData(datos);
+                            setData(datos.reverse());
                         })
                 }
             });
@@ -128,7 +152,7 @@ const Main = (props) => {
                 return res.json();
             })
             .then(function (datos) {
-                setData(datos);
+                setData(datos.reverse());
                 // setBoolean(!boolean)
             });
     };
@@ -160,8 +184,8 @@ const Main = (props) => {
                 return res.json();
             })
             .then(function (datos) {
-                console.log(datos)
-                setData(datos);
+                console.log(datos.length)
+                setData(datos.reverse());
             })
         fetch(`http://localhost:3000/guests/${username}`)
             .then(function (res) {
@@ -269,7 +293,7 @@ const Main = (props) => {
                     <div>
                         <h3 className="username">Mis Eventos</h3>
                         <hr></hr>
-                        <Carousel itemsToShow={3}>
+                        <Carousel itemsToShow={3} >
                             {showEvents}
                         </Carousel>
                     </div>
@@ -320,7 +344,7 @@ const Main = (props) => {
                                     <textarea type="text area" id="description" onChange={manageChangeDescription}></textarea>
                                     <label>Descripción del evento</label>
                                 </div>
-                                <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={createEvent}>Crear Evento</button>
+                                <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => createEventAlert()}>Crear Evento</button>
                             </form>
                         </div>
                     </div>
