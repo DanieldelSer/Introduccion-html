@@ -5,7 +5,7 @@ import swal from 'sweetalert'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faSignOutAlt, faCalendarAlt, faMailBulk } from "@fortawesome/free-solid-svg-icons";
 import Overlay from 'react-bootstrap/Overlay'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
@@ -23,6 +23,10 @@ const Main = (props) => {
     const username = props.user[0].username;
     const [eventName, setEventName] = useState('');
     const [description, setDescription] = useState('');
+
+    const [pass, setPass] = useState('');
+    const [newPass, setNewPass] = useState('');
+    const [repeatNewPass, setRepeatNewPass] = useState('');
 
     const event = {
         username,
@@ -111,6 +115,42 @@ const Main = (props) => {
             });
     };
 
+    const modifyPassAlert = () => {
+        swal({
+            text: `Modificar contraseña?`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    changePass()
+                    setPass('');
+                    setNewPass('');
+                    setRepeatNewPass('');
+                    swal("La contraseña ha sido modificada", {
+                        icon: "success",
+                        button: false,
+                        timer: "1500"
+                    });
+                } else {
+                    swal(`La contraseña no ha sido modificada`, {
+                        icon: "info",
+                        button: false,
+                        timer: "1500"
+                    });
+                }
+            });
+    };
+
+    const errorAlert = () => {
+        swal({
+            text: "Las contraseñas no coinciden ",
+            icon: "warning",
+            button: "Aceptar",
+        });
+    }
+
     const createEvent = () => {
 
         fetch("http://localhost:3000/events/newEvent", {
@@ -178,6 +218,26 @@ const Main = (props) => {
             });
     };
 
+    const changePass = () => {
+        const password = {
+            username,
+            newPass
+        };
+        fetch(`http://localhost:3000/users/changepass`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(password),
+        })
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (datos) {
+                setDataGuest(datos);
+            });
+    };
+
     useEffect(() => {
         fetch(`http://localhost:3000/events/${username}`)
             .then(function (res) {
@@ -202,13 +262,25 @@ const Main = (props) => {
     const showEvents = data.map((event) => {
         return (
             <item>
-                <div className="datos" key={event.eventName}>
-                    <Link to={`/Main/${event.eventName}`}><h3><span>{event.eventName}</span></h3>
-                        <p><span>{event.description}</span></p></Link>
-                    <button type="button" className="btn btn-outline-danger btn-lg naranja" onClick={() => deleteAlert(event._id)}>Eliminar</button>
-                    <hr></hr>
+                <div className="tarjeta" key={event.eventName}>
+                    <Link to={`/Main/${event.eventName}`}>
+                        <div className="cabecera">
+                            <div className="foto">
+                                <FontAwesomeIcon icon={faCalendarAlt} size="3x" className="faPlus" />
+                            </div>
+                            <div className="nombre">
+                                <h1>{event.eventName}</h1>
+                            </div>
+                        </div>
+                        <div className="texto">
+                            <p className="texto">{event.description}</p>
+                        </div></Link>
+                    <div className="footer">
+                        <button type="button" className="btn btn-outline-danger btn-lg naranja" onClick={() => deleteAlert(event._id)}>Eliminar</button>
+                    </div>
                 </div>
-            </item>
+                <hr></hr>
+            </item >
         );
     });
 
@@ -216,25 +288,45 @@ const Main = (props) => {
         if (eventGuest.state === "Pendiente") {
             return (
                 <item>
-                    <div className="datos" key={eventGuest.eventName}>
-                        <hr></hr>
-                        <h3>Anfitrión: <span>{eventGuest.user}</span></h3>
-                        <h5><span>{eventGuest.eventName}</span></h5>
-                        <p>Invitación:<span>{eventGuest.state}</span></p>
-                        <button type="button" className="btn btn-outline-primary btn-lg" onClick={() => decisionAlert(eventGuest._id, "Aceptar")}>Aceptar</button>
-                        <button type="button" className="btn btn-outline-danger btn-lg" onClick={() => decisionAlert(eventGuest._id, "Rechazar")}>Rechazar</button>
+                    <div className="tarjeta" key={eventGuest.eventName}>
+                        <div className="cabecera">
+                            <div className="foto">
+                                <FontAwesomeIcon icon={faMailBulk} size="3x" className="faPlus2" />
+                            </div>
+                            <div className="nombre">
+                                <h1>Anfitrión: {eventGuest.user}</h1>
+                            </div>
+                        </div>
+                        <div className="texto">
+                            <h3 className="texto">{eventGuest.eventName}</h3>
+                            <p className="texto">Invitación: {eventGuest.state}</p>
+                        </div>
+                        <div className="footer">
+                            <button type="button" className="btn btn-outline-primary btn-lg naranja" onClick={() => decisionAlert(eventGuest._id, "Aceptar")}>Aceptar</button>
+                            <button type="button" className="btn btn-outline-danger btn-lg naranjaGris" onClick={() => decisionAlert(eventGuest._id, "Rechazar")}>Rechazar</button>
+                        </div>
                     </div>
+                    <hr></hr>
                 </item>
             );
         } else {
             return (
                 <item>
-                    <div className="datos" key={eventGuest.eventName}>
-                        <hr></hr>
-                        <h3>Anfitrión:<span>{eventGuest.user}</span></h3>
-                        <h4><span>{eventGuest.eventName}</span></h4>
-                        <p>Invitación:<span>{eventGuest.state}</span></p>
+                    <div className="tarjeta" key={eventGuest.eventName}>
+                        <div className="cabecera">
+                            <div className="foto">
+                                <FontAwesomeIcon icon={faMailBulk} size="3x" className="faPlus2" />
+                            </div>
+                            <div className="nombre">
+                                <h1>Anfitrión: {eventGuest.user}</h1>
+                            </div>
+                        </div>
+                        <div className="texto">
+                            <h3 className="texto">{eventGuest.eventName}</h3>
+                            <p className="texto">Invitación: {eventGuest.state}</p>
+                        </div>
                     </div>
+                    <hr></hr>
                 </item>
             );
         }
@@ -246,6 +338,15 @@ const Main = (props) => {
     };
     const manageChangeDescription = (e) => {
         setDescription(e.target.value);
+    };
+    const manageChangePass = (e) => {
+        setPass(e.target.value);
+    };
+    const manageChangeNewPass = (e) => {
+        setNewPass(e.target.value);
+    };
+    const manageChangeRepeatNewPass = (e) => {
+        setRepeatNewPass(e.target.value);
     };
 
     return (
@@ -290,30 +391,50 @@ const Main = (props) => {
             <hr></hr>
             <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="justify-content-center">
                 <Tab eventKey="profile" title="Mis Eventos">
-                    <div>
+                    <div className="centrartab">
+                        <hr></hr>
                         <h3 className="username">Mis Eventos</h3>
                         <hr></hr>
-                        <Carousel itemsToShow={3} >
+                        <Carousel itemsToShow={3} itemPadding={[10, 50]}>
                             {showEvents}
                         </Carousel>
+                        <hr></hr>
                     </div>
                 </Tab>
                 <Tab eventKey="home" title="Mis Invitaciones">
-                    <div>
+                    <div className="centrartab">
+                        <hr></hr>
                         <h3 className="username">Mis Invitaciones</h3>
-                        <Carousel itemsToShow={3}>
+                        <hr></hr>
+                        <Carousel itemsToShow={3} itemPadding={[10, 50]}>
                             {showGuestEvents}
                         </Carousel>
                         <hr></hr>
                     </div>
                 </Tab>
                 <Tab eventKey="contact" title="Cuenta">
-                    <h1 className="username">Modificar datos</h1>
-                    <input type="text" placeholder="Nueva cobntraseña"></input>
-                    <input type="text" placeholder="Repetir contraseña"></input>
-                    <input type="text" placeholder="Nuevo email"></input>
-                    <input type="text" placeholder="Repetir email"></input>
-                    <button type="button" className="btn btn-outline-danger btn-lg">Modificar</button>
+                    <div className="centrartab">
+                        <hr></hr>
+                        <h3 className="username">Modificar contraseña</h3>
+                        <hr></hr>
+                        <div className="tarjeta2">
+                            <div className="cabecera2">
+                                <label>Contraseña</label>
+                                <input type="password" value={pass} onChange={manageChangePass}></input>
+                                <label>Nueva contraseña</label>
+                                <input type="password" value={newPass} onChange={manageChangeNewPass}></input>
+                                <label>Repetir contraseña</label>
+                                <input type="password"  value={repeatNewPass} onChange={manageChangeRepeatNewPass}></input>
+                            </div>
+                            <button type="button" className="btn btn-outline-danger btn-lg naranja" onClick={() => {
+                                if (newPass === repeatNewPass) {
+                                    modifyPassAlert();
+                                } else {
+                                    errorAlert();
+                                }
+                            }}>Modificar</button>
+                        </div>
+                    </div>
                 </Tab>
             </Tabs>
 

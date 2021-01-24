@@ -5,6 +5,7 @@ import Login from "./Login";
 import Main from "./Main";
 import Register from "./Register";
 import Event from "./Event";
+import swal from 'sweetalert'
 
 
 
@@ -38,10 +39,18 @@ function App() {
           console.log(datos[0].username);
           setLogeado(true)
         } else {
-          alert("Usuario o contraseña incorrecto")
+          errorAlert()
         }
       });
   };
+
+  const errorAlert = () => {
+    swal({
+        text: "Usuario o contraseña incorrecto",
+        icon: "warning",
+        button: "Aceptar",
+    });
+}
 
   const registerUser = (usernameCreate, passwordCreate, email) => {
 

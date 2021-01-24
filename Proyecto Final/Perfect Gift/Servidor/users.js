@@ -47,5 +47,25 @@ router.post("/newUser", function (req, res) {
     })
 });
 
+router.put("/changepass", function (req, res) {
+    let db = req.app.locals.db;
+    const username = req.body.username;
+    const password = req.body.newPass;
+    db.collection("users").updateOne({ username }, { $set: { password } }, function (err, datos) {
+        if (err !== null) {
+            res.send(err);
+        } else {
+            db.collection("users").find({ username }).toArray(function (err, datos) {
+                if (err !== null) {
+                    res.send(err);
+                } else {
+                    res.send(datos);
+                }
+            });
+        }
+    }
+    );
+});
+
 
 module.exports = router;
