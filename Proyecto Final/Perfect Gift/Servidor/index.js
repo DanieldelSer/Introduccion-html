@@ -15,6 +15,7 @@ const users = require("./users");
 const events = require("./events");
 const gifts = require("./gifts");
 const guests = require("./guests");
+const msn = require("./msn");
 
 MongoClient.connect("mongodb://localhost:27017", function (err, client) {
     if (err !== null) {
@@ -28,6 +29,7 @@ app.use("/users", users);
 app.use("/events", events);
 app.use("/gifts", gifts);
 app.use("/guests", guests);
+app.use("/msn", msn);
 
 app.post("/send-email", (req, res) => {
     const user = req.body.username;

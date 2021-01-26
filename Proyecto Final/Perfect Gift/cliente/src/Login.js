@@ -34,6 +34,7 @@ const Login = (props) => {
     };
 
     if (props.logeado) {
+        console.log(props.logeado);
         return <Redirect to="/Main" />
     } else {
         return (

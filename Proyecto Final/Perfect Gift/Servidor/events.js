@@ -7,10 +7,12 @@ router.post("/newEvent", function (req, res) {
     const username = req.body.username;
     const eventName = req.body.eventName;
     const description = req.body.description;
+    const date = req.body.date;
     let evento = {
         username,
         eventName,
-        description
+        description,
+        date
     };
     db.collection("events").insertOne(evento, function (err, datos) {
         if (err !== null) {

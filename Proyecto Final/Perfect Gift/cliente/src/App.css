@@ -29,7 +29,26 @@
 
 img{
   padding-top: 60px;
-  
+}
+
+.imgNav img{
+  padding-top: 0px !important;
+  margin-left: 10px;
+  width: 65px;
+  height: 65px;
+}
+
+span {
+  color: #E18A07;
+}
+
+[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: #E18A07;
+}
+
+.footer{
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .text{
@@ -274,6 +293,7 @@ body {
     outline: none;
     background: transparent;
   }
+  
   .login-box .user-box textarea {
     width: 100%;
     padding: 10px 0;
@@ -285,6 +305,32 @@ body {
     outline: none;
     background: transparent;
   }
+  .login-box .user-box select {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color:#E18A07;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid#E18A07;
+    outline: none;
+    background: transparent;
+  }
+  
+  .login-box .user-box select:focus {
+    background-color:  rgb(0, 0, 0);
+  }
+  /* .login-box .user-box option {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color:#E18A07;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid#E18A07;
+    outline: none;
+    background: transparent;
+  } */
   .login-box .user-box label {
     position: absolute;
     top:0;
@@ -364,7 +410,7 @@ header {
  
 nav ul {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding-left: 0px;
   margin-bottom: 0px;
   list-style: none;

@@ -5,6 +5,7 @@ import Login from "./Login";
 import Main from "./Main";
 import Register from "./Register";
 import Event from "./Event";
+import Msn from "./Msn";
 import swal from 'sweetalert'
 
 
@@ -46,11 +47,19 @@ function App() {
 
   const errorAlert = () => {
     swal({
-        text: "Usuario o contraseña incorrecto",
-        icon: "warning",
-        button: "Aceptar",
+      text: "Usuario o contraseña incorrecto",
+      icon: "warning",
+      button: "Aceptar",
     });
-}
+  }
+
+  const createAcountAlert = () => {
+    swal({
+      text: "Ese nombre de usuario ya existe",
+      icon: "warning",
+      button: "Aceptar",
+    });
+  };
 
   const registerUser = (usernameCreate, passwordCreate, email) => {
 
@@ -71,10 +80,11 @@ function App() {
         return res.json();
       })
       .then(function (datos) {
-        if (datos > 0) {
-          alert("Ese nombre de usuario esta registrado");
+        if (datos === false) {
+          createAcountAlert()
+          console.log(datos);
+          //alert("Ese nombre de usuario ya existe");
         } else {
-          alert("Registro realizado con éxito");
           setUser(datos.ops)
           setLogeado(true)
         }
@@ -90,7 +100,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-
         <Route exact path="/">
           <Login
             login={login}
@@ -112,6 +121,13 @@ function App() {
         <Route exact path="/Main/:event">
           <Event
             user={user}
+            back={back}
+          />
+        </Route>
+        <Route exact path="/msn">
+          <Msn
+            user={user}
+            back={back}
           />
         </Route>
       </div>

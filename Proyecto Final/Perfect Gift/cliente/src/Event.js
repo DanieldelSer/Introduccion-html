@@ -2,7 +2,15 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Modal from 'react-bootstrap/Modal'
 import swal from 'sweetalert'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
+import Carousel from 'react-elastic-carousel'
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt, faChevronCircleRight, faGift, faUserFriends, faTrash } from "@fortawesome/free-solid-svg-icons";
 import './App.css';
+import { Item } from "semantic-ui-react";
 
 const Event = (props) => {
 
@@ -16,7 +24,7 @@ const Event = (props) => {
     const [guests, setGuests] = useState([]);
     const [gifts, setGifts] = useState([]);
 
-    const [username, setUsername] = useState(props.user[0].username);
+    const username = props.user[0].username;
     const [eventName, setEventName] = useState('');
     const [guestName, setGuestName] = useState('');
     const [guestEmail, setGuestEmail] = useState('');
@@ -235,62 +243,183 @@ const Event = (props) => {
 
     const showEvent = data.map((eventPrint) => {
         return (
-            <div className="datos" key={eventPrint.eventName}>
-                <h3><span>{eventPrint.eventName}</span></h3>
+            <div className="username" key={eventPrint.eventName}>
+                <h3>{eventPrint.eventName}</h3>
                 <p><span>{eventPrint.description}</span></p>
-                <hr></hr>
+                <p><span>{eventPrint.date}</span></p>
             </div>
         );
     });
 
     const showGuests = guests.map((guest) => {
         return (
-            <div className="datos" key={guest.guestName}>
-                <h3><span>{guest.guestName}</span></h3>
-                <p>Aceptar: <span>{guest.state}</span></p>
-                <div className="mostrarMasEventosButton">
-                    <button type="button" className="btn btn-outline-danger btn-lg" onClick={() => { deleteAlert(guest._id, "invitado") }}>Eliminar</button>
+            <item>
+                <div className="tarjeta" key={guest.guestName}>
+                    <div className="cabecera">
+                        <div className="foto">
+                            <FontAwesomeIcon icon={faUserFriends} size="3x" className="faPlus2" />
+                        </div>
+                        <div className="nombre">
+                            <h3>{guest.guestName}</h3>
+                        </div>
+                    </div>
+                    <div className="texto">
+                        <p className="texto">Aceptar: <span>{guest.state}</span></p>
+                    </div>
+                    <div className="footer">
+                        <div>
+                            <OverlayTrigger
+                                key='bottom'
+                                placement='bottom'
+                                overlay={
+                                    <Tooltip id={`tooltip-bottom`}>
+                                        <strong>Eliminiar</strong>.
+                                        </Tooltip>
+                                }
+                            >
+                                <p variant="secondary"><FontAwesomeIcon icon={faTrash} size="2x" className="faPlus" onClick={() => { deleteAlert(guest._id, "invitado") }} style={{ color: '#C0C0C0' }} /></p>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                    <hr></hr>
                 </div>
-                <hr></hr>
-            </div>
+            </item>
         );
     });
 
     const showGifts = gifts.map((gift) => {
         return (
-            <div className="datos" key={gift.description}>
-                <h3><span>{gift.description}</span></h3>
-                <h3>Asignado: <span>{gift.guestAwardName}</span></h3>
-                <p>Rango: <span>{gift.rank}</span></p>
-                <p>Precio: <span>{gift.price}€</span></p>
-                <div className="mostrarMasEventosButton">
-                    <button type="button" className="btn btn-outline-danger btn-lg" onClick={() => { deleteAlert(gift._id, "regalo") }}>Eliminar</button>
+            <item>
+                <div className="tarjeta" key={gift.description}>
+                    <div className="cabecera">
+                        <div className="foto">
+                            <FontAwesomeIcon icon={faGift} size="3x" className="faPlus2" />
+                        </div>
+                        <div className="nombre">
+                            <h3>{gift.description}</h3>
+                        </div>
+                    </div>
+                    <div className="texto">
+                        <h5>Asignado: <span>{gift.guestAwardName}</span></h5>
+                        <p className="texto">Rango: <span>{gift.rank}</span></p>
+                        <p className="texto">Precio: <span>{gift.price}€</span></p>
+                    </div>
+                    <div className="footer">
+                        <div>
+                            <OverlayTrigger
+                                key='bottom'
+                                placement='bottom'
+                                overlay={
+                                    <Tooltip id={`tooltip-bottom`}>
+                                        <strong>Eliminiar</strong>.
+                                        </Tooltip>
+                                } >
+                                <p variant="secondary"><FontAwesomeIcon icon={faTrash} size="2x" className="faPlus" onClick={() => { deleteAlert(gift._id, "regalo") }} style={{ color: '#C0C0C0' }} /></p>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
                 </div>
                 <hr></hr>
-            </div>
+            </item>
         );
     });
 
     return (
         <>
-            {showEvent}
-            <div className="mostrarMasEventosButton">
-                <button type="button" className="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#modalAddGuest" onClick={() => setMaddGuestShow(true)}>Añadir Invitado</button>
-                <button type="button" className="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#modalCreateGift" onClick={() => setMcreateGiftShow(true)}>Crear Regalo</button>
-                <hr></hr>
-                <div className="events">
-                    <div>
-                        <h3>Invitados</h3>
+            <header>
+                <nav>
+                    <ul>
+                        <Link to={`/Main`}><div className="imgNav">
+                            <img src="../LogoPG.png" alt="Perfect Gift"></img>
+                        </div></Link>
+                        <div>
+                            <h1 className="username">{username}</h1>
+                        </div>
+                        <div className="navIcons">
+                            <div>
+                                <OverlayTrigger
+                                    key='bottom'
+                                    placement='bottom'
+                                    overlay={
+                                        <Tooltip id={`tooltip-bottom`}>
+                                            Añadir <strong>Invitado</strong>.
+                                        </Tooltip>
+                                    }
+                                >
+                                    <p variant="secondary"><FontAwesomeIcon icon={faUserFriends} size="3x" className="faPlus" onClick={() => setMaddGuestShow(true)} style={{ color: '#C0C0C0' }} /></p>
+                                </OverlayTrigger>
+                            </div>
+                            <div>
+                                <OverlayTrigger
+                                    key='bottom'
+                                    placement='bottom'
+                                    overlay={
+                                        <Tooltip id={`tooltip-bottom`}>
+                                            Crear <strong>Regalo</strong>.
+                                        </Tooltip>
+                                    }
+                                >
+                                    <p variant="secondary"><FontAwesomeIcon icon={faGift} size="3x" className="faPlus" onClick={() => setMcreateGiftShow(true)} style={{ color: '#C0C0C0' }} /></p>
+                                </OverlayTrigger>
+                            </div>
+                            <div>
+                                <OverlayTrigger
+                                    key='bottom'
+                                    placement='bottom'
+                                    overlay={
+                                        <Tooltip id={`tooltip-bottom`}>
+                                            <strong>Menú Principal</strong>.
+                                        </Tooltip>
+                                    }
+                                >
+                                    <Link to={`/Main`}><p variant="secondary"><FontAwesomeIcon icon={faChevronCircleRight} size="3x" className="faPlus" style={{ color: '#C0C0C0' }} /></p></Link>
+                                </OverlayTrigger>
+                            </div>
+                            <div>
+                                <OverlayTrigger
+                                    key='bottom'
+                                    placement='bottom'
+                                    overlay={
+                                        <Tooltip id={`tooltip-bottom`}>
+                                            <strong>Salir</strong>.
+                                        </Tooltip>
+                                    }
+                                >
+                                    <Link to={`/`}><p variant="secondary"><FontAwesomeIcon icon={faSignOutAlt} size="3x" className="faPlus" onClick={() => { props.back() }} style={{ color: '#C0C0C0' }} /></p></Link>
+                                </OverlayTrigger>
+                            </div>
+                        </div>
+                    </ul>
+                </nav>
+            </header>
+            <div className="justify-content-center">
+                {showEvent}
+            </div>
+            <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="justify-content-center">
+                <Tab eventKey="profile" title="Invitados">
+                    <div className="centrartab">
                         <hr></hr>
-                        {showGuests}
-                    </div>
-                    <div>
-                        <h3>Regalos</h3>
+                        <h3 className="username">Invitados</h3>
                         <hr></hr>
-                        {showGifts}
+                        <Carousel itemsToShow={3} itemPadding={[10, 50]}>
+                            {showGuests}
+                        </Carousel>
+                        <hr></hr>
                     </div>
-                </div>
-                <Link to={`/Main`}><button type="button" className="btn btn-outline-primary btn-lg">Menú principal</button></Link>
+                </Tab>
+                <Tab eventKey="home" title="Regalos">
+                    <div className="centrartab">
+                        <hr></hr>
+                        <h3 className="username">Regalos</h3>
+                        <hr></hr>
+                        <Carousel itemsToShow={3} itemPadding={[10, 50]}>
+                            {showGifts}
+                        </Carousel>
+                        <hr></hr>
+                    </div>
+                </Tab>
+            </Tabs>
+            <div className="justify-content-center">
                 <Modal
                     size="sm"
                     show={maddGuestShow}
@@ -298,16 +427,22 @@ const Event = (props) => {
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                 >
-                    <Modal.Header >
-                        <Modal.Title id="contained-modal-title-vcenter">
-                            Añadir Invitado
-                                    </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <input type="text" placeholder="Nombre del invitado" onChange={manageChangeGuestName}></input>
-                        <input type="text" placeholder="Email del invitado" onChange={manageChangeGuestEmail}></input>
-                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#modalAddGuest" onClick={() => addGuest()}>Añadir Invitado</button>
-                    </Modal.Body>
+                    <div>
+                        <div className="login-box">
+                            <h2>Añadir Invitado</h2>
+                            <form>
+                                <div className="user-box">
+                                    <input type="text" onChange={manageChangeGuestName}></input>
+                                    <label>Nombre del invitado</label>
+                                </div>
+                                <div className="user-box">
+                                    <input type="text" onChange={manageChangeGuestEmail}></input>
+                                    <label>Email del invitado</label>
+                                </div>
+                                <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => addGuest()}>Añadir</button>
+                            </form>
+                        </div>
+                    </div>
                 </Modal>
                 <Modal
                     size="sm"
@@ -316,25 +451,36 @@ const Event = (props) => {
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                 >
-                    <Modal.Header >
-                        <Modal.Title id="contained-modal-title-vcenter">
-                            Crear Regalo
-                                    </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <input type="text" placeholder="Asignar regalo" onChange={manageChangeGuestAwardName}></input>
-                        <input type="text" placeholder="Descripcion" onChange={manageChangeGiftDescription}></input>
-                        <select onChange={manageChangeGiftRank}>
-                            <option>Nivel de importancia</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                        <input type="text" placeholder="Precio" onChange={manageChangeGiftPrice}></input>
-                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#modalAddGuest" onClick={() => createGift()}>Crear Regalo</button>
-                    </Modal.Body>
+                    <div>
+                        <div className="login-box">
+                            <h2>Crear Regalo</h2>
+                            <form>
+                                <div className="user-box">
+                                    <input type="text" onChange={manageChangeGuestAwardName}></input>
+                                    <label>Asignar regalo</label>
+                                </div>
+                                <div className="user-box">
+                                    <input type="text" onChange={manageChangeGiftDescription}></input>
+                                    <label>Descripcion</label>
+                                </div>
+                                <div className="user-box">
+                                    <input type="text" onChange={manageChangeGiftPrice}></input>
+                                    <label>Precio</label>
+                                </div>
+                                <div className="user-box">
+                                    <select className="user-box" onChange={manageChangeGiftRank}>
+                                        <option>Nivel de importancia</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => createGift()}>Crear</button>
+                            </form>
+                        </div>
+                    </div>
                 </Modal>
             </div>
         </>

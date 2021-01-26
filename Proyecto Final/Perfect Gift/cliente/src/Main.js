@@ -5,17 +5,19 @@ import swal from 'sweetalert'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faSignOutAlt, faCalendarAlt, faMailBulk } from "@fortawesome/free-solid-svg-icons";
-import Overlay from 'react-bootstrap/Overlay'
+import { faPlus, faSignOutAlt, faCalendarAlt, faMailBulk, faTrash, faUserCheck, faUserTimes, faBell } from "@fortawesome/free-solid-svg-icons";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 import Carousel from 'react-elastic-carousel'
-import React, { Component } from 'react';
+import moment from 'moment';
+
+moment.locale('es');
 
 
 const Main = (props) => {
 
-    console.log(props.user[0].username);
+    const today = moment().format('YYYY-MM-DD');
+
     const [mcreateEventShow, setMcreateEventShow] = useState(false);
     const [data, setData] = useState([]);
     const [dataGuest, setDataGuest] = useState([]);
@@ -23,6 +25,7 @@ const Main = (props) => {
     const username = props.user[0].username;
     const [eventName, setEventName] = useState('');
     const [description, setDescription] = useState('');
+    const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
 
     const [pass, setPass] = useState('');
     const [newPass, setNewPass] = useState('');
@@ -31,7 +34,8 @@ const Main = (props) => {
     const event = {
         username,
         eventName,
-        description
+        description,
+        date
     };
 
     const removeEvent = {
@@ -175,6 +179,7 @@ const Main = (props) => {
                         .then(function (datos) {
                             console.log(datos)
                             setData(datos.reverse());
+                            setDate(today);
                         })
                 }
             });
@@ -273,10 +278,25 @@ const Main = (props) => {
                             </div>
                         </div>
                         <div className="texto">
+                            <p className="texto">Fecha:<span> {event.date}</span></p>
+                        </div>
+                        <div className="texto">
                             <p className="texto">{event.description}</p>
                         </div></Link>
                     <div className="footer">
-                        <button type="button" className="btn btn-outline-danger btn-lg naranja" onClick={() => deleteAlert(event._id)}>Eliminar</button>
+                        <div>
+                            <OverlayTrigger
+                                key='bottom'
+                                placement='bottom'
+                                overlay={
+                                    <Tooltip id={`tooltip-bottom`}>
+                                        Eliminiar <strong>Evento</strong>.
+                                        </Tooltip>
+                                }
+                            >
+                                <p variant="secondary"><FontAwesomeIcon icon={faTrash} size="2x" className="faPlus" onClick={() => deleteAlert(event._id)} style={{ color: '#C0C0C0' }} /></p>
+                            </OverlayTrigger>
+                        </div>
                     </div>
                 </div>
                 <hr></hr>
@@ -302,8 +322,28 @@ const Main = (props) => {
                             <p className="texto">Invitación: {eventGuest.state}</p>
                         </div>
                         <div className="footer">
-                            <button type="button" className="btn btn-outline-primary btn-lg naranja" onClick={() => decisionAlert(eventGuest._id, "Aceptar")}>Aceptar</button>
-                            <button type="button" className="btn btn-outline-danger btn-lg naranjaGris" onClick={() => decisionAlert(eventGuest._id, "Rechazar")}>Rechazar</button>
+                            <OverlayTrigger
+                                key='bottom'
+                                placement='bottom'
+                                overlay={
+                                    <Tooltip id={`tooltip-bottom`}>
+                                        <strong>Aceptar</strong>.
+                                        </Tooltip>
+                                }
+                            >
+                                <p variant="secondary"><FontAwesomeIcon icon={faUserCheck} size="2x" className="faPlus" onClick={() => decisionAlert(eventGuest._id, "Aceptar")} style={{ color: '#C0C0C0' }} /></p>
+                            </OverlayTrigger>
+                            <OverlayTrigger
+                                key='bottom'
+                                placement='bottom'
+                                overlay={
+                                    <Tooltip id={`tooltip-bottom`}>
+                                        <strong>Rechazar</strong>.
+                                        </Tooltip>
+                                }
+                            >
+                                <p variant="secondary"><FontAwesomeIcon icon={faUserTimes} size="2x" className="faPlus" onClick={() => decisionAlert(eventGuest._id, "Rechazar")} style={{ color: '#C0C0C0' }} /></p>
+                            </OverlayTrigger>
                         </div>
                     </div>
                     <hr></hr>
@@ -339,6 +379,9 @@ const Main = (props) => {
     const manageChangeDescription = (e) => {
         setDescription(e.target.value);
     };
+    const manageChangeDate = (e) => {
+        setDate(e.target.value);
+    };
     const manageChangePass = (e) => {
         setPass(e.target.value);
     };
@@ -354,6 +397,9 @@ const Main = (props) => {
             <header>
                 <nav>
                     <ul>
+                        <div className="imgNav">
+                            <img src="./LogoPG.png" alt="Perfect Gift"></img>
+                        </div>
                         <div>
                             <h1 className="username">{username}</h1>
                         </div>
@@ -369,6 +415,19 @@ const Main = (props) => {
                                     }
                                 >
                                     <p variant="secondary"><FontAwesomeIcon icon={faPlus} size="3x" className="faPlus" onClick={() => setMcreateEventShow(true)} style={{ color: '#C0C0C0' }} /></p>
+                                </OverlayTrigger>
+                            </div>
+                            <div>
+                                <OverlayTrigger
+                                    key='bottom'
+                                    placement='bottom'
+                                    overlay={
+                                        <Tooltip id={`tooltip-bottom`}>
+                                            <strong>Notificaciones</strong>.
+                                        </Tooltip>
+                                    }
+                                >
+                                    <Link to="/msn"><p variant="secondary"><FontAwesomeIcon icon={faBell} size="3x" className="faPlus"/></p></Link>
                                 </OverlayTrigger>
                             </div>
                             <div>
@@ -424,7 +483,7 @@ const Main = (props) => {
                                 <label>Nueva contraseña</label>
                                 <input type="password" value={newPass} onChange={manageChangeNewPass}></input>
                                 <label>Repetir contraseña</label>
-                                <input type="password"  value={repeatNewPass} onChange={manageChangeRepeatNewPass}></input>
+                                <input type="password" value={repeatNewPass} onChange={manageChangeRepeatNewPass}></input>
                             </div>
                             <button type="button" className="btn btn-outline-danger btn-lg naranja" onClick={() => {
                                 if (newPass === repeatNewPass) {
@@ -438,8 +497,6 @@ const Main = (props) => {
                 </Tab>
             </Tabs>
 
-
-
             <div>
                 <Modal
                     size="sm"
@@ -448,11 +505,6 @@ const Main = (props) => {
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                 >
-                    {/* <Modal.Body>
-                        <input type="text" id="eventName" onChange={manageChangeEventName} placeholder="Nombre del evento"></input>
-                        <input type="text" id="description" onChange={manageChangeDescription} placeholder="Descripción del evento"></input>
-                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#modalCreateEvent" onClick={createEvent}>Crear Evento</button>
-                    </Modal.Body> */}
                     <div>
                         <div className="login-box">
                             <h2>Crear Evento</h2>
@@ -463,6 +515,10 @@ const Main = (props) => {
                                 </div>
                                 <div className="user-box">
                                     <textarea type="text area" id="description" onChange={manageChangeDescription}></textarea>
+                                    <label>Descripción del evento</label>
+                                </div>
+                                <div className="user-box">
+                                    <input type="date" id="date" value={date} onChange={manageChangeDate}></input>
                                     <label>Descripción del evento</label>
                                 </div>
                                 <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => createEventAlert()}>Crear Evento</button>
