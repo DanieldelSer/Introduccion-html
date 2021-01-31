@@ -3,11 +3,14 @@ import { useState } from "react";
 import './App.css';
 import Login from "./Login";
 import Main from "./Main";
-import Register from "./Register";
+import Footer from "./Footer";
 import Event from "./Event";
+import GuestEvent from "./GuestEvent";
 import Msn from "./Msn";
 import swal from 'sweetalert'
-
+import GoogleLogin from 'react-google-login';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 
 function App() {
@@ -95,45 +98,71 @@ function App() {
     setLogeado(false);
   };
 
-  /////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////// Componente Google //////////////////////////////
 
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Route exact path="/">
-          <Login
-            login={login}
-            registerUser={registerUser}
-            logeado={logeado}
-          />
-        </Route>
-        <Route exact path="/Register">
-          <Login />
-          <Register />
-        </Route>
-        <Route exact path="/Main">
-          <Main
-            back={back}
-            user={user}
-            logeado={logeado}
-          />
-        </Route>
-        <Route exact path="/Main/:event">
-          <Event
-            user={user}
-            back={back}
-          />
-        </Route>
-        <Route exact path="/msn">
-          <Msn
-            user={user}
-            back={back}
-          />
-        </Route>
-      </div>
+  const responseGoogle = (response) => {
+    console.log(response.profileObj);
+    setUser(response.profileObj.givenName);
+    console.log(user);
+    console.log(logeado);
+    setLogeado(true);
+  }
+  /////////////////////////////////////////////////////////////////////
 
-    </BrowserRouter>
-  );
-}
+  
+    return (
+      <BrowserRouter>
+        <div className="App">
+          <Route exact path="/">
+            <Login
+              login={login}
+              registerUser={registerUser}
+              logeado={logeado}
+            />
+            <GoogleLogin
+              clientId="1076287726089-o5umq9rqp306r1re4kt1qief5439nac3.apps.googleusercontent.com"
+              render={renderProps => (
+                <button type="button" className="btn btn-outline-primary btn-lg naranja left" onClick={renderProps.onClick} disabled={renderProps.disabled}><FontAwesomeIcon icon={faGoogle} size="2x" className="faPlus" /></button>
+              )}
+              buttonText="Iniciar Sesion"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={'single_host_origin'}
+            />
+          </Route>
+          <Route exact path="/Main">
+            <Main
+              back={back}
+              user={user}
+              logeado={logeado}
+            />
+            <Footer />
+          </Route>
+          <Route exact path="/Main/:event">
+            <Event
+              user={user}
+              back={back}
+            />
+            <Footer />
+          </Route>
+          <Route exact path="/Invitado/:event/">
+            <GuestEvent
+              user={user}
+              back={back}
+            />
+            <Footer />
+          </Route>
+          <Route exact path="/msn">
+            <Msn
+              user={user}
+              back={back}
+            />
+            <Footer />
+          </Route>
+        </div>
+      </BrowserRouter>
+    );
+  };
+
 
 export default App;

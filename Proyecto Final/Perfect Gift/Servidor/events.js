@@ -18,7 +18,7 @@ router.post("/newEvent", function (req, res) {
         if (err !== null) {
             res.send(err);
         } else {
-            db.collection("events").find().toArray(function (err, data) {
+            db.collection("events").find( {username:username}).toArray(function (err, data) {
                 if (err !== null) {
                     res.send(err);
                 } else {
@@ -41,6 +41,18 @@ router.get("/:user", function (req, res) {
         }
     });
 });
+router.get("/invitado/:event", function (req, res) {
+    const event = req.params.event;
+    //console.log(username)
+    let db = req.app.locals.db;
+    db.collection("events").find({ eventName: event }).toArray(function (err, datos) {
+        if (err !== null) {
+            res.send(err);
+        } else {
+            res.send(datos);
+        }
+    });
+});
 
 router.get("/:user/:event", function (req, res) {
     const user = req.params.user;
@@ -54,6 +66,19 @@ router.get("/:user/:event", function (req, res) {
         }
     });
 });
+
+// router.get("guestEvent/:guestName/:event", function (req, res) {
+//     const guestName = req.params.guestName;
+//     const event = req.params.event;
+//     let db = req.app.locals.db;
+//     db.collection("events").find({ $and: [{ username: guestName }, { eventName: event }] }).toArray(function (err, datos) {
+//         if (err !== null) {
+//             res.send(err);
+//         } else {
+//             res.send(datos);
+//         }
+//     });
+// });
 
 router.delete("/deleteEvent/:_id", function (req, res) {
     let db = req.app.locals.db;

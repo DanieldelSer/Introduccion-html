@@ -1,9 +1,15 @@
 import { Redirect } from "react-router-dom";
 import { useState } from "react";
 import Modal from 'react-bootstrap/Modal'
+import moment from 'moment';
+import 'moment/locale/es';
+
+moment.locale('es');
 //import './Login.css';
 
 const Login = (props) => {
+
+    const today = moment().format('LL');
 
     const [mloginShow, setMloginShow] = useState(false);
     const [mpassShow, setMpassShow] = useState(false);
@@ -15,6 +21,30 @@ const Login = (props) => {
     const [usernameCreate, setUsernameCreate] = useState('');
     const [passwordCreate, setPasswordCreate] = useState('');
     const [email, setEmail] = useState('');
+
+    const sendMsn = () => {
+
+        const newMsn = {
+            username: usernameCreate,
+            guestName: "Perfect Gift",
+            userText: `Bienvenido a Perfect Gift, crea tu primer evento y empieza a disfrutar`,
+            today
+        };
+
+        fetch(`http://localhost:3000/msn/newMsn/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newMsn),
+        })
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (datos) {
+
+            });
+    };
 
 
     const manageChangeLogin = (e) => {
@@ -40,12 +70,21 @@ const Login = (props) => {
         return (
             <>
                 <div>
-                    <div class="encabezado">
-                        <div class="gris"><div className="text"><em>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                </em></div></div>
-                        <div class="orange"></div>
-                    </div>
-                    <div className="container">
+                    <div className="containerModal">
+                        <div class="encabezado">
+                            <div class="gris"><div className="text"><em>¿Quieres organizar tu fiesta de cumpleaños y a la vez facilitar a tus invitados la tarea de encontrar el regalo perfecto?<br></br> En Perfect Gift te ayudamos a conseguirlo en sólo 4 pasos:<br></br>
+                        - Crea un evento: cumpleaños, fiesta de despedida, inauguración de tu nueva casa...<br></br>
+                        - Crea una lista con los regalos que más te apetece recibir<br></br>
+                        - Invita a tus amigos al evento<br></br>
+                        - ¡Recibe los regalos perfectos!
+                        <br></br>
+                        ¡Acertar con los regalos nunca fue tan fácil!
+                        <br></br>
+                                <br></br>
+                                <strong>El regalo perfecto para eventos especiales</strong>
+                            </em></div></div>
+                            <div class="orange"></div>
+                        </div>
                         <div className="centrar">
                             <img src="./LogoPG.png" alt="Girl in a jacket" width="250" height="250"></img>
                             <div class="title">
@@ -117,7 +156,7 @@ const Login = (props) => {
                                         <input type="text" id="email" onChange={manageChangeEmail}></input>
                                         <label>Email</label>
                                     </div>
-                                    <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" onClick={() => { props.registerUser(usernameCreate, passwordCreate, email) }}>Crear Cuenta</button>
+                                    <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" onClick={() => { props.registerUser(usernameCreate, passwordCreate, email); sendMsn() }}>Crear Cuenta</button>
                                 </form>
                             </div>
                         </div>

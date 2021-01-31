@@ -6,14 +6,14 @@ router.post("/newGift", function (req, res) {
     let db = req.app.locals.db;
     const user = req.body.username;
     const eventName = req.body.eventName;
-    const guestAwardName = req.body.guestAwardName;
+    const state = "libre";
     const description = req.body.description;
     const rank = req.body.giftRank;
     const price = req.body.giftPrice;
     let gift = {
         user,
         eventName,
-        guestAwardName,
+        state,
         description,
         rank,
         price
@@ -44,6 +44,39 @@ router.get("/:user/:event", function (req, res) {
             res.send(datos);
         }
     });
+});
+
+router.get("/invited/mas/:event", function (req, res) {
+    const event = req.params.event;
+    let db = req.app.locals.db;
+    db.collection("gifts").find({ eventName: event }).toArray(function (err, datos) {
+        if (err !== null) {
+            res.send(err);
+        } else {
+            res.send(datos);
+        }
+    });
+});
+
+router.put("/chooseGift", function (req, res) {
+    let db = req.app.locals.db;
+    const _id = req.body._id;
+    const state = req.body.username;
+    const event = req.body.event;
+    db.collection("gifts").updateOne({_id: ObjectID(_id) }, { $set: { state } }, function (err, datos) {
+        if (err !== null) {
+            res.send(err);
+        } else {
+            db.collection("gifts").find({ eventName: event }).toArray(function (err, datos) {
+                if (err !== null) {
+                    res.send(err);
+                } else {
+                    res.send(datos);
+                }
+            });
+        }
+    }
+    );
 });
 
 router.delete("/deleteGift/:_id", function (req, res) {

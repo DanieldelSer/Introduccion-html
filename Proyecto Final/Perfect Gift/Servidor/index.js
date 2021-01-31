@@ -18,11 +18,11 @@ const guests = require("./guests");
 const msn = require("./msn");
 
 MongoClient.connect("mongodb://localhost:27017", function (err, client) {
-    if (err !== null) {
-        console.log(err);
-    } else {
-        app.locals.db = client.db("PerfectGift");
-    }
+  if (err !== null) {
+    console.log(err);
+  } else {
+    app.locals.db = client.db("PerfectGift");
+  }
 });
 
 app.use("/users", users);
@@ -32,32 +32,33 @@ app.use("/guests", guests);
 app.use("/msn", msn);
 
 app.post("/send-email", (req, res) => {
-    const user = req.body.username;
-    const guestEmail = req.body.guestEmail;
-    const guestName = req.body.guestName;
+  const user = req.body.username;
+  const guestEmail = req.body.guestEmail;
+  const guestName = req.body.guestName;
 
-    const transporter = nodemailer.createTransport({
-        port: 465,               // true for 465, false for other ports
-        host: "smtp.gmail.com",
-        auth: {
-            user: 'perfectgiftappweb@gmail.com',
-            pass: 'bootcamp2021',
-        },
-        secure: true,
-    });
+  const transporter = nodemailer.createTransport({
+    port: 465,               // true for 465, false for other ports
+    host: "smtp.gmail.com",
+    auth: {
+      user: 'perfectgiftappweb@gmail.com',
+      pass: 'bootcamp2021',
+    },
+    secure: true,
+  });
 
-    const mailOptions = {
-        from: 'perfectgiftappweb@gmail.com',  // sender address
-        to: guestEmail,                       // list of receivers
-        subject: 'Has sido invitado a un gran evento en Perfect Gift',
-        text: 'Hola',
-        html: `<div align="center">
-            <h1 style="color:red;">Perfect Gift </h1>
-            <h1 style="color:green;">Hola ${guestName}</h1>
-            <p style="font-size:50px;">${user} te ha invitado a un evento en Perfect Gift</p> 
-            <a href="url">Visita Perfect Gift</a> 
-            </div>
-            
+  const mailOptions = {
+    from: 'perfectgiftappweb@gmail.com',  // sender address
+    to: guestEmail,                       // list of receivers
+    subject: 'Has sido invitado a un gran evento en Perfect Gift',
+    text: 'Hola',
+    html: 
+        // <div align="center">
+        //     <h1 style="color:red;">Perfect Gift </h1>
+        //     <h1 style="color:green;">Hola ${guestName}</h1>
+        //     <p style="font-size:50px;">${user} te ha invitado a un evento en Perfect Gift</p> 
+        //     <a href="url">Visita Perfect Gift</a> 
+        //     </div>
+            `
             <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="width:100%;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
  <head> 
@@ -172,7 +173,7 @@ a[x-apple-data-detectors] {
                   <td valign="top" align="center" style="padding:0;Margin:0;width:600px"> 
                    <table style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#FFFFFF;border-radius:4px" width="100%" cellspacing="0" cellpadding="0" bgcolor="#ffffff" role="presentation"> 
                      <tr style="border-collapse:collapse"> 
-                      <td align="center" style="Margin:0;padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:35px"><h1 style="Margin:0;line-height:58px;mso-line-height-rule:exactly;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;font-size:48px;font-style:normal;font-weight:normal;color:#111111">¡Hola Mikel!</h1></td> 
+                      <td align="center" style="Margin:0;padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:35px"><h1 style="Margin:0;line-height:58px;mso-line-height-rule:exactly;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;font-size:48px;font-style:normal;font-weight:normal;color:#111111">¡Hola ${guestName}!</h1></td> 
                      </tr> 
                      <tr style="border-collapse:collapse"> 
                       <td bgcolor="#ffffff" align="center" style="Margin:0;padding-top:5px;padding-bottom:5px;padding-left:20px;padding-right:20px;font-size:0"> 
@@ -200,16 +201,16 @@ a[x-apple-data-detectors] {
                   <td valign="top" align="center" style="padding:0;Margin:0;width:600px"> 
                    <table style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-radius:4px;background-color:#FFFFFF" width="100%" cellspacing="0" cellpadding="0" bgcolor="#ffffff" role="presentation"> 
                      <tr style="border-collapse:collapse"> 
-                      <td class="es-m-txt-l" bgcolor="#ffffff" align="left" style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:30px;padding-right:30px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:18px;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;line-height:27px;color:#666666">Nos gustaría informarte de que DJ Ziborj te ha invitado a unirte a su evento en Perfect Gift.</p></td> 
+                      <td class="es-m-txt-l" bgcolor="#ffffff" align="left" style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:30px;padding-right:30px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:18px;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;line-height:27px;color:#666666">Nos gustaría informarte de que ${user} te ha invitado a unirte a su evento en Perfect Gift.</p></td> 
                      </tr> 
                      <tr style="border-collapse:collapse"> 
-                      <td align="center" style="Margin:0;padding-left:10px;padding-right:10px;padding-top:35px;padding-bottom:35px"><span class="es-button-border" style="border-style:solid;border-color:#E18A07;background:#E18A07;border-width:1px;display:inline-block;border-radius:2px;width:auto"><a href="https://viewstripo.email/" class="es-button" target="_blank" style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:20px;color:#FFFFFF;border-style:solid;border-color:#E18A07;border-width:15px 30px;display:inline-block;background:#E18A07;border-radius:2px;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center">¡Apúntate!</a></span></td> 
+                      <td align="center" style="Margin:0;padding-left:10px;padding-right:10px;padding-top:35px;padding-bottom:35px"><span class="es-button-border" style="border-style:solid;border-color:#E18A07;background:#E18A07;border-width:1px;display:inline-block;border-radius:2px;width:auto"><a href="http://localhost:3001/" class="es-button" target="_blank" style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:20px;color:#FFFFFF;border-style:solid;border-color:#E18A07;border-width:15px 30px;display:inline-block;background:#E18A07;border-radius:2px;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center">¡Apúntate!</a></span></td> 
                      </tr> 
                      <tr style="border-collapse:collapse"> 
                       <td class="es-m-txt-l" align="left" style="padding:0;Margin:0;padding-top:20px;padding-left:30px;padding-right:30px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:18px;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;line-height:27px;color:#666666">Si el botón no funciona, puedes copiar y pegar el siguiente enlace directamente en el navegador:</p></td> 
                      </tr> 
                      <tr style="border-collapse:collapse"> 
-                      <td class="es-m-txt-l" align="left" style="padding:0;Margin:0;padding-top:20px;padding-left:30px;padding-right:30px"><a target="_blank" href="https://viewstripo.email/" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;font-size:18px;text-decoration:underline;color:#FFA73B">XXX.XXXXXXX.XXX / XXXXXXXXXXXXX</a></td> 
+                      <td class="es-m-txt-l" align="left" style="padding:0;Margin:0;padding-top:20px;padding-left:30px;padding-right:30px"><a target="_blank" href="http://localhost:3001/" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;font-size:18px;text-decoration:underline;color:#FFA73B">Perfect Gift</a></td> 
                      </tr> 
                      <tr style="border-collapse:collapse"> 
                       <td class="es-m-txt-l" align="left" style="padding:0;Margin:0;padding-top:20px;padding-left:30px;padding-right:30px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:18px;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;line-height:27px;color:#666666">Estaremos encantados de que te unas a nuestra comunidad. Cualquier duda o problema que tengas, ponte en contacto con nosotros sin dudarlo. ¡Estaremos encantados de ayudarte!</p></td> 
@@ -297,21 +298,21 @@ a[x-apple-data-detectors] {
             
             
             `,
-    };
+  };
 
-    transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-            res.status(500).send(error.message);
-            console.log(err);
-        } else {
-            //console.log(info);
-            //res.status(200).send({message:"Email enviado", message_id: info.message_id});
-            console.log("Email enviado");
-            res.status(200).jsonp(req.body);
-        }
-    });
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      res.status(500).send(error.message);
+      console.log(err);
+    } else {
+      //console.log(info);
+      //res.status(200).send({message:"Email enviado", message_id: info.message_id});
+      console.log("Email enviado");
+      res.status(200).jsonp(req.body);
+    }
+  });
 });
 
 app.listen(3000, () => {
-    console.log("Puerto 3000 abierto");
+  console.log("Puerto 3000 abierto");
 });

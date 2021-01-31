@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
+import Badge from 'react-bootstrap/Badge'
 import swal from 'sweetalert'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
@@ -10,22 +12,29 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 import Carousel from 'react-elastic-carousel'
 import moment from 'moment';
+import 'moment/locale/es';
 
 moment.locale('es');
 
 
 const Main = (props) => {
 
-    const today = moment().format('YYYY-MM-DD');
+    const today = moment().format('LL');
 
     const [mcreateEventShow, setMcreateEventShow] = useState(false);
     const [data, setData] = useState([]);
+    const [first, setFirst] = useState(0);
     const [dataGuest, setDataGuest] = useState([]);
+    const [iconMsn, setIconMsn] = useState(false);
+    const [countMsn, setCountMsn] = useState(0);
+    const [invite, setInvite] = useState('Todas');
 
     const username = props.user[0].username;
+    console.log(props);
+    console.log(props.user[0].username);
     const [eventName, setEventName] = useState('');
     const [description, setDescription] = useState('');
-    const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
+    const [date, setDate] = useState(moment().format('DD MMMM YYYY'));
 
     const [pass, setPass] = useState('');
     const [newPass, setNewPass] = useState('');
@@ -40,12 +49,12 @@ const Main = (props) => {
 
     const removeEvent = {
         username,
-    }
+    };
 
     const deleteAlert = (_id) => {
         swal({
             title: "Eliminar",
-            text: "Estás seguro que deseas eliminar ese evento?",
+            text: "Estás seguro que deseas eliminar este evento?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -68,7 +77,7 @@ const Main = (props) => {
             });
     };
 
-    const decisionAlert = (_id, decision) => {
+    const decisionAlert = (_id, decision, guestName, state, nameEvent) => {
         swal({
             title: decision,
             text: `Estás seguro que deseas ${decision} este evento?`,
@@ -79,38 +88,14 @@ const Main = (props) => {
             .then((willDelete) => {
                 if (willDelete) {
                     decisionEvent(_id, decision)
-                    swal("El evento ha sido aceptado", {
+                    sendMsn(guestName, state, nameEvent)
+                    swal(`El evento ha sido ${decision}`, {
                         icon: "success",
                         button: false,
                         timer: "1500"
                     });
                 } else {
-                    swal(`El ${decision} no ha sido modificado`, {
-                        icon: "info",
-                        button: false,
-                        timer: "1500"
-                    });
-                }
-            });
-    };
-
-    const createEventAlert = () => {
-        swal({
-            text: `Crear evento?`,
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    createEvent()
-                    swal("El evento ha sido creado", {
-                        icon: "success",
-                        button: false,
-                        timer: "1500"
-                    });
-                } else {
-                    swal(`El evento no ha sido creado`, {
+                    swal(`La decision no ha sido modificada`, {
                         icon: "info",
                         button: false,
                         timer: "1500"
@@ -169,7 +154,7 @@ const Main = (props) => {
             })
             .then(function (datos) {
                 if (datos === false) {
-                    alert("Ese nombre de evento esta creado");
+                    alert("Ese nombre del evento esta creado");
                 } else {
                     setMcreateEventShow(false)
                     fetch(`http://localhost:3000/events/${username}`)
@@ -180,6 +165,8 @@ const Main = (props) => {
                             console.log(datos)
                             setData(datos.reverse());
                             setDate(today);
+                            //setFirst(first + 1)
+                            setFirst(datos.length)
                         })
                 }
             });
@@ -197,6 +184,9 @@ const Main = (props) => {
                 return res.json();
             })
             .then(function (datos) {
+                if (datos.length === 0) {
+                    setFirst(first - 1)
+                }
                 setData(datos.reverse());
                 // setBoolean(!boolean)
             });
@@ -243,13 +233,21 @@ const Main = (props) => {
             });
     };
 
+    const convertDateFormat = (string) => {
+        return string.split('-').reverse().join('-');;
+    }
+
     useEffect(() => {
         fetch(`http://localhost:3000/events/${username}`)
             .then(function (res) {
                 return res.json();
             })
             .then(function (datos) {
-                console.log(datos.length)
+                // console.log(datos.length)
+                // if (datos.length === 0) {
+                //     setFirst(0)
+                // }
+                setFirst(datos.length)
                 setData(datos.reverse());
             })
         fetch(`http://localhost:3000/guests/${username}`)
@@ -258,11 +256,36 @@ const Main = (props) => {
             })
             .then(function (datos) {
                 //console.log(datos);
-                setDataGuest(datos);
+                setDataGuest(datos.reverse());
             })
-    }, [username]);
+        fetch(`http://localhost:3000/msn/state/${username}`)
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (datos) {
+                if (datos.length > 0) {
+                    setIconMsn(true);
+                    setCountMsn(datos.length)
+                }
+            })
+    }, [first]);
 
     //onClick={() => { deleteEvent(event._id) }}
+
+    const fristEvent =
+        <div>
+            <OverlayTrigger
+                key='bottom'
+                placement='bottom'
+                overlay={
+                    <Tooltip id={`tooltip-bottom`}>
+                        Crear primer <strong>Evento</strong>.
+                                        </Tooltip>
+                }
+            >
+                <p variant="secondary"><FontAwesomeIcon icon={faPlus} size="7x" className="faPlus" onClick={() => setMcreateEventShow(true)} style={{ color: '#C0C0C0' }} /></p>
+            </OverlayTrigger>
+        </div>;
 
     const showEvents = data.map((event) => {
         return (
@@ -278,7 +301,7 @@ const Main = (props) => {
                             </div>
                         </div>
                         <div className="texto">
-                            <p className="texto">Fecha:<span> {event.date}</span></p>
+                            <p className="texto"><span className="upper"> {convertDateFormat(event.date)}</span></p>
                         </div>
                         <div className="texto">
                             <p className="texto">{event.description}</p>
@@ -304,74 +327,128 @@ const Main = (props) => {
         );
     });
 
+    const estados = {
+        ACEPTAR: "Aceptar",
+        RECHAZAR: "Rechazar",
+        PENDIENTE: "Pendiente",
+        TODAS: "Todas",
+    };
     const showGuestEvents = dataGuest.map((eventGuest) => {
-        if (eventGuest.state === "Pendiente") {
-            return (
-                <item>
-                    <div className="tarjeta" key={eventGuest.eventName}>
-                        <div className="cabecera">
-                            <div className="foto">
-                                <FontAwesomeIcon icon={faMailBulk} size="3x" className="faPlus2" />
+        if (invite === eventGuest.state || invite === estados.TODAS) {
+            switch (eventGuest.state) {
+                case estados.ACEPTAR:
+                    return (
+                        <item>
+                            <div className="tarjeta" key={eventGuest.eventName}>
+                                <Link to={`/Invitado/${eventGuest.eventName}`}>
+                                    <div className="cabecera">
+                                        <div className="foto">
+                                            <FontAwesomeIcon icon={faMailBulk} size="3x" className="faPlus2" />
+                                        </div>
+                                        <div className="nombre">
+                                            <h1>Anfitrión: {eventGuest.user}</h1>
+                                        </div>
+                                    </div>
+                                    <div className="texto">
+                                        <h3 className="texto">{eventGuest.eventName}</h3>
+                                        <p className="texto">Estado: <span className="upper">{eventGuest.state}</span></p>
+                                    </div></Link>
                             </div>
-                            <div className="nombre">
-                                <h1>Anfitrión: {eventGuest.user}</h1>
-                            </div>
-                        </div>
-                        <div className="texto">
-                            <h3 className="texto">{eventGuest.eventName}</h3>
-                            <p className="texto">Invitación: {eventGuest.state}</p>
-                        </div>
-                        <div className="footer">
-                            <OverlayTrigger
-                                key='bottom'
-                                placement='bottom'
-                                overlay={
-                                    <Tooltip id={`tooltip-bottom`}>
-                                        <strong>Aceptar</strong>.
-                                        </Tooltip>
-                                }
-                            >
-                                <p variant="secondary"><FontAwesomeIcon icon={faUserCheck} size="2x" className="faPlus" onClick={() => decisionAlert(eventGuest._id, "Aceptar")} style={{ color: '#C0C0C0' }} /></p>
-                            </OverlayTrigger>
-                            <OverlayTrigger
-                                key='bottom'
-                                placement='bottom'
-                                overlay={
-                                    <Tooltip id={`tooltip-bottom`}>
-                                        <strong>Rechazar</strong>.
-                                        </Tooltip>
-                                }
-                            >
-                                <p variant="secondary"><FontAwesomeIcon icon={faUserTimes} size="2x" className="faPlus" onClick={() => decisionAlert(eventGuest._id, "Rechazar")} style={{ color: '#C0C0C0' }} /></p>
-                            </OverlayTrigger>
-                        </div>
-                    </div>
-                    <hr></hr>
-                </item>
-            );
-        } else {
-            return (
-                <item>
-                    <div className="tarjeta" key={eventGuest.eventName}>
-                        <div className="cabecera">
-                            <div className="foto">
-                                <FontAwesomeIcon icon={faMailBulk} size="3x" className="faPlus2" />
-                            </div>
-                            <div className="nombre">
-                                <h1>Anfitrión: {eventGuest.user}</h1>
-                            </div>
-                        </div>
-                        <div className="texto">
-                            <h3 className="texto">{eventGuest.eventName}</h3>
-                            <p className="texto">Invitación: {eventGuest.state}</p>
-                        </div>
-                    </div>
-                    <hr></hr>
-                </item>
-            );
-        }
+                            <hr></hr>
+                        </item>
+                    );
+                case estados.RECHAZAR:
+                    return (
+                        <item>
+                            <div className="tarjetamsn" key={eventGuest.eventName}>
 
+                                <div className="cabecera">
+                                    <div className="foto">
+                                        <FontAwesomeIcon icon={faMailBulk} size="3x" className="faPlus2" />
+                                    </div>
+                                    <div className="nombre">
+                                        <h1>Anfitrión: {eventGuest.user}</h1>
+                                    </div>
+                                </div>
+                                <div className="texto">
+                                    <h3 className="texto">{eventGuest.eventName}</h3>
+                                    <p className="texto">Estado: <span className="upper">{eventGuest.state}</span></p>
+                                </div>
+                            </div>
+                            <hr></hr>
+                        </item>
+                    );
+                case estados.PENDIENTE:
+                    return (
+                        <item>
+                            <div className="tarjetamsn" key={eventGuest.eventName}>
+                                <div className="cabecera">
+                                    <div className="foto">
+                                        <FontAwesomeIcon icon={faMailBulk} size="3x" className="faPlus2" />
+                                    </div>
+                                    <div className="nombre">
+                                        <h1>Anfitrión: {eventGuest.user}</h1>
+                                    </div>
+                                </div>
+                                <div className="texto">
+                                    <h3 className="texto">{eventGuest.eventName}</h3>
+                                    <p className="texto">Estado: <span className="upper">{eventGuest.state}</span></p>
+                                </div>
+                                <div className="footer">
+                                    <OverlayTrigger
+                                        key='bottom'
+                                        placement='bottom'
+                                        overlay={
+                                            <Tooltip id={`tooltip-bottom`}>
+                                                <strong>Aceptar</strong>.
+                                                    </Tooltip>
+                                        }
+                                    >
+                                        <p variant="secondary"><FontAwesomeIcon icon={faUserCheck} size="2x" className="faPlus" onClick={() => decisionAlert(eventGuest._id, "Aceptar", eventGuest.user, "aceptado", eventGuest.eventName)} style={{ color: '#C0C0C0' }} /></p>
+                                    </OverlayTrigger>
+                                    <OverlayTrigger
+                                        key='bottom'
+                                        placement='bottom'
+                                        overlay={
+                                            <Tooltip id={`tooltip-bottom`}>
+                                                <strong>Rechazar</strong>.
+                                                    </Tooltip>
+                                        }
+                                    >
+                                        <p variant="secondary"><FontAwesomeIcon icon={faUserTimes} size="2x" className="faPlus" onClick={() => decisionAlert(eventGuest._id, "Rechazar", eventGuest.user, "rechazado", eventGuest.eventName)} style={{ color: '#C0C0C0' }} /></p>
+                                    </OverlayTrigger>
+                                </div>
+                            </div>
+                            <hr></hr>
+                        </item>
+                    );
+            }
+        }
     });
+
+    const sendMsn = (guestName, state, nameEvent) => {
+
+        const newMsn = {
+            username: guestName,
+            guestName: username,
+            userText: `Ha ${state} tu invitación para ${nameEvent}`,
+            today
+        };
+
+        fetch(`http://localhost:3000/msn/newMsn/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newMsn),
+        })
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (datos) {
+
+            });
+    };
 
     const manageChangeEventName = (e) => {
         setEventName(e.target.value);
@@ -391,144 +468,173 @@ const Main = (props) => {
     const manageChangeRepeatNewPass = (e) => {
         setRepeatNewPass(e.target.value);
     };
+    const manageChangeInvite = (e) => {
+        setInvite(e.target.value);
+    };
 
-    return (
-        <div>
-            <header>
-                <nav>
-                    <ul>
-                        <div className="imgNav">
-                            <img src="./LogoPG.png" alt="Perfect Gift"></img>
-                        </div>
-                        <div>
-                            <h1 className="username">{username}</h1>
-                        </div>
-                        <div className="navIcons">
-                            <div>
-                                <OverlayTrigger
-                                    key='bottom'
-                                    placement='bottom'
-                                    overlay={
-                                        <Tooltip id={`tooltip-bottom`}>
-                                            Crear <strong>Evento</strong>.
-                                        </Tooltip>
-                                    }
-                                >
-                                    <p variant="secondary"><FontAwesomeIcon icon={faPlus} size="3x" className="faPlus" onClick={() => setMcreateEventShow(true)} style={{ color: '#C0C0C0' }} /></p>
-                                </OverlayTrigger>
-                            </div>
-                            <div>
-                                <OverlayTrigger
-                                    key='bottom'
-                                    placement='bottom'
-                                    overlay={
-                                        <Tooltip id={`tooltip-bottom`}>
-                                            <strong>Notificaciones</strong>.
-                                        </Tooltip>
-                                    }
-                                >
-                                    <Link to="/msn"><p variant="secondary"><FontAwesomeIcon icon={faBell} size="3x" className="faPlus"/></p></Link>
-                                </OverlayTrigger>
-                            </div>
-                            <div>
-                                <OverlayTrigger
-                                    key='bottom'
-                                    placement='bottom'
-                                    overlay={
-                                        <Tooltip id={`tooltip-bottom`}>
-                                            <strong>Salir</strong>.
-                                        </Tooltip>
-                                    }
-                                >
-                                    <Link to={`/`}><p variant="secondary"><FontAwesomeIcon icon={faSignOutAlt} size="3x" className="faPlus" onClick={() => { props.back() }} style={{ color: '#C0C0C0' }} /></p></Link>
-                                </OverlayTrigger>
-                            </div>
-                        </div>
-                    </ul>
-                </nav>
-            </header>
-            <hr></hr>
-            <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="justify-content-center">
-                <Tab eventKey="profile" title="Mis Eventos">
-                    <div className="centrartab">
-                        <hr></hr>
-                        <h3 className="username">Mis Eventos</h3>
-                        <hr></hr>
-                        <Carousel itemsToShow={3} itemPadding={[10, 50]}>
-                            {showEvents}
-                        </Carousel>
-                        <hr></hr>
-                    </div>
-                </Tab>
-                <Tab eventKey="home" title="Mis Invitaciones">
-                    <div className="centrartab">
-                        <hr></hr>
-                        <h3 className="username">Mis Invitaciones</h3>
-                        <hr></hr>
-                        <Carousel itemsToShow={3} itemPadding={[10, 50]}>
-                            {showGuestEvents}
-                        </Carousel>
-                        <hr></hr>
-                    </div>
-                </Tab>
-                <Tab eventKey="contact" title="Cuenta">
-                    <div className="centrartab">
-                        <hr></hr>
-                        <h3 className="username">Modificar contraseña</h3>
-                        <hr></hr>
-                        <div className="tarjeta2">
-                            <div className="cabecera2">
-                                <label>Contraseña</label>
-                                <input type="password" value={pass} onChange={manageChangePass}></input>
-                                <label>Nueva contraseña</label>
-                                <input type="password" value={newPass} onChange={manageChangeNewPass}></input>
-                                <label>Repetir contraseña</label>
-                                <input type="password" value={repeatNewPass} onChange={manageChangeRepeatNewPass}></input>
-                            </div>
-                            <button type="button" className="btn btn-outline-danger btn-lg naranja" onClick={() => {
-                                if (newPass === repeatNewPass) {
-                                    modifyPassAlert();
-                                } else {
-                                    errorAlert();
-                                }
-                            }}>Modificar</button>
-                        </div>
-                    </div>
-                </Tab>
-            </Tabs>
-
+    
+        return (
             <div>
-                <Modal
-                    size="sm"
-                    show={mcreateEventShow}
-                    onHide={() => setMcreateEventShow(false)}
-                    aria-labelledby="contained-modal-title-vcenter"
-                    centered
-                >
-                    <div>
-                        <div className="login-box">
-                            <h2>Crear Evento</h2>
-                            <form>
-                                <div className="user-box">
-                                    <input type="text" id="eventName" onChange={manageChangeEventName} ></input>
-                                    <label>Nombre del evento</label>
+                <div className="containerModal">
+                <header>
+                    <nav>
+                        <ul>
+                            <div className="imgNav">
+                                <img src="./LogoPG.png" alt="Perfect Gift"></img>
+                                {today}
+                            </div>
+                            <div>
+                                <h1 className="username">{username}</h1>
+                            </div>
+                            <div className="navIcons">
+                                <div>
+                                    <OverlayTrigger
+                                        key='bottom'
+                                        placement='bottom'
+                                        overlay={
+                                            <Tooltip id={`tooltip-bottom`}>
+                                                Crear <strong>Evento</strong>.
+                                        </Tooltip>
+                                        }
+                                    >
+                                        <p variant="secondary"><FontAwesomeIcon icon={faPlus} size="3x" className="faPlus" onClick={() => setMcreateEventShow(true)} style={{ color: '#C0C0C0' }} /></p>
+                                    </OverlayTrigger>
                                 </div>
-                                <div className="user-box">
-                                    <textarea type="text area" id="description" onChange={manageChangeDescription}></textarea>
-                                    <label>Descripción del evento</label>
+                                <div>
+                                    <OverlayTrigger
+                                        key='bottom'
+                                        placement='bottom'
+                                        overlay={
+                                            <Tooltip id={`tooltip-bottom`}>
+                                                <strong>Notificaciones</strong>.
+                                        </Tooltip>
+                                        }
+                                    >
+                                        {iconMsn
+                                            ? <Link to="/msn"><p variant="secondary"><FontAwesomeIcon icon={faBell} size="3x" className="faPlus2" /><Badge variant="danger">{countMsn}</Badge></p></Link>
+                                            : <Link to="/msn"><p variant="secondary"><FontAwesomeIcon icon={faBell} size="3x" className="faPlus" /></p></Link>
+                                        }
+
+                                    </OverlayTrigger>
                                 </div>
-                                <div className="user-box">
-                                    <input type="date" id="date" value={date} onChange={manageChangeDate}></input>
-                                    <label>Descripción del evento</label>
+                                <div>
+                                    <OverlayTrigger
+                                        key='bottom'
+                                        placement='bottom'
+                                        overlay={
+                                            <Tooltip id={`tooltip-bottom`}>
+                                                <strong>Salir</strong>.
+                                        </Tooltip>
+                                        }
+                                    >
+                                        <Link to={`/`}><p variant="secondary"><FontAwesomeIcon icon={faSignOutAlt} size="3x" className="faPlus" onClick={() => { props.back() }} style={{ color: '#C0C0C0' }} /></p></Link>
+                                    </OverlayTrigger>
                                 </div>
-                                <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => createEventAlert()}>Crear Evento</button>
-                            </form>
+                            </div>
+                        </ul>
+                    </nav>
+                </header>
+                
+                    <hr></hr>
+                    <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="justify-content-center">
+                        <Tab eventKey="profile" title="Mis Eventos">
+                            <div className="centrartab">
+                                <hr></hr>
+                                <h3 className="username">Mis Eventos</h3>
+                                <hr></hr>
+                                {first === 0
+                                    ? <Carousel itemsToShow={3} itemPadding={[10, 50]}>
+                                        {fristEvent}
+                                    </Carousel>
+                                    : <Carousel itemsToShow={3} itemPadding={[10, 50]}>
+                                        {showEvents}
+                                    </Carousel>
+                                }
+
+
+
+                                <hr></hr>
+                            </div>
+                        </Tab>
+                        <Tab eventKey="home" title="Mis Invitaciones">
+                            <div className="centrartab">
+                                <hr></hr>
+                                <h3 className="username">Mis Invitaciones</h3>
+                                <hr></hr>
+                                <div className="login-box2">
+                                    <div className="user-box">
+                                        <select className="user-box" onChange={manageChangeInvite}>
+                                            <option>Todas</option>
+                                            <option>Pendiente</option>
+                                            <option>Aceptar</option>
+                                            <option>Rechazar</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <Carousel itemsToShow={3} itemPadding={[10, 50]}>
+                                    {showGuestEvents}
+                                </Carousel>
+                                <hr></hr>
+                            </div>
+                        </Tab>
+                        <Tab eventKey="contact" title="Cuenta">
+                            <div className="centrartab">
+                                <hr></hr>
+                                <h3 className="username">Modificar contraseña</h3>
+                                <hr></hr>
+                                <div className="tarjeta2">
+                                    <div className="cabecera2">
+                                        <label>Contraseña</label>
+                                        <input type="password" value={pass} onChange={manageChangePass}></input>
+                                        <label>Nueva contraseña</label>
+                                        <input type="password" value={newPass} onChange={manageChangeNewPass}></input>
+                                        <label>Repetir contraseña</label>
+                                        <input type="password" value={repeatNewPass} onChange={manageChangeRepeatNewPass}></input>
+                                    </div>
+                                    <button type="button" className="btn btn-outline-danger btn-lg naranja" onClick={() => {
+                                        if (newPass === repeatNewPass) {
+                                            modifyPassAlert();
+                                        } else {
+                                            errorAlert();
+                                        }
+                                    }}>Modificar</button>
+                                </div>
+                            </div>
+                        </Tab>
+                    </Tabs>
+                </div>
+                <div>
+                    <Modal
+                        size="sm"
+                        show={mcreateEventShow}
+                        onHide={() => setMcreateEventShow(false)}
+                        aria-labelledby="contained-modal-title-vcenter"
+                        centered
+                    >
+                        <div>
+                            <div className="login-box">
+                                <h2>Crear Evento</h2>
+                                <form>
+                                    <div className="user-box">
+                                        <input type="text" id="eventName" onChange={manageChangeEventName} ></input>
+                                        <label>Nombre del evento</label>
+                                    </div>
+                                    <div className="user-box">
+                                        <textarea type="text area" id="description" onChange={manageChangeDescription}></textarea>
+                                        <label>Descripción del evento</label>
+                                    </div>
+                                    <div className="user-box">
+                                        <input type="date" id="date" value={date} onChange={manageChangeDate}></input>
+                                        <label>Descripción del evento</label>
+                                    </div>
+                                    <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => createEvent()}>Crear Evento</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                </Modal>
+                    </Modal>
+                </div>
             </div>
-        </div>
-    )
+        )
 };
 
 export default Main;

@@ -15,6 +15,18 @@ router.get("/:user/:event", function (req, res) {
     });
 });
 
+router.get("/invited/mas/:event", function (req, res) {
+    const event = req.params.event;
+    let db = req.app.locals.db;
+    db.collection("guests").find({ eventName: event }).toArray(function (err, datos) {
+        if (err !== null) {
+            res.send(err);
+        } else {
+            res.send(datos);
+        }
+    });
+});
+
 router.get("/:user", function (req, res) {
     const user = req.params.user;
     let db = req.app.locals.db;
