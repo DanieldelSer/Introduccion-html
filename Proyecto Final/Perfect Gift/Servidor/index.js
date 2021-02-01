@@ -41,7 +41,7 @@ app.post("/send-email", (req, res) => {
     host: "smtp.gmail.com",
     auth: {
       user: 'perfectgiftappweb@gmail.com',
-      pass: 'bootcamp2021',
+      pass: '*************',
     },
     secure: true,
   });
