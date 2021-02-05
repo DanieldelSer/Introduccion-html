@@ -67,6 +67,19 @@ router.get("/:user/:event", function (req, res) {
     });
 });
 
+router.post("/search/event/mas", function (req, res) {
+    const user = req.body.username;
+    const eventName = req.body.eventSearch;
+    let db = req.app.locals.db;
+    db.collection("events").find({ username: user, eventName: {$regex: `.*${eventName}.*`} }).toArray(function (err, datos) {
+        if (err !== null) {
+            res.send(err);
+        } else {
+            res.send(datos);
+        }
+    });
+});
+
 // router.get("guestEvent/:guestName/:event", function (req, res) {
 //     const guestName = req.params.guestName;
 //     const event = req.params.event;

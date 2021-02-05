@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
 import Badge from 'react-bootstrap/Badge'
 import swal from 'sweetalert'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faSignOutAlt, faCalendarAlt, faMailBulk, faTrash, faUserCheck, faUserTimes, faBell } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faSignOutAlt, faCalendarAlt, faMailBulk, faTrash, faUserCheck, faUserTimes, faBell, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 import Carousel from 'react-elastic-carousel'
@@ -28,10 +27,14 @@ const Main = (props) => {
     const [iconMsn, setIconMsn] = useState(false);
     const [countMsn, setCountMsn] = useState(0);
     const [invite, setInvite] = useState('Todas');
+    const [eventSearch, setEventSearch] = useState('');
+    const [slider, setSlider] = useState(3);
+    const [slider2, setSlider2] = useState(3);
 
-    const username = props.user[0].username;
+    const username = props.user
+
     console.log(props);
-    console.log(props.user[0].username);
+    console.log(username);
     const [eventName, setEventName] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState(moment().format('DD MMMM YYYY'));
@@ -49,6 +52,11 @@ const Main = (props) => {
 
     const removeEvent = {
         username,
+    };
+
+    const search = {
+        username,
+        eventSearch
     };
 
     const deleteAlert = (_id) => {
@@ -209,7 +217,7 @@ const Main = (props) => {
                 return res.json();
             })
             .then(function (datos) {
-                setDataGuest(datos);
+                setDataGuest(datos.reverse());
             });
     };
 
@@ -229,24 +237,63 @@ const Main = (props) => {
                 return res.json();
             })
             .then(function (datos) {
-                setDataGuest(datos);
+                setDataGuest(datos.reverse());
             });
     };
 
+
+    // const searchEvent = () => {
+
+
+    //     fetch(`http://localhost:3000/events/search/event/mas`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(search),
+    //     })
+    //         .then(function (res) {
+    //             return res.json();
+    //         })
+    //         .then(function (data) {
+    //             setData(data.reverse());
+    //             console.log(data);
+    //         });
+    // };
+
     const convertDateFormat = (string) => {
-        return string.split('-').reverse().join('-');;
+        return string.split('-').reverse().join('-');
     }
 
+    function viewPassword(id)
+{
+  let passwordInput = document.getElementById(id);
+  let passStatus = document.getElementById(id);
+ 
+  if (passwordInput.type == 'password'){
+    passwordInput.type='text';
+    passStatus.icon= {faEyeSlash};
+    
+  }
+  else{
+    passwordInput.type='password';
+    passStatus.icon={faEye};
+  }
+}
+
     useEffect(() => {
-        fetch(`http://localhost:3000/events/${username}`)
+        fetch(`http://localhost:3000/events/search/event/mas`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(search),
+        })
             .then(function (res) {
                 return res.json();
             })
             .then(function (datos) {
-                // console.log(datos.length)
-                // if (datos.length === 0) {
-                //     setFirst(0)
-                // }
+
                 setFirst(datos.length)
                 setData(datos.reverse());
             })
@@ -268,9 +315,7 @@ const Main = (props) => {
                     setCountMsn(datos.length)
                 }
             })
-    }, [first]);
-
-    //onClick={() => { deleteEvent(event._id) }}
+    }, [first, eventSearch]);
 
     const fristEvent =
         <div>
@@ -471,11 +516,20 @@ const Main = (props) => {
     const manageChangeInvite = (e) => {
         setInvite(e.target.value);
     };
+    const manageChangeSearch = (e) => {
+        setEventSearch(e.target.value);
+    };
+    const manageChangeSlider = (e) => {
+        setSlider(e.target.value);
+    };
+    const manageChangeSlider2 = (e) => {
+        setSlider2(e.target.value);
+    };
 
-    
-        return (
-            <div>
-                <div className="containerModal">
+
+    return (
+        <div>
+            <div className="containerModal">
                 <header>
                     <nav>
                         <ul>
@@ -534,107 +588,139 @@ const Main = (props) => {
                         </ul>
                     </nav>
                 </header>
-                
-                    <hr></hr>
-                    <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="justify-content-center">
-                        <Tab eventKey="profile" title="Mis Eventos">
-                            <div className="centrartab">
-                                <hr></hr>
-                                <h3 className="username">Mis Eventos</h3>
-                                <hr></hr>
-                                {first === 0
-                                    ? <Carousel itemsToShow={3} itemPadding={[10, 50]}>
-                                        {fristEvent}
-                                    </Carousel>
-                                    : <Carousel itemsToShow={3} itemPadding={[10, 50]}>
-                                        {showEvents}
-                                    </Carousel>
-                                }
 
-
-
-                                <hr></hr>
-                            </div>
-                        </Tab>
-                        <Tab eventKey="home" title="Mis Invitaciones">
-                            <div className="centrartab">
-                                <hr></hr>
-                                <h3 className="username">Mis Invitaciones</h3>
-                                <hr></hr>
-                                <div className="login-box2">
-                                    <div className="user-box">
-                                        <select className="user-box" onChange={manageChangeInvite}>
-                                            <option>Todas</option>
-                                            <option>Pendiente</option>
-                                            <option>Aceptar</option>
-                                            <option>Rechazar</option>
+                <hr></hr>
+                <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="justify-content-center">
+                    <Tab eventKey="profile" title="Mis Eventos">
+                        <div className="centrartab">
+                            <hr></hr>
+                            <h3 className="username">Mis Eventos</h3>
+                            <hr></hr>
+                            <div className="login-box2">
+                                <div className="user-box">
+                                    <input type="text" onChange={manageChangeSearch}></input>
+                                    <label>Buscar</label>
+                                    <div className="user-box2">
+                                        <select className="user-box2 marginR" onChange={manageChangeSlider}>
+                                            <option value="0"></option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
                                         </select>
+                                        <label className="mostrar">Mostrar</label>
                                     </div>
                                 </div>
-                                <Carousel itemsToShow={3} itemPadding={[10, 50]}>
-                                    {showGuestEvents}
+                            </div>
+                            <hr></hr>
+                            {first === 0
+                                ? <Carousel itemsToShow={slider} itemPadding={[10, 50]}>
+                                    {fristEvent}
                                 </Carousel>
-                                <hr></hr>
-                            </div>
-                        </Tab>
-                        <Tab eventKey="contact" title="Cuenta">
-                            <div className="centrartab">
-                                <hr></hr>
-                                <h3 className="username">Modificar contraseña</h3>
-                                <hr></hr>
-                                <div className="tarjeta2">
-                                    <div className="cabecera2">
-                                        <label>Contraseña</label>
-                                        <input type="password" value={pass} onChange={manageChangePass}></input>
-                                        <label>Nueva contraseña</label>
-                                        <input type="password" value={newPass} onChange={manageChangeNewPass}></input>
-                                        <label>Repetir contraseña</label>
-                                        <input type="password" value={repeatNewPass} onChange={manageChangeRepeatNewPass}></input>
+                                : <Carousel itemsToShow={slider} itemPadding={[10, 50]}>
+                                    {showEvents}
+                                </Carousel>
+                            }
+                            <hr></hr>
+                        </div>
+                    </Tab>
+                    <Tab eventKey="home" title="Mis Invitaciones">
+                        <div className="centrartab">
+                            <hr></hr>
+                            <h3 className="username">Mis Invitaciones</h3>
+                            <hr></hr>
+                            <div className="login-box2">
+                                <div className="user-box">
+                                    <select className="user-box" onChange={manageChangeInvite}>
+                                        <option>Todas</option>
+                                        <option>Pendiente</option>
+                                        <option>Aceptar</option>
+                                        <option>Rechazar</option>
+                                    </select>
+                                    <div className="user-box2">
+                                        <select className="user-box2 marginR" onChange={manageChangeSlider2}>
+                                            <option value="0"></option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                        </select>
+                                        <label className="mostrar">Mostrar</label>
                                     </div>
-                                    <button type="button" className="btn btn-outline-danger btn-lg naranja" onClick={() => {
-                                        if (newPass === repeatNewPass) {
-                                            modifyPassAlert();
-                                        } else {
-                                            errorAlert();
-                                        }
-                                    }}>Modificar</button>
                                 </div>
                             </div>
-                        </Tab>
-                    </Tabs>
-                </div>
-                <div>
-                    <Modal
-                        size="sm"
-                        show={mcreateEventShow}
-                        onHide={() => setMcreateEventShow(false)}
-                        aria-labelledby="contained-modal-title-vcenter"
-                        centered
-                    >
-                        <div>
-                            <div className="login-box">
-                                <h2>Crear Evento</h2>
-                                <form>
-                                    <div className="user-box">
-                                        <input type="text" id="eventName" onChange={manageChangeEventName} ></input>
-                                        <label>Nombre del evento</label>
-                                    </div>
-                                    <div className="user-box">
-                                        <textarea type="text area" id="description" onChange={manageChangeDescription}></textarea>
-                                        <label>Descripción del evento</label>
-                                    </div>
-                                    <div className="user-box">
-                                        <input type="date" id="date" value={date} onChange={manageChangeDate}></input>
-                                        <label>Descripción del evento</label>
-                                    </div>
-                                    <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => createEvent()}>Crear Evento</button>
-                                </form>
+                            <hr></hr>
+                            <Carousel itemsToShow={slider2} itemPadding={[10, 50]}>
+                                {showGuestEvents}
+                            </Carousel>
+                            <hr></hr>
+                        </div>
+                    </Tab>
+                    <Tab eventKey="contact" title="Cuenta">
+                        <div className="centrartab">
+                            <hr></hr>
+                            <h3 className="username">Modificar contraseña</h3>
+                            <hr></hr>
+                            <div className="tarjeta2">
+                                <div className="cabecera2">
+                                    <label>Contraseña</label>
+                                    <span variant="secondary"><FontAwesomeIcon icon={faEye} size="1x" className="faPlus" id="pass-status" onMouseDown={() => viewPassword("password-field")} onMouseUp={() => viewPassword("password-field")} style={{ color: '#C0C0C0' }} /></span>
+                                    <input type="password" value={pass} id="password-field" onChange={manageChangePass}></input>
+                                    <label>Nueva contraseña</label>
+                                    <span variant="secondary"><FontAwesomeIcon icon={faEye} size="1x" className="faPlus" id="pass-status" onMouseDown={() => viewPassword("password-new")} onMouseUp={() => viewPassword("password-new")} style={{ color: '#C0C0C0' }} /></span>
+                                    <input type="password" value={newPass} id="password-new" onChange={manageChangeNewPass}></input>
+                                    <label>Repetir contraseña   </label>
+                                    <span variant="secondary"><FontAwesomeIcon icon={faEye} size="1x" className="faPlus" id="pass-status" onMouseDown={() => viewPassword("password-newRepeat")} onMouseUp={() => viewPassword("password-newRepeat")} style={{ color: '#C0C0C0' }} /></span>
+                                    <input type="password" value={repeatNewPass} id="password-newRepeat" onChange={manageChangeRepeatNewPass}></input>
+                                </div>
+                                <button type="button" className="btn btn-outline-danger btn-lg naranja" onClick={() => {
+                                    if (newPass === repeatNewPass) {
+                                        modifyPassAlert();
+                                    } else {
+                                        errorAlert();
+                                    }
+                                }}>Modificar</button>
                             </div>
                         </div>
-                    </Modal>
-                </div>
+                    </Tab>
+                </Tabs>
             </div>
-        )
+            <div>
+                <Modal
+                    size="sm"
+                    show={mcreateEventShow}
+                    onHide={() => setMcreateEventShow(false)}
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <div>
+                        <div className="login-box">
+                            <h2>Crear Evento</h2>
+                            <form>
+                                <div className="user-box">
+                                    <input type="text" id="eventName" onChange={manageChangeEventName} ></input>
+                                    <label>Nombre</label>
+                                </div>
+                                <div className="user-box">
+                                    <textarea type="text area" id="description" onChange={manageChangeDescription}></textarea>
+                                    <label>Descripción</label>
+                                </div>
+                                <div className="user-box">
+                                    <input type="date" id="date" value={date} onChange={manageChangeDate}></input>
+                                    <label>Fecha</label>
+                                </div>
+                                <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => createEvent()}>Crear</button>
+                            </form>
+                        </div>
+                    </div>
+                </Modal>
+            </div>
+        </div>
+    )
 };
 
 export default Main;

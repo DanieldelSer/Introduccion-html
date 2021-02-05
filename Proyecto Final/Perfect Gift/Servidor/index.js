@@ -40,8 +40,8 @@ app.post("/send-email", (req, res) => {
     port: 465,               // true for 465, false for other ports
     host: "smtp.gmail.com",
     auth: {
-      user: 'perfectgiftappweb@gmail.com',
-      pass: '*************',
+      user: '************',
+      pass: '***********',
     },
     secure: true,
   });
@@ -294,10 +294,8 @@ a[x-apple-data-detectors] {
    </table> 
   </div>  
  </body>
-</html>
-            
-            
-            `,
+</html>       
+`
   };
 
   transporter.sendMail(mailOptions, (err, info) => {

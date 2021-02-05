@@ -1,7 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Modal from 'react-bootstrap/Modal'
+import PaymentForm from "./PaymentForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faChevronCircleRight, faGift, faUserFriends, faCheckCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faChevronCircleRight, faGift, faUserFriends, faCheckCircle, faTimesCircle, faCreditCard } from "@fortawesome/free-solid-svg-icons";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Carousel from 'react-elastic-carousel';
@@ -18,14 +20,15 @@ const GuestEvent = (props) => {
     const today = moment().format('LL');
 
     const { event } = useParams();
-    const username = props.user[0].username;
+    const username = props.user
 
+    
     const [data, setData] = useState([]);
-
+    const [mpayShow, setMpayShow] = useState(false);
 
     const [guests, setGuests] = useState([]);
     const [gifts, setGifts] = useState([]);
-    const [choose, setChoose] = useState(0);
+    //const [choose, setChoose] = useState(0);
 
 
     useEffect(() => {
@@ -50,10 +53,10 @@ const GuestEvent = (props) => {
                 return res.json();
             })
             .then(function (res) {
-                console.log(res);
                 setGifts(res)
+                console.log(gifts);
             });
-    }, [choose]);
+    }, []);
 
     const chooseGift = (_id) => {
         const gift = {
@@ -72,8 +75,9 @@ const GuestEvent = (props) => {
                 return res.json();
             })
             .then(function (datos) {
-                setData(datos.reverse());
-                setChoose(choose + 1)
+                setGifts(datos.reverse());
+                console.log(gifts);
+                //setChoose(choose + 1)
             });
     };
 
@@ -102,7 +106,7 @@ const GuestEvent = (props) => {
     };
 
     const convertDateFormat = (string) => {
-        return string.split('-').reverse().join('-');;
+        return string.split('-').reverse().join('-');
     }
 
     const showEvent = data.map((eventPrint) => {
@@ -185,7 +189,7 @@ const GuestEvent = (props) => {
                     <hr></hr>
                 </item>
             );
-        } else {
+        } else if (gift.state === username){
             return (
                 <item>
                     <div className="tarjetamsn" key={gift.description}>
@@ -199,6 +203,7 @@ const GuestEvent = (props) => {
                         </div>
                         <div className="texto">
                             <h5>Asignado: <span className="upper">{gift.state}</span></h5>
+                            <p>{gift.price}€</p>
                             {printStar(gift.rank)}
                         </div>
                         <div className="footer">
@@ -215,11 +220,61 @@ const GuestEvent = (props) => {
                                     <p variant="secondary"><FontAwesomeIcon icon={faTimesCircle} size="2x" className="faPlus2 choose" style={{ color: '#C0C0C0' }} /></p>
                                 </OverlayTrigger>
                             </div>
+                            <div className="foto">
+                                <OverlayTrigger
+                                    key='bottom'
+                                    placement='bottom'
+                                    overlay={
+                                        <Tooltip id={`tooltip-bottom`}>
+                                            <strong>Pagar</strong>.
+                                        </Tooltip>
+                                    }
+                                >
+                                    <p variant="secondary"><FontAwesomeIcon icon={faCreditCard} size="2x" className="faPlus" onClick={() => setMpayShow(true)} style={{ color: '#C0C0C0' }} /></p>
+                                </OverlayTrigger>
+                            </div>
                         </div>
                     </div>
                     <hr></hr>
                 </item>
             );
+        }else {
+            return (
+                <item>
+                    <div className="tarjetamsn" key={gift.description}>
+                        <div className="cabecera">
+                            <div className="foto">
+                                <FontAwesomeIcon icon={faGift} size="3x" className="faPlus2" />
+                            </div>
+                            <div className="nombre">
+                                <h3>{gift.description}</h3>
+                            </div>
+                        </div>
+                        <div className="texto">
+                            <h5>Asignado: <span className="upper">{gift.state}</span></h5>
+                            <p>{gift.price}€</p>
+                            {printStar(gift.rank)}
+                        </div>
+                        <div className="footer">
+                            <div className="foto">
+                                <OverlayTrigger
+                                    key='bottom'
+                                    placement='bottom'
+                                    overlay={
+                                        <Tooltip id={`tooltip-bottom`}>
+                                            <strong>Elegido</strong>.
+                                        </Tooltip>
+                                    }
+                                >
+                                    <p variant="secondary"><FontAwesomeIcon icon={faTimesCircle} size="2x" className="faPlus2 choose" style={{ color: '#C0C0C0' }} /></p>
+                                </OverlayTrigger>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <hr></hr>
+                </item>
+            ); 
         }
     });
 
@@ -294,7 +349,28 @@ const GuestEvent = (props) => {
                     </div>
                 </Tab>
             </Tabs>
+            <div>
+                <Modal
+                    size="sm"
+                    show={mpayShow}
+                    onHide={() => setMpayShow(false)}
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <div>
+                        <div className="login-box">
+                            <h2>Pagar Regalo</h2>
+                            <form>
+                                <div className="user-box">
+                                <PaymentForm/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </Modal>
+            </div>
         </div>
+        
     )
 };
 

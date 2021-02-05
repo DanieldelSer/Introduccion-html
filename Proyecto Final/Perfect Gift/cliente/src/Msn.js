@@ -13,7 +13,7 @@ moment.locale('es');
 
 const Msn = (props) => {
 
-    const username = props.user[0].username;
+    const username = props.user
 
     const today = moment().format('LL');
 

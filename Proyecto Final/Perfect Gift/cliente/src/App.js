@@ -39,7 +39,7 @@ function App() {
       })
       .then(function (datos) {
         if (datos.length > 0) {
-          setUser(datos)
+          setUser(datos[0].username)
           console.log(datos[0].username);
           setLogeado(true)
         } else {
@@ -85,10 +85,11 @@ function App() {
       .then(function (datos) {
         if (datos === false) {
           createAcountAlert()
-          console.log(datos);
+          //console.log(datos);
           //alert("Ese nombre de usuario ya existe");
         } else {
-          setUser(datos.ops)
+          setUser(datos.ops[0].username)
+          console.log(datos.ops[0].username);
           setLogeado(true)
         }
       });

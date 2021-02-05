@@ -31,7 +31,7 @@ const Event = (props) => {
     const [first, setFirst] = useState(0);
     const [firstGift, setFirstGift] = useState(0);
 
-    const username = props.user[0].username;
+    const username = props.user
     const [eventName, setEventName] = useState('');
     const [guestName, setGuestName] = useState('');
     const [guestEmail, setGuestEmail] = useState('');
@@ -386,7 +386,7 @@ const Event = (props) => {
                         </div>
                     </div>
                     <div className="texto">
-                        <p className="texto">Aceptar: <span>{guest.state}</span></p>
+                        <p className="texto">Estado: <span>{guest.state}</span></p>
                     </div>
                     <div className="footer">
                         <div>
@@ -568,11 +568,11 @@ const Event = (props) => {
                             <form>
                                 <div className="user-box">
                                     <input type="text" onChange={manageChangeGuestName}></input>
-                                    <label>Nombre del invitado</label>
+                                    <label>Nombre</label>
                                 </div>
                                 <div className="user-box">
                                     <input type="text" onChange={manageChangeGuestEmail}></input>
-                                    <label>Email del invitado</label>
+                                    <label>Email</label>
                                 </div>
                                 <button type="button" className="btn btn-outline-primary btn-lg naranjaModal" data-toggle="modal" data-target="#modalLogin" onClick={() => { addGuest(); sendMsn(); }}>Añadir</button>
                             </form>

@@ -284,7 +284,7 @@ span {
     width: 300px;
     padding: 10px;
     margin-left: 44%;
-    background: rgba(0, 0, 0, 0.904);
+    background: rgba(0, 0, 0, 0.400);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
@@ -300,6 +300,9 @@ span {
   .login-box .user-box {
     position: relative;
   }
+  .login-box2 .user-box {
+    position: relative;
+  }
   
   .login-box .user-box input {
     width: 100%;
@@ -307,6 +310,18 @@ span {
     font-size: 16px;
     color:#E18A07;
     margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid#E18A07;
+    outline: none;
+    background: transparent;
+    border-radius: 0px;
+  }
+  .login-box2 .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color:#E18A07;
+    margin-bottom: 5px;
     border: none;
     border-bottom: 1px solid#E18A07;
     outline: none;
@@ -346,16 +361,37 @@ span {
     outline: none;
     background: transparent;
   }
+  .login-box2 .user-box2 select {
+    width: 20%;
+    padding: 10px 0;
+    font-size: 16px;
+    color:#E18A07;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid#E18A07;
+    outline: none;
+    background: transparent;
+  }
   
   .login-box .user-box select:focus {
     background-color:  rgb(0, 0, 0);
   }
   .login-box2 .user-box select:focus {
-    background-color:  rgb(0, 0, 0);
+    background-color:   rgba(0, 0, 0, 0.100);
   }
   .login-box .user-box label {
     position: absolute;
     top:-20px;
+    left: 0;
+    padding: 10px 0;
+    font-size: 12px;
+    color: #E18A07;
+    pointer-events: none;
+    transition: .5s;
+  }
+  .login-box2 .user-box label {
+    position: absolute;
+    top:-15px;
     left: 0;
     padding: 10px 0;
     font-size: 12px;
@@ -391,6 +427,14 @@ span {
     transition: .5s;
     margin-top: 40px;
     letter-spacing: 4px
+  }
+
+  .mostrar{
+    top: 45px !important;
+  }
+
+  .marginR{
+    margin-right: 120px;
   }
 
   /* ///////////////////////////////////////////////nav */
@@ -640,7 +684,7 @@ a:hover{
 
 .cabecera2 label {
   text-align: left;
-  padding: 10px 0;
+  padding: 10px 5px;
   font-size: 16px;
   color:#E18A07;
   pointer-events: none;
